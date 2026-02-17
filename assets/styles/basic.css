@@ -1,0 +1,195 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../fonts/Montserrat-SemiBold.ttf);
+    font-weight: 600;
+}
+
+:root {
+    --color-black: #000000;
+    --color-navy: #20113d;
+    --color-white: #ffffff;
+    --color-orange: #f58021;
+    --color-orange-dark: #d26004;
+    --color-orange-dark-shadow: rgba(210, 96, 4, 0.3);
+    --color-turquois: #00a092;
+    --color-turquois-dark: #05786e;
+    --color-turquois-dark-shadow: rgba(5, 120, 110, 0.3);
+    --color-turquois-light: #80cfc8;
+}
+
+html {
+    font-size: 10px;
+    background-color: antiquewhite;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 2.6rem 0 2.6rem;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn__text {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn__text::after {
+    content: '';
+    display: block;
+    background-color: var(--color-white);
+    -webkit-mask: url(../assets/icons/btn-arrow.svg) no-repeat center;
+    -webkit-mask-size: contain;
+    width: 2.4rem;
+    height: 2.2rem;
+    flex-shrink: 0;
+}
+
+.btn--orange {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    width: 24rem;
+}
+
+.btn--orange:hover,
+.btn--orange:active {
+    background-color: var(--color-orange-dark);
+    box-shadow: 0 4px 30px var(--color-orange-dark-shadow);
+}
+
+.btn--turquoise {
+    background-color: var(--color-turquois);
+    color: var(--color-white);
+    width: 35.9rem;
+}
+
+.btn--turquoise:hover,
+.btn--turquoise:active {
+    background-color: var(--color-turquois-dark);
+    box-shadow: 0 4px 30px var(--color-turquois-dark-shadow);
+}
+
+.btn--transparent-light {
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+    width: 35.9rem;
+}
+
+.btn--transparent-light:hover {
+    background-color: var(--color-turquois);
+}
+
+.btn--transparent-dark {
+    border: 1px solid var(--color-navy);
+    width: 35.9rem;
+}
+
+.btn--transparent-dark .btn__text {
+    color: var(--color-navy);
+}
+
+.btn--transparent-dark .btn__text::after {
+    background-color: var(--color-navy);
+}
+
+.btn--transparent-dark:hover {
+    border-color: var(--color-white);
+    background-color: var(--color-navy);
+}
+
+.btn--transparent-dark:hover .btn__text {
+    color: var(--color-white);
+}
+
+.btn--transparent-dark:hover .btn__text::after {
+    background-color: var(--color-white);
+}
+
+.btn--transparent-orange {
+    display: inline-block;
+    padding-left: 2.8rem;
+    padding-right: 2.8rem;
+}
+
+.btn--transparent-orange .btn__text {
+    color: var(--color-orange);
+}
+
+.btn--transparent-orange .btn__text::after {
+    background-color: var(--color-orange);
+}
+
+.btn--transparent-orange:hover {
+    background-color: var(--color-orange);
+}
+
+.btn--transparent-orange:hover .btn__text {
+    color: var(--color-white);
+}
+
+.btn--transparent-orange:hover .btn__text::after {
+    background-color: var(--color-white);
+}
+
+.btn--double {
+    display: flex;
+    border: 1px solid var(--color-white);
+    width: 32rem;
+    padding: 0;
+}
+
+.btn--double .btn__input {
+    border: none;
+    background: none;
+    color: var(--color-white);
+    padding: 2.6rem 0 2.6rem;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.btn--double .btn__input,
+.btn--double .btn__input::placeholder {
+    font-size: 1.8rem;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-white);
+}
+
+.btn--double .btn__input:focus {
+    outline: none;
+}
+
+.btn--double .btn__input:focus::placeholder {
+    opacity: 0;
+}
+
+.btn--double .btn__submit {
+    width: 8rem;
+    border-radius: 5px;
+    align-self: stretch;
+    background-color: var(--color-orange);
+    background-image: url(../assets/icons/btn-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn--double .btn__submit:hover {
+    background-color: var(--color-orange-dark);
+}
