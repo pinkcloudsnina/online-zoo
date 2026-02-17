@@ -4,6 +4,12 @@
     font-weight: 600;
 }
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../fonts/Montserrat-Medium.ttf);
+    font-weight: 500;
+}
+
 :root {
     --color-black: #000000;
     --color-navy: #20113d;
@@ -266,4 +272,28 @@ html {
 .geo-tag:hover {
     background: url(../icons/geo-tag-hover.svg) no-repeat center;
     filter: drop-shadow(0 4px 30px rgba(255, 255, 255, 0.5));
+}
+
+/*BADGE*/
+.badge {
+    display: inline-flex;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0 0.6rem;
+    border-radius: 5px 0 5px 0;
+    width: 16rem;
+}
+
+.badge::after {
+    content: '';
+    background: url(../icons/camera.svg) no-repeat center;
+    width: 2rem;
+    height: 2rem;
 }
