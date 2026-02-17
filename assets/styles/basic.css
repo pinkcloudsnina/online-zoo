@@ -10,6 +10,7 @@
     --color-white: #ffffff;
     --color-orange: #f58021;
     --color-orange-dark: #d26004;
+    --color-orange-shadow: rgba(245, 128, 33, 0.7);
     --color-orange-dark-shadow: rgba(210, 96, 4, 0.3);
     --color-turquois: #00a092;
     --color-turquois-dark: #05786e;
@@ -244,4 +245,25 @@ html {
 .pagination--dark:hover .next,
 .pagination--dark:hover .prev {
     background-color: var(--color-white);
+}
+
+/*MAP TAG*/
+.geo-tag {
+    background: url(../icons/geo-tag.svg) no-repeat center;
+    width: 8rem;
+    height: 12rem;
+    filter: drop-shadow(0 4px 30px var(--color-orange-shadow)) drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.animal-icon {
+    width: 5.2rem;
+    height: 4.7rem;
+    margin-top: 1.5rem;
+    margin-left: 1.3rem;
+}
+
+/*todo border*/
+.geo-tag:hover {
+    background: url(../icons/geo-tag-hover.svg) no-repeat center;
+    filter: drop-shadow(0 4px 30px rgba(255, 255, 255, 0.5));
 }
