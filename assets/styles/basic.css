@@ -195,3 +195,53 @@ html {
 }
 
 /* PAGINATION */
+.pagination {
+    display: inline-block;
+    padding: 2rem;
+    border-radius: 5px;
+}
+
+.pagination--light {
+    border: 1px solid var(--color-white);
+}
+
+.pagination .next,
+.pagination .prev {
+    background-color: var(--color-white);
+    -webkit-mask: url(../icons/btn-arrow.svg) no-repeat center;
+    -webkit-mask-size: contain;
+    width: 2.4rem;
+    height: 2.2rem;
+}
+
+.pagination .prev {
+    transform: rotate(180deg);
+}
+
+.pagination--light:hover {
+    cursor: pointer;
+    background-color: var(--color-white);
+}
+.pagination--light:hover .next,
+.pagination--light:hover .prev {
+    background-color: var(--color-navy);
+}
+
+.pagination--dark {
+    border: 1px solid var(--color-navy);
+}
+
+.pagination--dark .next,
+.pagination--dark .prev {
+    background-color: var(--color-navy);
+}
+
+.pagination--dark:hover {
+    cursor: pointer;
+    background-color: var(--color-navy);
+}
+
+.pagination--dark:hover .next,
+.pagination--dark:hover .prev {
+    background-color: var(--color-white);
+}
