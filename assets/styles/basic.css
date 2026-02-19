@@ -44,7 +44,6 @@
 
 html {
     font-size: 10px;
-    background-color: antiquewhite;
 }
 
 *,
@@ -53,6 +52,18 @@ html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-family: 'Montserrat';
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 .btn {
@@ -314,4 +325,224 @@ html {
     background: url(../icons/camera.svg) no-repeat center;
     width: 2rem;
     height: 2rem;
+}
+
+/*MOBILE STYLES*/
+
+header {
+    height: 110px;
+    background-color: var(--color-orange);
+}
+
+.container {
+    padding: 0 10px 0;
+}
+
+header .container {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    background: url('../images/logo.svg') no-repeat center;
+    padding: 48px 50px;
+    margin-left: 8px;
+}
+
+.menu-toggle {
+    margin-right: 25px;
+}
+
+.menu-burger {
+    position: relative;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-black);
+    gap: 11px;
+}
+
+.menu-burger::before,
+.menu-burger::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-black);
+    transform: translateY(-14px);
+}
+.menu-burger::after {
+    transform: translateY(14px);
+}
+
+nav {
+    position: absolute;
+    width: 233px;
+    height: 600px;
+    top: 0;
+    right: 0;
+    background-color: var(--color-navy);
+}
+
+.menu-toggle {
+    z-index: 1;
+}
+
+.menu--opened .menu-burger {
+    width: 40px;
+    background-color: var(--color-white);
+    transform: rotate(45deg);
+}
+
+.menu--opened .menu-burger::before {
+    background-color: var(--color-white);
+    transform: rotate(-90deg);
+}
+
+.menu--opened .menu-burger::after {
+    display: none;
+}
+
+.nav__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    text-transform: uppercase;
+    margin-top: 130px;
+}
+
+.nav__list a {
+    font-weight: 600;
+    line-height: 150%;
+    font-size: 18px;
+    color: var(--color-white);
+}
+
+.nav__list a:hover {
+    color: var(--color-turquois);
+}
+
+.menu--closed + nav {
+    display: none;
+}
+
+.social__list {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 20px 0;
+    }
+
+    .logo {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        margin-right: 27px;
+    }
+
+    .menu-burger {
+        width: 30px;
+    }
+
+    nav {
+        width: 311px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 40px 0;
+    }
+    header .container {
+        gap: 0px;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .logo {
+        margin-left: 57px;
+    }
+
+    nav {
+        display: block;
+        position: static;
+        background: none;
+        height: auto;
+        width: auto;
+        flex-grow: 1;
+        margin-right: 40px;
+    }
+
+    .nav__list {
+        flex-direction: row;
+        gap: 30px;
+        margin: 0;
+        justify-content: flex-end;
+    }
+
+    .nav__list a {
+        color: var(--color-black);
+    }
+
+    .social__list {
+        display: flex;
+        flex-direction: row;
+        gap: 3rem;
+        margin: 0 60px 0 40px;
+    }
+
+    .social-youtube {
+        background: url(../icons/youtube.png) no-repeat center;
+        background-size: contain;
+    }
+
+    .social-instagram {
+        background: url(../icons/instagram.png) no-repeat center;
+        background-size: contain;
+    }
+
+    .social-fb {
+        background: url(../icons/facebook.png) no-repeat center;
+        background-size: contain;
+    }
+
+    .social__list a {
+        display: block;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (min-width: 1920px) {
+    body {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+    .container {
+        padding: 0 260px 0;
+    }
+    header .container {
+        gap: 65px;
+    }
+    .logo {
+        margin: 0;
+    }
+    nav {
+        margin: 0;
+    }
+    .nav__list {
+        gap: 48px;
+    }
+    .social__list {
+        margin: 0;
+    }
 }
