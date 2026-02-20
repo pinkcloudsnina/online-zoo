@@ -189,7 +189,8 @@ a {
 .btn--double {
     display: flex;
     border: 1px solid var(--color-white);
-    width: 32rem;
+    width: 100%;
+    max-width: 300px;
     padding: 0;
 }
 
@@ -197,14 +198,14 @@ a {
     border: none;
     background: none;
     color: var(--color-white);
-    padding: 2.6rem 0 2.6rem;
+    padding: 1.2rem 0 1.2rem;
     text-align: center;
     flex-grow: 1;
 }
 
 .btn--double .btn__input,
 .btn--double .btn__input::placeholder {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-family: 'Montserrat';
     font-weight: 600;
     text-transform: uppercase;
@@ -220,7 +221,7 @@ a {
 }
 
 .btn--double .btn__submit {
-    width: 8rem;
+    width: 5.8rem;
     border-radius: 5px;
     align-self: stretch;
     background-color: var(--color-orange);
@@ -571,8 +572,17 @@ h2 {
     text-transform: uppercase;
 }
 
-h2 .header--white {
+h2.header--white {
     color: var(--color-white);
+    text-align: center;
+}
+
+h3.header--white {
+    font-size: 26px;
+    line-height: 130%;
+    color: var(--color-white);
+    font-weight: 500;
+    text-align: center;
 }
 
 p {
@@ -582,7 +592,7 @@ p {
     color: var(--color-black);
 }
 
-p .paragraph--white {
+p.paragraph--white {
     color: var(--color-white);
     text-align: center;
 }
@@ -601,6 +611,23 @@ img {
     }
     .container {
         padding: 0 20px 0;
+    }
+
+    .btn.btn--double {
+        padding: 0;
+    }
+    .btn--double {
+        max-width: 363px;
+    }
+
+    .btn--double .btn__input {
+        font-size: 18px;
+        letter-spacing: 1.5px;
+        padding: 2.4rem 0 2.8rem;
+    }
+
+    .btn--double .btn__submit {
+        width: 75px;
     }
 
     .logo {
@@ -716,6 +743,13 @@ img {
 
     footer .social__list {
         order: 3;
+    }
+
+    .btn--double {
+        width: 320px;
+    }
+    .btn--double .btn__submit {
+        width: 79px;
     }
 }
 
