@@ -71,8 +71,8 @@ a {
     font-size: 1.8rem;
     font-weight: 600;
     text-align: center;
-    padding: 2.6rem 0 2.6rem;
-    text-transform: uppercase;
+    padding: 0.8rem 0 0.8rem;
+    line-height: 150%;
 }
 
 .btn:hover {
@@ -124,7 +124,8 @@ a {
 .btn--transparent-light {
     border: 1px solid var(--color-white);
     color: var(--color-white);
-    width: 35.9rem;
+    width: 100%;
+    max-width: 360px;
 }
 
 .btn--transparent-light:hover {
@@ -347,7 +348,7 @@ header .container {
 
 .logo {
     background: url('../images/logo.svg') no-repeat center;
-    padding: 48px 50px;
+    padding: 25px 48px;
     margin-left: 8px;
 }
 
@@ -378,17 +379,18 @@ header .container {
     transform: translateY(14px);
 }
 
-nav {
+header nav {
     position: absolute;
     width: 233px;
     height: 600px;
     top: 0;
     right: 0;
     background-color: var(--color-navy);
+    z-index: 1;
 }
 
 .menu-toggle {
-    z-index: 1;
+    z-index: 2;
 }
 
 .menu--opened .menu-burger {
@@ -406,13 +408,16 @@ nav {
     display: none;
 }
 
+header .nav__list {
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 130px;
+}
+
 .nav__list {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 40px;
     text-transform: uppercase;
-    margin-top: 130px;
 }
 
 .nav__list a {
@@ -431,10 +436,126 @@ nav {
 }
 
 .social__list {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.social__list a {
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+
+.social-youtube {
+    background: url(../icons/youtube.png) no-repeat center;
+    background-size: contain;
+}
+
+.social-instagram {
+    background: url(../icons/instagram.png) no-repeat center;
+    background-size: contain;
+}
+
+.social-fb {
+    background: url(../icons/facebook.png) no-repeat center;
+    background-size: contain;
+}
+
+header .social__list {
     display: none;
 }
 
+/*FOOTER*/
+
+footer {
+    background-color: var(--color-navy);
+    height: 710px;
+    overflow-x: hidden;
+}
+
+footer .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+footer .logos {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .logo {
+    background: var(--color-white);
+    mask-image: url('../images/logo.svg');
+    mask-repeat: no-repeat;
+    mask-clip: border-box;
+    margin: 0;
+}
+
+.logo-designer {
+    background: var(--color-white);
+    mask-image: url('../images/logo_designer.svg');
+    mask-repeat: no-repeat;
+    mask-clip: border-box;
+    padding: 25px;
+}
+
+.logo-school {
+    background: var(--color-white);
+    mask-image: url('../images/logo_rs_school.svg');
+    mask-repeat: no-repeat;
+    mask-clip: border-box;
+    padding: 25px 69px 26px;
+}
+
+footer .nav__list {
+    flex-direction: row;
+    gap: 15px;
+}
+
+footer .nav__list a {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+footer .social__list {
+    gap: 50px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-white);
+    transform: scaleX(110%);
+}
+
+footer .copyrights {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.copyright {
+    color: var(--color-white);
+    line-height: 150%;
+    font-weight: 400;
+    font-size: 18px;
+}
+
 @media (min-width: 640px) {
+    .btn {
+        text-transform: uppercase;
+        padding: 23px 0 22px;
+    }
     .container {
         padding: 0 20px 0;
     }
@@ -454,6 +575,33 @@ nav {
     nav {
         width: 311px;
     }
+
+    footer {
+        height: 545px;
+    }
+
+    footer .container {
+        gap: 50px;
+    }
+
+    footer .logos {
+        flex-direction: row;
+        gap: 80px;
+    }
+
+    footer .nav__list a {
+        font-size: 18px;
+    }
+
+    footer .social__list {
+        order: 1;
+    }
+
+    footer .copyrights {
+        flex-direction: row;
+        order: 1;
+        gap: 48px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -468,11 +616,11 @@ nav {
         display: none;
     }
 
-    .logo {
+    header .logo {
         margin-left: 57px;
     }
 
-    nav {
+    header nav {
         display: block;
         position: static;
         background: none;
@@ -482,43 +630,49 @@ nav {
         margin-right: 40px;
     }
 
-    .nav__list {
+    header .nav__list {
         flex-direction: row;
         gap: 30px;
         margin: 0;
         justify-content: flex-end;
     }
 
-    .nav__list a {
+    header .nav__list a {
         color: var(--color-black);
     }
 
-    .social__list {
+    header .social__list {
         display: flex;
-        flex-direction: row;
-        gap: 3rem;
         margin: 0 60px 0 40px;
     }
 
-    .social-youtube {
-        background: url(../icons/youtube.png) no-repeat center;
-        background-size: contain;
+    footer {
+        height: 329px;
     }
 
-    .social-instagram {
-        background: url(../icons/instagram.png) no-repeat center;
-        background-size: contain;
+    footer .container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: center;
+        gap: 35px;
     }
 
-    .social-fb {
-        background: url(../icons/facebook.png) no-repeat center;
-        background-size: contain;
+    footer nav {
+        flex-grow: 1;
     }
 
-    .social__list a {
-        display: block;
-        width: 40px;
-        height: 40px;
+    footer .nav__list {
+        gap: 20px;
+        justify-content: end;
+    }
+
+    footer .logos {
+        gap: 30px;
+    }
+
+    footer .social__list {
+        order: 3;
     }
 }
 
@@ -533,16 +687,33 @@ nav {
     header .container {
         gap: 65px;
     }
-    .logo {
+    header .logo {
         margin: 0;
     }
-    nav {
+    header nav {
         margin: 0;
     }
-    .nav__list {
+    header .nav__list {
         gap: 48px;
     }
-    .social__list {
+    header .social__list {
         margin: 0;
+    }
+
+    footer {
+        height: 329px;
+    }
+
+    footer .logos {
+        gap: 65px;
+    }
+
+    footer .nav__list {
+        gap: 46px;
+        justify-content: center;
+    }
+
+    footer .divider {
+        transform: none;
     }
 }
