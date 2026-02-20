@@ -100,7 +100,9 @@ a {
 .btn--orange {
     background-color: var(--color-orange);
     color: var(--color-white);
-    width: 24rem;
+    width: 100%;
+    max-width: 300px;
+    text-transform: uppercase;
 }
 
 .btn--orange:hover,
@@ -549,6 +551,46 @@ footer .copyrights {
     line-height: 150%;
     font-weight: 400;
     font-size: 18px;
+}
+
+/*MAIN*/
+
+h1 {
+    font-size: 38px;
+    line-height: 128%;
+    font-weight: 800;
+    color: var(--color-turquois);
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 26px;
+    line-height: 120%;
+    font-weight: 500;
+    color: var(--color-turquois);
+    text-transform: uppercase;
+}
+
+h2 .header--white {
+    color: var(--color-white);
+}
+
+p {
+    font-size: 18px;
+    line-height: 150%;
+    font-weight: 400;
+    color: var(--color-black);
+}
+
+p .paragraph--white {
+    color: var(--color-white);
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
 @media (min-width: 640px) {
