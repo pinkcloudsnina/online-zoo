@@ -27,9 +27,26 @@ h1 {
     max-width: 300px;
 }
 
+h2 {
+    margin-bottom: 25px;
+}
+
 .hero p {
     margin-bottom: 30px;
     max-width: 300px;
+}
+
+img {
+    margin-bottom: 28px;
+    height: auto;
+}
+
+.welcome__info {
+    margin-bottom: 45px;
+}
+
+.welcome__description p span {
+    display: none;
 }
 
 @media (min-width: 640px) {
@@ -57,10 +74,23 @@ h1 {
         height: 387px;
         background-image: url('../../assets/images/hero-640.png');
     }
+
+    h2 {
+        font-size: 54px;
+        max-width: 523px;
+        letter-spacing: 0.5px;
+        line-height: 125%;
+        margin-bottom: 29px;
+    }
+
+    .welcome__description p span {
+        display: inline;
+    }
 }
+
 @media (min-width: 1200px) {
     main > section {
-        margin-bottom: 150px;
+        margin-bottom: 100px;
     }
 
     .hero {
@@ -81,8 +111,44 @@ h1 {
         background-image: url('../../assets/images/hero-1200.png');
         background-position-y: -34px;
     }
+
+    .welcome {
+        display: flex;
+        flex-direction: column;
+        gap: 73px;
+    }
+
+    .welcome__info {
+        margin-bottom: 0;
+        margin-left: clamp(100px, 8%, 150px);
+    }
+    .welcome__info:last-child {
+        align-self: flex-end;
+        margin-left: 0;
+        margin-right: clamp(100px, 8%, 150px);
+    }
+    .welcome__info .container {
+        padding: 0;
+    }
+    .welcome__info img {
+        width: 660px;
+        height: 439px;
+        margin-bottom: 25px;
+    }
+    .welcome__info h2 {
+        max-width: 523px;
+        font-size: 54px;
+    }
+    .welcome__info p {
+        max-width: 560px;
+    }
 }
+
 @media (min-width: 1920px) {
+    main > section {
+        margin-bottom: 150px;
+    }
+
     .hero {
         height: 790px;
         padding-top: 129px;
@@ -102,5 +168,45 @@ h1 {
     .hero p {
         max-width: 430px;
         margin-bottom: 45px;
+    }
+
+    .welcome {
+        align-items: center;
+        gap: 150px;
+    }
+
+    .welcome h2 {
+        margin: 0;
+    }
+
+    .welcome img {
+        margin-bottom: 0;
+    }
+
+    .welcome__info {
+        display: flex;
+        margin: 0;
+        gap: 40px;
+    }
+
+    .welcome__info:last-child {
+        margin: 0;
+        align-self: center;
+    }
+
+    .welcome__info img {
+        width: 800px;
+        height: 531px;
+    }
+
+    .welcome__info:nth-child(odd) img {
+        order: 1;
+    }
+
+    .welcome__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 50px;
     }
 }
