@@ -570,7 +570,7 @@ h1 {
 }
 
 h2 {
-    font-size: 26px;
+    font-size: clamp(26px, calc(26px + (54px - 26px) * var(--coef-1)), 54px);
     line-height: 120%;
     font-weight: 500;
     color: var(--color-turquois);
