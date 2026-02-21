@@ -5,26 +5,26 @@ main > section {
 
 .hero {
     position: relative;
-    height: 686px;
-    padding-top: 20px;
+    height: clamp(644px, calc(644px + (686px - 644px) * (1 - var(--coef-1))), 686px);
+    padding-top: clamp(20px, calc(20px + (47px - 20px) * var(--coef-1)), 47px);
 }
 
 .hero-bg {
     position: absolute;
-    height: clamp(291px, 40%, 387px);
+    height: clamp(291px, calc(291px + (387px - 291px) * var(--coef-1)), 387px);
     width: 100%;
     bottom: 0;
     z-index: -1;
     background-image: url('../../assets/images/hero-320.png');
-    background-size: 100%;
+    background-size: auto 100%;
     background-repeat: no-repeat;
-    background-position-x: 84%;
+    background-position: 84% bottom;
 }
 
 h1 {
-    margin-bottom: 11px;
     letter-spacing: 1.9px;
-    max-width: 300px;
+    width: 100%;
+    margin-bottom: 11px;
 }
 
 h2 {
@@ -32,8 +32,9 @@ h2 {
 }
 
 .hero p {
-    margin-bottom: 30px;
-    max-width: 300px;
+    margin-bottom: clamp(25px, calc(25px + (30px - 25px) * (1 - var(--coef-1))), 30px);
+    width: 100%;
+    max-width: 340px;
 }
 
 img {
@@ -71,30 +72,35 @@ img {
     margin: 0 auto;
 }
 
+@media (min-width: 340px) {
+    .hero-bg {
+        background-image: url('../../assets/images/hero-640.png');
+    }
+}
+
 @media (min-width: 640px) {
     main > section {
         margin-bottom: 100px;
     }
     .hero {
-        height: 644px;
-        padding-top: 47px;
+        height: clamp(644px, calc(644px + (690px - 644px) * var(--coef-2)), 690px);
+        padding-top: clamp(47px, calc(47px + (100px - 47px) * var(--coef-2)), 100px);
     }
     h1 {
-        font-size: 72px;
         letter-spacing: 0.9px;
-        max-width: 600px;
         line-height: 124%;
+        max-width: 890px;
     }
     .hero p {
-        max-width: 339px;
         margin-bottom: 25px;
     }
     .btn--orange {
         max-width: 285px;
     }
     .hero-bg {
-        height: 387px;
+        height: clamp(387px, calc(387px + (690px - 387px) * var(--coef-2)), 690px);
         background-image: url('../../assets/images/hero-640.png');
+        background-size: 100% 100%;
     }
 
     h2 {
@@ -132,22 +138,31 @@ img {
     }
 
     .hero {
-        height: 690px;
-        padding-top: 100px;
+        height: clamp(690px, calc(690px + (790px - 690px) * var(--coef-1)), 790px);
+        padding-top: clamp(100px, calc(100px + (129px - 100px) * var(--coef-3)), 129px);
     }
+
     h1 {
-        font-size: 82px;
-        max-width: 890px;
-        margin-bottom: 10px;
+        width: 74.1%;
+        margin-bottom: clamp(10px, calc(10px + (30px - 10px) * var(--coef-3)), 30px);
         line-height: 122%;
     }
+
     .btn--orange {
         max-width: 240px;
     }
+
     .hero-bg {
         height: 100%;
         background-image: url('../../assets/images/hero-1200.png');
         background-position-y: -34px;
+        background-size: 100% auto;
+    }
+
+    .hero p {
+        margin-bottom: clamp(25px, calc(25px + (45px - 25px) * var(--coef-3)), 45px);
+        width: clamp(340px, calc(340px + (430px - 340px) * var(--coef-3)), 430px);
+        max-width: 430px;
     }
 
     .welcome {

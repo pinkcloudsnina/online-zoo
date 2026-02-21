@@ -40,6 +40,9 @@
     --color-turquois-dark: #05786e;
     --color-turquois-dark-shadow: rgba(5, 120, 110, 0.3);
     --color-turquois-light: #80cfc8;
+    --coef-1: calc((100vw - 320px) / (640px - 320px));
+    --coef-2: calc((100vw - 640px) / (1200px - 640px));
+    --coef-3: calc((100vw - 1200px) / (1920px - 1200px));
 }
 
 html {
@@ -71,7 +74,9 @@ a {
     font-size: 1.8rem;
     font-weight: 600;
     text-align: center;
-    padding: 0.8rem 0 0.8rem;
+    padding: 0;
+    padding-top: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
+    padding-bottom: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
     line-height: 150%;
 }
 
@@ -339,7 +344,7 @@ header {
 }
 
 .container {
-    padding: 0 10px 0;
+    padding: 0 clamp(10px, calc(10px + (20px - 10px) * var(--coef-1)), 20px) 0;
 }
 
 header .container {
@@ -557,7 +562,7 @@ footer .copyrights {
 /*MAIN*/
 
 h1 {
-    font-size: 38px;
+    font-size: clamp(38px, calc(38px + (72px - 38px) * var(--coef-1)), 72px);
     line-height: 128%;
     font-weight: 800;
     color: var(--color-turquois);
@@ -605,12 +610,17 @@ img {
 }
 
 @media (min-width: 640px) {
+    h1 {
+        font-size: clamp(72px, calc(72px + (82px - 72px) * var(--coef-2)), 82px);
+    }
+
     .btn {
         text-transform: uppercase;
-        padding: 23px 0 22px;
+        padding: 24px 0 23px;
     }
+
     .container {
-        padding: 0 20px 0;
+        padding: 0 clamp(20px, calc(20px + (40px - 20px) * var(--coef-2)), 40px) 0;
     }
 
     .btn.btn--double {
@@ -676,7 +686,7 @@ img {
 
 @media (min-width: 1200px) {
     .container {
-        padding: 0 40px 0;
+        padding: 0 clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px) 0;
     }
     header .container {
         gap: 0px;
