@@ -53,15 +53,17 @@ img {
 /*QUICK DONATION*/
 .quick-donation {
     background-color: var(--color-navy);
-    padding: 28px 0 40px;
+    padding-top: clamp(28px, calc(28px + (50px - 28px) * var(--coef-1)), 50px);
+    padding-bottom: clamp(40px, calc(40px + (47px - 40px) * var(--coef-1)), 47px);
 }
 
 .quick-donation h2 {
     margin-bottom: 28px;
+    font-size: clamp(26px, calc(26px + (42px - 26px) * var(--coef-1)), 42px);
 }
 
 .quick-donation p {
-    margin-bottom: 30px;
+    margin-bottom: clamp(28px, calc(28px + (30px - 28px) * (1 - var(--coef-1))), 30px);
 }
 
 .quick-donation h3 {
@@ -111,19 +113,17 @@ img {
     }
 
     /*Quick Donation*/
-    .quick-donation {
-        padding: 50px 0 47px;
-    }
 
     .quick-donation h2 {
-        font-size: 42px;
         max-width: 565px;
         margin: 0 auto 27px;
         letter-spacing: 0px;
     }
 
     .quick-donation p {
-        margin-bottom: 28px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -190,10 +190,13 @@ img {
         max-width: 560px;
     }
 
+    .quick-donation {
+        padding-bottom: 24px;
+    }
+
     .quick-donation .container {
         display: flex;
-        justify-content: center;
-        gap: 106px;
+        gap: clamp(106px, calc(106px + (161px - 106px) * var(--coef-3)), 161px);
     }
 
     .quick-donation h2,
@@ -203,14 +206,19 @@ img {
     }
     .quick-donation h2 {
         margin: 0 0 27px;
-        max-width: 577px;
+        width: 100%;
+        max-width: 889px;
     }
 
     .quick-donation p {
-        max-width: 576px;
+        width: 100%;
+        max-width: 609px;
+        margin-left: 0;
+        margin-right: 0;
     }
     .donation__descr {
-        margin-left: 57px;
+        margin-left: 58px;
+        flex-grow: 1;
     }
     .donation__btn {
         margin-right: 60px;
@@ -287,9 +295,7 @@ img {
     .donation__btn {
         margin: 0;
     }
-    .quick-donation .container {
-        justify-content: space-between;
-    }
+
     .quick-donation h2 {
         max-width: 889px;
         margin: 0 0 19px;

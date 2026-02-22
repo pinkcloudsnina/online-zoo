@@ -195,7 +195,7 @@ a {
     display: flex;
     border: 1px solid var(--color-white);
     width: 100%;
-    max-width: 300px;
+    max-width: 363px;
     padding: 0;
 }
 
@@ -203,14 +203,15 @@ a {
     border: none;
     background: none;
     color: var(--color-white);
-    padding: 1.2rem 0 1.2rem;
+    padding-top: clamp(12px, calc(12px + (24px - 12px) * var(--coef-1)), 24px);
+    padding-bottom: clamp(12px, calc(12px + (28px - 12px) * var(--coef-1)), 28px);
     text-align: center;
     flex-grow: 1;
 }
 
 .btn--double .btn__input,
 .btn--double .btn__input::placeholder {
-    font-size: 1.6rem;
+    font-size: clamp(16px, calc(16px + (18px - 16px) * var(--coef-1)), 18px);
     font-family: 'Montserrat';
     font-weight: 600;
     text-transform: uppercase;
@@ -226,7 +227,7 @@ a {
 }
 
 .btn--double .btn__submit {
-    width: 5.8rem;
+    width: clamp(58px, calc(58px + (75px - 58px) * var(--coef-1)), 75px);
     border-radius: 5px;
     align-self: stretch;
     background-color: var(--color-orange);
@@ -628,16 +629,6 @@ img {
     }
     .btn--double {
         max-width: 363px;
-    }
-
-    .btn--double .btn__input {
-        font-size: 18px;
-        letter-spacing: 1.5px;
-        padding: 2.4rem 0 2.8rem;
-    }
-
-    .btn--double .btn__submit {
-        width: 75px;
     }
 
     .logo {
