@@ -46,7 +46,7 @@ img {
     margin-bottom: 45px;
 }
 
-.welcome__description p span {
+p span {
     display: none;
 }
 
@@ -159,6 +159,92 @@ img {
     display: none;
 }
 
+.pay-feed {
+    background-color: var(--color-navy);
+    padding-top: clamp(20px, calc(20px + (81px - 20px) * var(--coef-1)), 81px);
+    padding-bottom: 50px;
+    margin-bottom: 0;
+}
+
+.pay-feed h2 {
+    margin-left: clamp(0px, calc(0px + (50px - 0px) * var(--coef-1)), 50px);
+}
+
+.numeration {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 10px;
+    color: var(--color-white);
+    font-size: 26px;
+    line-height: 130%;
+    padding-left: clamp(10px, calc(10px + (20px - 10px) * var(--coef-1)), 20px);
+    padding-top: 20px;
+}
+
+.numeration::after {
+    content: '';
+    border-bottom: 1px solid var(--color-white);
+    flex-grow: 1;
+    margin-right: clamp(0px, calc(0px + (20px - 0px) * var(--coef-1)), 20px);
+}
+
+.pay-feed__element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 27px;
+    gap: clamp(30px, calc(30px + (50px - 30px) * var(--coef-1)), 50px);
+}
+
+.pay-feed__element .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.pay-feed__element h3 {
+    max-width: 300px;
+}
+
+.pay-feed__element p {
+    width: clamp(300px, calc(300px + (600px - 300px) * var(--coef-1)), 600px);
+}
+
+.pay-feed__element img {
+    max-width: 640px;
+    margin-bottom: 0;
+}
+
+.pay-feed__element:nth-of-type(1) p {
+    width: clamp(280px, calc(280px + (600px - 280px) * var(--coef-1)), 600px);
+}
+
+.pay-feed__element .icon {
+    height: 80px;
+}
+
+.pay-feed__element .icon-1 {
+    width: 106px;
+    background: url('../../assets/icons/pay-feed-1.svg') center no-repeat;
+}
+
+.pay-feed__element .icon-2 {
+    width: 100px;
+    background: url('../../assets/icons/pay-feed-2.svg') center no-repeat;
+}
+
+.pay-feed__element .icon-3 {
+    width: 80px;
+    background: url('../../assets/icons/pay-feed-3.svg') center no-repeat;
+}
+
+.pay-feed .btn-container {
+    display: flex;
+    justify-content: center;
+}
+
 @media (min-width: 340px) {
     .hero-bg {
         background-image: url('../../assets/images/hero-640.png');
@@ -192,7 +278,7 @@ img {
         line-height: 125%;
     }
 
-    .welcome__description p span {
+    p span {
         display: inline;
     }
 
@@ -244,7 +330,27 @@ img {
         display: block;
     }
     .meet-pets {
-        margin-bottom: clamp(97px, calc(97px + (150px - 97px) * var(--coef-1)), 150px);
+        margin-bottom: clamp(97px, calc(97px + (150px - 97px) * var(--coef-2)), 150px);
+    }
+    .pay-feed {
+        padding-top: clamp(81px, calc(81px + (150px - 81px) * var(--coef-2)), 150px);
+    }
+
+    .pay-feed h2 {
+        margin-bottom: clamp(29px, calc(29px + (77px - 29px) * var(--coef-2)), 77px);
+    }
+
+    .pay-feed__element h3 {
+        max-width: 600px;
+    }
+
+    .numeration {
+        padding-left: clamp(20px, calc(20px + (40px - 20px) * var(--coef-2)), 40px);
+        gap: clamp(10px, calc(10px + (68px - 10px) * var(--coef-2)), 68px);
+    }
+
+    .numeration::after {
+        margin-right: clamp(20px, calc(20px + (40px - 20px) * var(--coef-1)), 40px);
     }
 }
 
@@ -396,6 +502,84 @@ img {
     .carousel__animal img {
         margin-bottom: clamp(12px, calc(12px + (30px - 12px) * var(--coef-3)), 30px);
     }
+
+    .pay-feed {
+        padding-top: clamp(87px, calc(87px + (150px - 87px) * (1 - var(--coef-3))), 150px);
+    }
+
+    .pay-feed__element {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0 clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px) 0;
+        column-gap: clamp(20px, calc(20px + (160px - 20px) * var(--coef-3)), 160px);
+        margin-bottom: clamp(65px, calc(65px + (87px - 65px) * var(--coef-3)), 87px);
+        row-gap: clamp(60px, calc(60px + (83px - 60px) * var(--coef-3)), 83px);
+    }
+
+    .pay-feed__element:nth-of-type(3) {
+        margin-bottom: clamp(22px, calc(22px + (65px - 22px) * (1 - var(--coef-3))), 65px);
+    }
+
+    .pay-feed__element img {
+        width: clamp(550px, calc(550px + (560px - 550px) * var(--coef-3)), 560px);
+        height: 358px;
+        align-self: center;
+    }
+
+    .pay-feed__element p,
+    .pay-feed__element:nth-of-type(1) p {
+        max-width: 550px;
+        text-align: center;
+    }
+
+    .pay-feed__element h3 {
+        max-width: 543px;
+    }
+
+    .numeration {
+        width: 100%;
+        padding-left: 0;
+        gap: clamp(68px, calc(68px + (88px - 68px) * var(--coef-3)), 88px);
+    }
+
+    .pay-feed__element .description {
+        padding-top: clamp(0px, calc(0px + (20px - 0px) * var(--coef-3)), 20px);
+    }
+
+    .numeration:after {
+        margin-right: 0;
+    }
+    .pay-feed .btn {
+        max-width: 265px;
+    }
+    .pay-feed h2 {
+        margin-left: clamp(100px, calc(100px + (260px - 100px) * var(--coef-3)), 260px);
+        text-align: left;
+    }
+    .pay-feed__element p {
+        padding-top: clamp(0px, calc(0px + (20px - 00px) * var(--coef-3)), 20px);
+    }
+
+    .pay-feed__element:nth-of-type(2) {
+        margin-bottom: clamp(65px, calc(65px + (70px - 65px) * var(--coef-3)), 70px);
+    }
+    .pay-feed .btn-container {
+        display: grid;
+
+        grid-template-columns: clamp(550px, calc(550px + (560px - 550px) * var(--coef-3)), 560px) 1fr;
+
+        grid-gap: clamp(20px, calc(20px + (160px - 20px) * var(--coef-3)), 160px);
+    }
+
+    .pay-feed .btn-container .btn {
+        grid-column: 2 / 3;
+    }
+
+    .btn-container {
+        width: 100%;
+        padding-top: 35px;
+    }
 }
 
 @media (min-width: 1920px) {
@@ -477,5 +661,20 @@ img {
     }
     .quick-donation h3 {
         margin-bottom: 8px;
+    }
+    .pay-feed__element {
+    }
+    .pay-feed__element img {
+        align-self: flex-start;
+    }
+    .pay-feed .btn {
+        max-width: 240px;
+    }
+    .pay-feed__element .description {
+        align-items: flex-start;
+    }
+    .pay-feed__element .description p,
+    .pay-feed__element .description h3 {
+        text-align: left;
     }
 }
