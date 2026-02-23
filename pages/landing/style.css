@@ -74,6 +74,91 @@ img {
     margin: 0 auto;
 }
 
+.meet-pets {
+    margin-bottom: clamp(62px, calc(62px + (97px - 62px) * var(--coef-1)), 97px);
+}
+
+.meet-pets h2 {
+    margin-bottom: 30px;
+    max-width: 394px;
+}
+
+.meet-pets .container {
+    padding-bottom: 1px;
+}
+
+.meet-pets .subheader {
+    font-size: clamp(18px, calc(18px + (26px - 18px) * var(--coef-1)), 26px);
+    line-height: clamp(130%, calc(130% + (150% - 130%) * (1 - var(--coef-1))), 150%);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: clamp(25px, calc(25px + (50px - 25px) * var(--coef-1)), 50px);
+}
+
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carousel__controls {
+    display: none;
+}
+
+.carousel__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.carousel__animal {
+    position: relative;
+    flex-shrink: 0;
+    background-color: var(--color-navy);
+    height: 600px;
+    border-radius: 5px;
+    width: clamp(290px, calc(290px + (300px - 290px) * (1 - var(--coef-1))), 300px);
+}
+
+.carousel__animal img {
+    margin-bottom: 12px;
+}
+
+.animal-name {
+    position: absolute;
+    color: var(--color-white);
+    font-size: 26px;
+    padding: 12px 29px;
+    background-color: var(--color-navy);
+    border-radius: 5px 0 5px 0;
+}
+
+.animal-title {
+    margin-bottom: 12px;
+}
+
+.carousel__animal p {
+    width: 79%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    max-height: 103px;
+    overflow: hidden;
+}
+
+.carousel__animal .btn {
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.meet-pets > .btn {
+    display: none;
+}
+
 @media (min-width: 340px) {
     .hero-bg {
         background-image: url('../../assets/images/hero-640.png');
@@ -104,7 +189,6 @@ img {
 
     h2 {
         max-width: 523px;
-        letter-spacing: 0.5px;
         line-height: 125%;
     }
 
@@ -117,13 +201,50 @@ img {
     .quick-donation h2 {
         max-width: 565px;
         margin: 0 auto 27px;
-        letter-spacing: 0px;
+        letter-spacing: -0.3px;
     }
 
     .quick-donation p {
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .meet-pets h2 {
+        width: 62%;
+        max-width: 737px;
+        padding-left: clamp(0px, calc(0px + (96px - 0px) * var(--coef-2)), 96px);
+    }
+
+    .meet-pets .subheader {
+        max-width: 830px;
+        letter-spacing: 0.2px;
+    }
+
+    .carousel {
+        max-width: 600px;
+        margin-bottom: 48px;
+    }
+    .carousel__list {
+    }
+
+    .carousel__animal {
+        width: 290px;
+    }
+
+    .carousel__animal img {
+        height: 333px;
+    }
+    .carousel__animal p {
+        width: 82%;
+        margin-bottom: 18px;
+    }
+
+    .meet-pets > .btn {
+        display: block;
+    }
+    .meet-pets {
+        margin-bottom: clamp(97px, calc(97px + (150px - 97px) * var(--coef-1)), 150px);
     }
 }
 
@@ -192,6 +313,7 @@ img {
 
     .quick-donation {
         padding-bottom: 24px;
+        margin-bottom: clamp(100px, calc(100px + (135px - 100px) * var(--coef-3)), 135px);
     }
 
     .quick-donation .container {
@@ -223,6 +345,56 @@ img {
     .donation__btn {
         margin-right: 60px;
         padding-top: 3px;
+    }
+
+    .meet-pets .subheader {
+        width: 74%;
+        max-width: 920px;
+        margin-bottom: 98px;
+    }
+
+    .meet-pets h2 {
+        max-width: 737px;
+        margin-bottom: clamp(30px, calc(30px + (50px - 30px) * var(--coef-3)), 50px);
+        padding-left: clamp(18px, calc(18px + (96px - 18px) * (1 - var(--coef-3))), 96px);
+    }
+
+    .carousel {
+        max-width: 1920px;
+        padding-left: clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px);
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: clamp(48px, calc(48px + (100px - 48px) * var(--coef-3)), 100px);
+    }
+
+    .carousel__animal img {
+        height: 436px;
+    }
+
+    .carousel__animal p {
+        margin-bottom: 25px;
+    }
+
+    .carousel__list {
+        width: 1880px;
+        flex-wrap: wrap;
+        gap: clamp(20px, calc(20px + (40px - 20px) * var(--coef-3)), 40px);
+    }
+
+    .carousel__animal {
+        width: clamp(440px, calc(440px + (455px - 440px) * (1 - var(--coef-3))), 455px);
+        height: clamp(716px, calc(716px + (747px - 716px) * var(--coef-3)), 747px);
+    }
+
+    .carousel__controls {
+        display: flex;
+        justify-content: center;
+        gap: 55px;
+        margin-bottom: clamp(30px, calc(30px + (50px - 30px) * var(--coef-3)), 50px);
+    }
+
+    .carousel__animal img {
+        margin-bottom: clamp(12px, calc(12px + (30px - 12px) * var(--coef-3)), 30px);
     }
 }
 
