@@ -1109,6 +1109,7 @@ p span {
 
     .care-bottom img {
         height: clamp(652px, calc(652px + (668px - 652px) * (1 - var(--coef-3))), 668px);
+        margin-bottom: clamp(0px, calc(0px + (44px - 0px) * (1 - var(--coef-2))), 44px);
     }
 }
 @media (min-width: 1920px) {

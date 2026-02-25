@@ -540,7 +540,7 @@ header .container {
 
 .menu-burger {
     position: relative;
-    width: 22px;
+    width: clamp(22px, calc(22px + (30px - 22px) * var(--coef-1)), 30px);
     height: 2px;
     background-color: var(--color-black);
     gap: 11px;
@@ -755,6 +755,14 @@ footer .logo {
     margin: 0;
 }
 
+footer .btn--transparent-light {
+    text-transform: none;
+}
+
+footer nav {
+    width: 100%;
+}
+
 .logo-designer {
     background: var(--color-white);
     mask-image: url('../images/logo_designer.svg');
@@ -810,15 +818,26 @@ footer .copyrights {
 @media (min-width: 640px) {
     footer {
         height: 545px;
+        padding-top: 47px;
     }
 
     footer .container {
-        gap: 50px;
+        justify-content: flex-start;
+        gap: 46px;
     }
 
     footer .logos {
         flex-direction: row;
         gap: 80px;
+    }
+
+    footer .btn--transparent-light {
+        text-transform: uppercase;
+    }
+
+    footer .nav__list {
+        justify-content: center;
+        gap: 55px;
     }
 
     footer .nav__list a {
@@ -838,23 +857,25 @@ footer .copyrights {
 @media (min-width: 1200px) {
     footer {
         height: 329px;
+        padding-top: 70px;
     }
 
     footer .container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
-        align-content: center;
-        gap: 35px;
+        align-content: flex-start;
+        gap: 0;
     }
 
     footer nav {
+        width: auto;
         flex-grow: 1;
     }
 
     footer .nav__list {
         gap: 20px;
-        justify-content: end;
+        justify-content: center;
     }
 
     footer .logos {
@@ -863,6 +884,12 @@ footer .copyrights {
 
     footer .social__list {
         order: 3;
+        gap: 39px;
+    }
+
+    .divider {
+        margin-top: 68px;
+        margin-bottom: 38px;
     }
 }
 
