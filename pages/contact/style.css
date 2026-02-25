@@ -1,0 +1,95 @@
+.container {
+    margin-bottom: 80px;
+}
+
+img {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    height: clamp(217px, calc(217px + (434px - 217px) * var(--coef-1)), 434px);
+    margin-bottom: clamp(28px, calc(28px + (47px - 28px) * var(--coef-1)), 47px);
+}
+
+h2 {
+    margin-bottom: 18px;
+}
+
+.form {
+    padding-top: clamp(41px, calc(41px + (50px - 41px) * var(--coef-1)), 50px);
+    gap: 29px;
+}
+
+.btn--turquoise {
+    width: clamp(290px, calc(290px + (300px - 290px) * (1 - var(--coef-1))), 300px);
+    align-self: center;
+    margin-top: clamp(0px, calc(0px + (24px - 0px) * var(--coef-1)), 24px);
+}
+
+@media (min-width: 640px) {
+    .container {
+        margin-bottom: clamp(80px, calc(80px + (100px - 80px) * var(--coef-2)), 100px);
+    }
+    img {
+        height: clamp(434px, calc(434px + (815px - 434px) * var(--coef-2)), 815px);
+    }
+    .form {
+        max-width: 740px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    p {
+        max-width: 909px;
+        padding-left: clamp(0px, calc(0px + (73px - 0px) * var(--coef-2)), 73px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h2 {
+        margin-bottom: clamp(18px, calc(18px + (32px - 18px) * var(--coef-2)), 32px);
+    }
+    .btn--turquoise {
+        width: clamp(290px, calc(290px + (360px - 290px) * var(--coef-2)), 360px);
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        margin-bottom: clamp(100px, calc(100px + (150px - 100px) * var(--coef-3)), 150px);
+    }
+    .btn--turquoise {
+        align-self: flex-start;
+        margin-top: clamp(24px, calc(24px + (40px - 24px) * var(--coef-3)), 40px);
+    }
+
+    img {
+        margin-bottom: clamp(47px, calc(47px + (100px - 47px) * var(--coef-3)), 100px);
+    }
+
+    h2 {
+        margin-bottom: clamp(32px, calc(32px + (50px - 32px) * var(--coef-3)), 50px);
+    }
+}
+@media (min-width: 1920px) {
+    img {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container {
+        display: flex;
+        gap: 175px;
+    }
+    .form {
+        width: 680px;
+        margin: 0;
+    }
+    .description {
+        margin-top: 50px;
+    }
+
+    .description p,
+    .description h2 {
+        max-width: 545px;
+        text-align: left;
+        padding-left: 0;
+    }
+}

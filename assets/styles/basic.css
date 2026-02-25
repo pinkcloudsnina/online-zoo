@@ -231,7 +231,8 @@ img {
 .btn--turquoise {
     background-color: var(--color-turquois);
     color: var(--color-white);
-    width: 35.9rem;
+    padding-top: clamp(12px, calc(12px + (25px - 12px) * var(--coef-1)), 25px);
+    padding-bottom: clamp(12px, calc(12px + (25px - 12px) * var(--coef-1)), 25px);
 }
 
 .btn--turquoise:hover,
@@ -910,4 +911,69 @@ footer .copyrights {
     footer .divider {
         transform: none;
     }
+}
+
+/*FORM*/
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__input,
+.form__textarea {
+    font-family: 'Montserrat';
+    font-size: 18px;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, calc(5px + (10px - 5px) * var(--coef-1)), 10px);
+}
+
+.form__label {
+    font-size: 18px;
+}
+
+.form__label span {
+    color: var(--color-turquois);
+    line-height: 150%;
+    margin-right: 4px;
+}
+
+.form__input {
+    height: clamp(51px, calc(51px + (60px - 51px) * var(--coef-1)), 60px);
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+}
+
+.form__textarea {
+    padding: clamp(15px, calc(15px + (24px - 15px) * var(--coef-1)), 24px) 10px;
+    height: 200px;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+    color: #969696;
+    font-size: 18px;
+    padding-left: clamp(8px, calc(8px + (19px - 8px) * var(--coef-1)), 19px);
+    font-family: 'Montserrat';
+    font-weight: 400;
+}
+
+.form__textarea::placeholder {
+    padding-left: clamp(0px, calc(0px + (9px - 0px) * var(--coef-1)), 9px);
+}
+
+.form .btn {
+    text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1920px) {
 }
