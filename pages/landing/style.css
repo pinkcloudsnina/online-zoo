@@ -924,3 +924,179 @@ p span {
         margin-top: 278px;
     }
 }
+
+/*CARE*/
+.care__container {
+    max-width: 300px;
+    overflow-x: hidden;
+    margin: 0 auto;
+}
+
+.care__list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.care__element {
+    width: 100%;
+    max-width: 300px;
+    height: 570px;
+    flex-shrink: 0;
+    background-color: var(--color-navy);
+    border-radius: 5px;
+}
+
+.care__element:first-child {
+    display: none;
+}
+
+.care__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 27px 20px;
+    gap: 15px;
+}
+
+.care__element img {
+    width: 100%;
+    height: 355px;
+    object-fit: cover;
+    margin-bottom: 0;
+}
+
+.care .control {
+    border-color: var(--color-navy);
+}
+
+.care .control.active {
+    background-color: var(--color-navy);
+}
+
+.care .controls--circle {
+    display: flex;
+    margin-top: clamp(30px, calc(30px + (51px - 30px) * var(--coef-1)), 51px);
+    margin-bottom: clamp(32px, calc(32px + (51px - 32px) * (1 - var(--coef-1))), 51px);
+}
+
+@media (min-width: 640px) {
+    .care {
+        padding-top: clamp(0px, calc(0px + (71px - 0px) * var(--coef-2)), 71px);
+    }
+    .care h2 {
+        max-width: 655px;
+        padding-left: clamp(0px, calc(0px + (36px - 0px) * var(--coef-2)), 36px);
+    }
+    .care .container > p {
+        max-width: 655px;
+        padding-left: clamp(0px, calc(0px + (115px - 0px) * var(--coef-2)), 115px);
+        margin-bottom: clamp(45px, calc(45px + (50px - 45px) * (1 - var(--coef-2))), 50px);
+    }
+    .care__container {
+        max-width: 600px;
+        padding-top: clamp(0px, calc(0px + (16px - 0px) * (1 - var(--coef-2))), 16px);
+        padding-bottom: clamp(0px, calc(0px + (16px - 0px) * (1 - var(--coef-2))), 16px);
+    }
+    .care__element {
+        max-width: 600px;
+        height: 297px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-content: stretch;
+    }
+    .care__description {
+        justify-content: center;
+        padding-top: 55px;
+    }
+    .care__element img {
+        height: 297px;
+    }
+
+    .care .controls--circle {
+        display: flex;
+    }
+}
+@media (min-width: 1200px) {
+    .care {
+        padding-top: clamp(60px, calc(60px + (71px - 60px) * (1 - var(--coef-3))), 71px);
+    }
+    .care__container {
+        max-width: 930px;
+        margin-bottom: 95px;
+    }
+    .care h2 {
+        padding-left: clamp(0px, calc(0px + (36px - 0px) * (1 - var(--coef-3))), 36px);
+        margin-bottom: clamp(29px, calc(29px + (45px - 29px) * var(--coef-3)), 45px);
+    }
+
+    .care .container > p {
+        max-width: 537px;
+        padding-left: clamp(0px, calc(0px + (115px - 0px) * (1 - var(--coef-3))), 115px);
+        margin-bottom: clamp(45px, calc(45px + (100px - 45px) * var(--coef-3)), 100px);
+    }
+
+    .care__list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 470px;
+        grid-auto-rows: 641px;
+        grid-gap: 20px;
+    }
+
+    .care__element {
+        max-width: none;
+        height: 100%;
+    }
+
+    .care__element {
+        grid-template-columns: 1fr;
+        grid-template-rows: 373px auto;
+    }
+
+    .care__element img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .care__description {
+        padding-top: 25px;
+        gap: 40px;
+        justify-content: flex-start;
+    }
+    .care .container .care__description p {
+        padding-left: 0;
+        max-width: 369px;
+        height: 81px;
+        overflow: hidden;
+    }
+
+    .care__element:first-child {
+        display: block;
+        grid-column: span 2;
+        place-self: stretch stretch;
+    }
+
+    .care .controls--circle {
+        display: none;
+    }
+}
+@media (min-width: 1920px) {
+    .care__container {
+        max-width: none;
+    }
+    .care__element:first-child img {
+        transform: scalex(-1);
+    }
+
+    .care__list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        grid-template-rows: 658px;
+        grid-auto-rows: 658px;
+    }
+    .care__description {
+        gap: 50px;
+    }
+}
