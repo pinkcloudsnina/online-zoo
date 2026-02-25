@@ -980,6 +980,15 @@ p span {
     margin-bottom: clamp(32px, calc(32px + (51px - 32px) * (1 - var(--coef-1))), 51px);
 }
 
+.care-bottom {
+    margin-top: clamp(81px, calc(81px + (99px - 81px) * var(--coef-1)), 99px);
+}
+.care-bottom img {
+    margin-bottom: clamp(0px, calc(0px + (28px - 0px) * (1 - var(--coef-1))), 28px);
+    height: clamp(189px, calc(189px + (379px - 189px) * var(--coef-1)), 379px);
+    border-radius: 0;
+}
+
 @media (min-width: 640px) {
     .care {
         padding-top: clamp(0px, calc(0px + (71px - 0px) * var(--coef-2)), 71px);
@@ -1016,7 +1025,17 @@ p span {
     .care .controls--circle {
         display: flex;
     }
+
+    .care-bottom {
+        margin-top: clamp(99px, calc(99px + (151px - 99px) * var(--coef-2)), 151px);
+    }
+
+    .care-bottom img {
+        margin-bottom: clamp(0px, calc(0px + (44px - 0px) * var(--coef-2)), 44px);
+        height: clamp(379px, calc(379px + (668px - 379px) * var(--coef-2)), 668px);
+    }
 }
+
 @media (min-width: 1200px) {
     .care {
         padding-top: clamp(60px, calc(60px + (71px - 60px) * (1 - var(--coef-3))), 71px);
@@ -1031,7 +1050,7 @@ p span {
     }
 
     .care .container > p {
-        max-width: 537px;
+        max-width: 615px;
         padding-left: clamp(0px, calc(0px + (115px - 0px) * (1 - var(--coef-3))), 115px);
         margin-bottom: clamp(45px, calc(45px + (100px - 45px) * var(--coef-3)), 100px);
     }
@@ -1080,6 +1099,16 @@ p span {
 
     .care .controls--circle {
         display: none;
+    }
+
+    .care-bottom {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .care-bottom img {
+        height: clamp(652px, calc(652px + (668px - 652px) * (1 - var(--coef-3))), 668px);
     }
 }
 @media (min-width: 1920px) {
