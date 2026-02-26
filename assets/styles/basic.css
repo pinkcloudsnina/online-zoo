@@ -296,7 +296,6 @@ img {
 
 .btn--transparent-orange .btn__text {
     color: var(--color-orange);
-    font-size: 18px;
     font-weight: 500;
 }
 
