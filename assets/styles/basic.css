@@ -158,6 +158,12 @@ img {
     object-fit: cover;
 }
 
+.player img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 @media (min-width: 640px) {
     h1 {
         font-size: clamp(72px, calc(72px + (82px - 72px) * var(--coef-2)), 82px);
@@ -197,7 +203,9 @@ img {
     padding-top: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
     padding-bottom: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
     line-height: 150%;
-    transition: background-color 0.5s;
+    transition:
+        background-color 0.5s,
+        box-shadow 0.5s;
 }
 
 .btn:hover {
@@ -465,6 +473,9 @@ img {
 
 /*BADGE*/
 .badge {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     font-family: 'Montserrat';
     font-weight: 500;
@@ -508,7 +519,7 @@ img {
         padding: 4px 12px;
         padding-right: clamp(12px, calc(12px + (40px - 12px) * var(--coef-2)), 40px);
         font-size: clamp(10.6px, calc(10.6px + (26px - 10.6px) * var(--coef-2)), 26px);
-        gap: 10px;
+        gap: 3px;
     }
 
     .badge.badge--transparent::after {

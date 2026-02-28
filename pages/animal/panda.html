@@ -21,11 +21,13 @@
 
         <nav>
           <ul class="nav__list">
-            <li><a href="#">about</a></li>
-            <li><a href="#">map</a></li>
-            <li><a href="#">zoos</a></li>
-            <li><a href="#">contact us</a></li>
-            <li><a href="#">design</a></li>
+            <li><a href="../landing/index.html">about</a></li>
+            <li><a href="../map/map.html">map</a></li>
+            <li class="active"><a href="#">zoos</a></li>
+            <li><a href="../contact/contact.html">contact us</a></li>
+            <li><a href="https://www.figma.com/file/lnK11foY8Aoa6oOlDXovVN/Online-ZOO-Project?node-id=0%3A1"
+                target="_blank">design</a>
+            </li>
           </ul>
         </nav>
 
@@ -39,7 +41,7 @@
 
     </header>
     <main>
-      <aside class="closed">
+      <aside>
         <ul class="side-navigation ">
           <li class="toggle-btn">
             <div class="badge">live</div><svg class="btn__icon" width="18" height="17" viewBox="0 0 18 17" fill="none"
@@ -76,37 +78,49 @@
           <li class="down"><span class="btn__icon"></span></li>
         </ul>
       </aside>
-      <section class="cams">
-        <div class="container">
-          <h2>live panda cams</h2>
-          <div class="player">
+      <section class="player-container">
+        <h1>live panda cams</h1>
+        <div class="btn btn--orange"><span class="btn__text">donate now</span></div>
+        <div class="player">
+          <a href="https://www.youtube.com/watch?v=3szkFHfr6sA" target="_blank">
+            <img src="../../assets/images/animals/panda/cam-main.jpg" alt="panda">
             <div class="title">Lucas, the Giant Panda cam 1</div>
             <div class="logo"></div>
             <div class="play-btn"></div>
-          </div>
-
-          <div class="more-views">
-            <h3 class="header--black">More live views</h3>
-            <div class="views__carousel">
-              <div class="controls">
-                <div class="prev"></div>
-              </div>
-              <div class="view__list">
-                <div class="view__element active">
-                  <div class="badge badge--transparent">cam 1</div>
-                  <div class="play-btn"></div>
-                </div>
-                <div class="view__element"></div>
-                <div class="view__element"></div>
-              </div>
-              <div class="controls">
-                <div class="next"></div>
-              </div>
-            </div>
-
-          </div>
-          <div class="btn btn--orange"><span class="btn__text">donate now</span></div>
+          </a>
         </div>
+      </section>
+      <section class="cams">
+
+        <h3 class="header--black">More live views</h3>
+        <div class="views__carousel">
+          <div class="controls">
+            <div class="prev"></div>
+          </div>
+          <div class="view__list">
+            <div class="view__element active">
+              <img src="../../assets/images/animals/panda/cam-1.jpg" alt="panda">
+              <div class="badge badge--transparent">cam 1</div>
+              <div class="play-btn"></div>
+            </div>
+            <div class="view__element">
+              <img src="../../assets/images/animals/panda/cam-2.jpg" alt="panda">
+              <div class="badge badge--transparent">cam 2</div>
+              <div class="play-btn"></div>
+            </div>
+            <div class="view__element">
+              <img src="../../assets/images/animals/panda/cam-3.jpg" alt="panda">
+              <div class="badge badge--transparent">cam 2</div>
+              <div class="play-btn"></div>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="next"></div>
+          </div>
+        </div>
+
+        <div class="btn btn--orange"><span class="btn__text">donate now</span></div>
+
       </section>
       <section class="quick-donation">
         <div class="container">
@@ -138,7 +152,7 @@
           </div>
         </div>
         <div class="animal-info">
-          <img src="../../assets/images/animal-about-1.png" alt="little panda on a tree">
+          <img src="../../assets/images/animals/panda/about.png" alt="little panda on a tree">
           <div class="animal-profile">
             <ul>
               <li><strong>Common name:</strong>Giant Panda
@@ -175,26 +189,28 @@
     <footer>
       <div class="container">
         <div class="logos">
-          <a href="#" class="logo"></a>
-          <a href="#" class="logo-designer"></a>
-          <a href="#" class="logo-school"></a>
+          <a href="https://github.com/rolling-scopes-school/qualifying-stage/blob/main/tasks/online-zoo/online-zoo-layout.md"
+            class="logo"></a>
+          <a href="https://www.figma.com/file/lnK11foY8Aoa6oOlDXovVN/Online-ZOO-Project?node-id=0%3A1"
+            class="logo-designer"></a>
+          <a href="https://rs.school/" class="logo-school"></a>
         </div>
 
         <nav>
           <ul class="nav__list">
-            <li><a href="#">about</a></li>
-            <li><a href="#">map</a></li>
-            <li><a href="#">zoos</a></li>
-            <li><a href="#">contact us</a></li>
+            <li><a href="../landing/index.html">about</a></li>
+            <li><a href="../map/map.html">map</a></li>
+            <li class="active"><a href="../animal/panda.html">zoos</a></li>
+            <li><a href="../contact/contact.html">contact us</a></li>
           </ul>
         </nav>
 
         <div class="btn btn--transparent-light"><span class="btn__text">Donate for volunteers</span></div>
 
         <ul class="social__list">
-          <li class="social-youtube"><a href="#"></a></li>
-          <li class="social-instagram"><a href="#"></a></li>
-          <li class="social-fb"><a href="#"></a></li>
+          <li class="social-youtube"><a href="https://www.youtube.com/c/RSschool" target="_blank"></a></li>
+          <li class="social-instagram"><a href="https://www.instagram.com/rsschool_en/?hl=en" target="_blank"></a></li>
+          <li class="social-fb"><a href="https://www.facebook.com/rsschoolEN/" target="_blank"></a></li>
         </ul>
 
         <div class="divider"></div>
@@ -209,5 +225,6 @@
 
     </footer>
   </body>
+  <script src="../animal/script.js"></script>
 
 </html>
