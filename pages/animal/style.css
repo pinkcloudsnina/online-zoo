@@ -110,6 +110,7 @@ section {
     border-radius: 5px;
     background-color: grey;
     flex-shrink: 0;
+    transition: border 0.2s;
 }
 
 .view__element.active,
