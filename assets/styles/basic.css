@@ -197,6 +197,7 @@ img {
     padding-top: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
     padding-bottom: clamp(8px, calc(8px + (25px - 8px) * var(--coef-1)), 25px);
     line-height: 150%;
+    transition: background-color 0.5s;
 }
 
 .btn:hover {
@@ -617,9 +618,11 @@ header .nav__list {
     line-height: 150%;
     font-size: 18px;
     color: var(--color-white);
+    transition: color 0.5s;
 }
 
-.nav__list a:hover {
+.nav__list a:hover,
+.nav__list .active a {
     color: var(--color-turquois);
 }
 
@@ -637,6 +640,14 @@ header .nav__list {
     display: block;
     width: 40px;
     height: 40px;
+}
+
+.social__list li {
+    transition: transform 0.5s;
+}
+
+.social__list li:hover {
+    transform: scale(1.1);
 }
 
 .social-youtube {
@@ -792,6 +803,7 @@ footer nav {
 footer .nav__list {
     flex-direction: row;
     gap: 15px;
+    justify-content: center;
 }
 
 footer .nav__list a {
