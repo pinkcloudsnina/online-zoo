@@ -163,6 +163,10 @@ section {
         height: clamp(402px, calc(402px + (760px - 402px) * var(--coef-2)), 760px);
     }
 
+    .player img {
+        object-position: 0 bottom;
+    }
+
     .player .play-btn {
         width: 38px;
         height: 26px;
