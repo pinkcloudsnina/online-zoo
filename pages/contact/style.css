@@ -1,5 +1,9 @@
 .container {
-    margin-bottom: 80px;
+    margin-bottom: clamp(80px, calc(80px + (104px - 80px) * var(--coef-1)), 104px);
+}
+
+footer .container {
+    margin-bottom: 0;
 }
 
 img {
@@ -8,10 +12,23 @@ img {
     border-radius: 0;
     height: clamp(217px, calc(217px + (434px - 217px) * var(--coef-1)), 434px);
     margin-bottom: clamp(28px, calc(28px + (47px - 28px) * var(--coef-1)), 47px);
+    object-position: -15px 0px;
 }
 
-h2 {
+h1 {
+    font-size: clamp(26px, calc(26px + (54px - 26px) * var(--coef-1)), 54px);
+    line-height: 120%;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color: var(--color-turquois);
+    text-transform: uppercase;
     margin-bottom: 18px;
+}
+
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .form {
@@ -26,11 +43,9 @@ h2 {
 }
 
 @media (min-width: 640px) {
-    .container {
-        margin-bottom: clamp(80px, calc(80px + (100px - 80px) * var(--coef-2)), 100px);
-    }
     img {
         height: clamp(434px, calc(434px + (815px - 434px) * var(--coef-2)), 815px);
+        object-position: -30px 0px;
     }
     .form {
         max-width: 740px;
@@ -44,8 +59,9 @@ h2 {
         margin-left: auto;
         margin-right: auto;
     }
-    h2 {
+    h1 {
         margin-bottom: clamp(18px, calc(18px + (32px - 18px) * var(--coef-2)), 32px);
+        font-weight: 600;
     }
     .btn--turquoise {
         width: clamp(290px, calc(290px + (360px - 290px) * var(--coef-2)), 360px);
@@ -62,9 +78,10 @@ h2 {
 
     img {
         margin-bottom: clamp(47px, calc(47px + (100px - 47px) * var(--coef-3)), 100px);
+        object-position: 0px 0px;
     }
 
-    h2 {
+    h1 {
         margin-bottom: clamp(32px, calc(32px + (50px - 32px) * var(--coef-3)), 50px);
     }
 }
@@ -87,7 +104,7 @@ h2 {
     }
 
     .description p,
-    .description h2 {
+    .description h1 {
         max-width: 545px;
         text-align: left;
         padding-left: 0;
