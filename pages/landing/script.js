@@ -9,6 +9,11 @@ let currentContent = 0;
 
 popupBtns.forEach((btn) => btn.addEventListener('click', showPopup));
 
+popupQuickBtn.addEventListener('click', () => {
+    currentContent = 1;
+    showPopup();
+});
+
 donationBtns.forEach((btn) => btn.addEventListener('click', nextContent));
 
 closeBtn.addEventListener('click', closePopup);
