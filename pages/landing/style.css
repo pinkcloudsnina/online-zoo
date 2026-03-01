@@ -975,7 +975,6 @@ p span {
 
 .care__element:hover {
     cursor: pointer;
-    box-shadow: 0 4px 30px var(--color-orange-dark-shadow);
 }
 
 .care__description .btn {
