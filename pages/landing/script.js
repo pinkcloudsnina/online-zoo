@@ -1,4 +1,5 @@
 const popupBtns = document.querySelectorAll('.popup-btn');
+const popupQuickBtn = document.querySelector('.popup-btn-quick');
 const popup = document.querySelector('.popup');
 const closeBtn = document.querySelector('.popup__close');
 const overlay = document.querySelector('.overlay');

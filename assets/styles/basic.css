@@ -562,6 +562,12 @@ header .container {
 
 .menu-toggle {
     margin-right: 25px;
+    width: 30px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .menu-burger {
@@ -588,6 +594,16 @@ header .container {
     transform: translateY(14px);
 }
 
+.navigation {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+}
+
+.navigation.is-open {
+    max-height: 500px;
+}
+
 header nav {
     position: absolute;
     width: 233px;
@@ -602,18 +618,18 @@ header nav {
     z-index: 2;
 }
 
-.menu--opened .menu-burger {
+.menu-toggle-x .menu-burger {
     width: 40px;
     background-color: var(--color-white);
     transform: rotate(45deg);
 }
 
-.menu--opened .menu-burger::before {
+.menu-toggle-x .menu-burger::before {
     background-color: var(--color-white);
     transform: rotate(-90deg);
 }
 
-.menu--opened .menu-burger::after {
+.menu-toggle-x .menu-burger::after {
     display: none;
 }
 
@@ -640,10 +656,6 @@ header .nav__list {
 .nav__list a:hover,
 .nav__list .active a {
     color: var(--color-turquois);
-}
-
-.menu--closed + nav {
-    display: none;
 }
 
 .social__list {
@@ -703,6 +715,10 @@ header .social__list {
     }
 }
 @media (min-width: 1200px) {
+    .navigation {
+        display: block;
+        max-height: none;
+    }
     header .container {
         gap: 0px;
     }

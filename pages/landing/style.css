@@ -76,16 +76,16 @@ p span {
     z-index: -1;
 }
 
+.hero-bg img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 98% 2px;
+}
+
 .hero p {
     margin-bottom: clamp(25px, calc(25px + (30px - 25px) * (1 - var(--coef-1))), 30px);
     width: 100%;
     max-width: 340px;
-}
-
-@media (min-width: 340px) {
-    .hero-bg {
-        background-image: url('../../assets/images/hero-640.png');
-    }
 }
 
 @media (min-width: 640px) {
@@ -100,8 +100,6 @@ p span {
 
     .hero-bg {
         height: clamp(387px, calc(387px + (690px - 387px) * var(--coef-2)), 690px);
-        background-image: url('../../assets/images/hero-640.png');
-        background-size: 100% 100%;
     }
 }
 
@@ -113,9 +111,6 @@ p span {
 
     .hero-bg {
         height: 100%;
-        background-image: url('../../assets/images/hero-1200.png');
-        background-position-y: -34px;
-        background-size: 100% auto;
     }
 
     .hero p {
@@ -130,12 +125,15 @@ p span {
         height: 790px;
         padding-top: 129px;
     }
-
     .hero-bg {
-        background-image: url('../../assets/images/hero-1920.png');
-        background-position-x: -10px;
-        background-position-y: -49px;
-        background-size: 97%;
+        overflow: hidden;
+    }
+
+    .hero-bg img {
+        overflow: hidden;
+        object-fit: contain;
+        transform: scale(1.5);
+        object-position: bottom;
     }
 
     .hero p {
@@ -370,6 +368,8 @@ p span {
 
 .carousel__animal img {
     margin-bottom: 12px;
+    height: 333px;
+    object-fit: cover;
 }
 
 .animal-name {
@@ -469,6 +469,7 @@ p span {
 
     .carousel__animal p {
         margin-bottom: 25px;
+        min-height: 85px;
     }
 
     .carousel__list {
@@ -711,6 +712,9 @@ p span {
     padding-top: clamp(42px, calc(42px + (109px - 42px) * var(--coef-1)), 109px);
     padding-bottom: 450px;
     margin-bottom: clamp(50px, calc(50px + (77px - 50px) * var(--coef-1)), 77px);
+    background: var(--color-navy) url(../../assets/images/testimonials-bg.jpg) no-repeat center;
+    background-size: 170%;
+    background-position: 0% bottom;
 }
 
 .testimonials__container {
@@ -809,6 +813,8 @@ p span {
         background-color: var(--color-navy);
         padding-top: clamp(109px, calc(109px + (148px - 109px) * var(--coef-2)), 148px);
         padding-bottom: 752px;
+        background-size: 225%;
+        background-position: -4% 516px;
     }
 
     .testimonials__container {
@@ -870,6 +876,8 @@ p span {
 @media (min-width: 1200px) {
     .testimonials {
         padding-bottom: 150px;
+        background-size: 181%;
+        background-position: -3% 165px;
     }
     .testimonials h2 {
         width: clamp(30%, calc(30% + (40% - 30%) * (1 - var(--coef-3))), 40%);
@@ -913,6 +921,10 @@ p span {
 }
 
 @media (min-width: 1920px) {
+    .testimonials {
+        background-size: 100%;
+        background-position: -3% 77px;
+    }
     .testimonials__container {
         margin-top: -303px;
     }
@@ -946,6 +958,7 @@ p span {
     flex-shrink: 0;
     background-color: var(--color-navy);
     border-radius: 5px;
+    transition: box-shadow 0.5s;
 }
 
 .care__element:first-child {
@@ -958,6 +971,15 @@ p span {
     align-items: center;
     padding: 12px 27px 20px;
     gap: 15px;
+}
+
+.care__element:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 30px var(--color-orange-dark-shadow);
+}
+
+.care__description .btn {
+    width: 142px;
 }
 
 .care__element img {
@@ -988,11 +1010,13 @@ p span {
     margin-bottom: clamp(0px, calc(0px + (28px - 0px) * (1 - var(--coef-1))), 28px);
     height: clamp(189px, calc(189px + (379px - 189px) * var(--coef-1)), 379px);
     border-radius: 0;
+    object-position: 5%;
 }
 
 @media (min-width: 640px) {
     .care {
         padding-top: clamp(0px, calc(0px + (71px - 0px) * var(--coef-2)), 71px);
+        margin-bottom: clamp(100px, calc(100px + (150px - 100px) * var(--coef-2)), 150px);
     }
     .care h2 {
         max-width: 655px;
