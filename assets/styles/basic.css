@@ -1426,6 +1426,12 @@ label.checkbox {
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: transform 0.5s;
+    }
+
+    .popup__close:hover {
+        transform: scale(1.2);
+        cursor: pointer;
     }
 
     .popup__content > div.active {
