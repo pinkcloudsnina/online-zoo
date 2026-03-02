@@ -94,3 +94,34 @@ completeBtn.addEventListener('click', () => {
     content.forEach((el) => el.classList.remove('active'));
     closePopup();
 });
+
+//Carousel
+
+const prevBtn = document.querySelector('.meet-pets .prev');
+const nextBtn = document.querySelector('.meet-pets .next');
+const carousel = document.querySelector('.carousel__list');
+const card = carousel.querySelector('.carousel__animal');
+
+let currentOffset = 0;
+
+function spinCarousel(direction = 1) {
+    const step = parseFloat(card.offsetWidth) + parseFloat(getComputedStyle(carousel).columnGap);
+    const visibleWidth = carousel.parentElement.offsetWidth;
+    const fullWidth = carousel.scrollWidth;
+    const maxOffset = fullWidth - visibleWidth;
+
+    currentOffset += direction * step;
+    if (currentOffset < 0) {
+        currentOffset = 0;
+    }
+
+    if (currentOffset > maxOffset) {
+        currentOffset = maxOffset;
+    }
+    console.log(currentOffset);
+
+    carousel.style.transform = `translateX(${-currentOffset}px)`;
+}
+
+prevBtn.addEventListener('click', () => spinCarousel(1));
+nextBtn.addEventListener('click', () => spinCarousel(-1));

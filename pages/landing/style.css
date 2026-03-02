@@ -355,6 +355,7 @@ p span {
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 20px;
+    transition: transform 0.5s;
 }
 
 .carousel__animal {
@@ -457,10 +458,10 @@ p span {
 
     .carousel {
         max-width: 1920px;
-        padding-left: clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px);
-        margin-left: 0;
+        margin-left: clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px);
         margin-right: 0;
         margin-bottom: clamp(48px, calc(48px + (100px - 48px) * var(--coef-3)), 100px);
+        overflow: hidden;
     }
 
     .carousel__animal img {
