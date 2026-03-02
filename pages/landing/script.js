@@ -123,5 +123,5 @@ function spinCarousel(direction = 1) {
     carousel.style.transform = `translateX(${-currentOffset}px)`;
 }
 
-prevBtn.addEventListener('click', () => spinCarousel(1));
-nextBtn.addEventListener('click', () => spinCarousel(-1));
+prevBtn.addEventListener('click', () => spinCarousel(-1));
+nextBtn.addEventListener('click', () => spinCarousel(1));
