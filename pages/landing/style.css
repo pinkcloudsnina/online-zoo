@@ -457,7 +457,8 @@ p span {
     }
 
     .carousel {
-        max-width: 1920px;
+        max-width: none;
+        width: clamp(1160px, calc(1160px + (1660px - 1160px) * var(--coef-3)), 1660px);
         margin-left: clamp(40px, calc(40px + (260px - 40px) * var(--coef-3)), 260px);
         margin-right: 0;
         margin-bottom: clamp(48px, calc(48px + (100px - 48px) * var(--coef-3)), 100px);
