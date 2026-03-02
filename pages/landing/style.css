@@ -966,6 +966,7 @@ p span {
 
 .care__element:first-child {
     display: none;
+    cursor: default;
 }
 
 .care__description {
@@ -978,6 +979,9 @@ p span {
 
 .care__element:hover {
     cursor: pointer;
+}
+.care__element:first-child {
+    cursor: default;
 }
 
 .care__description .btn {
