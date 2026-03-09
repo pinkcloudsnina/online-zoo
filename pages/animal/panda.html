@@ -7,6 +7,9 @@
     <link rel="shortcut icon" href="../../assets/icons/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/styles/basic.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <title>Online ZOO - Panda</title>
   </head>
 
@@ -174,9 +177,8 @@
               <li><strong>Range:</strong>Eastern Asia
               </li>
             </ul>
-            <a href="../map/map.html">
-              <div class="btn btn--transparent-orange"><span class="btn__text">view map</span> </div>
-            </a>
+
+            <div class="btn btn--transparent-orange"><span class="btn__text">view map</span> </div>
           </div>
           <p>Giant pandas are very unusual animals that eat almost exclusively bamboo, which is very low in nutrients.
             Because of this, they have many unique adaptations for their low-energy lifestyle. Giant pandas are
@@ -230,8 +232,23 @@
       </div>
 
     </footer>
+
+    <div class="popup">
+      <div class="overlay"></div>
+
+      <div class="popup__window">
+        <div class="popup__close">
+          <div class="cross"></div>
+        </div>
+
+        <div class="popup__content">
+        </div>
+
+      </div>
+    </div>
+
     <script type="module" src="../../dist/index.js"></script>
-    <script src="../animal/script.js"></script>
+    <script type="module" src="../../dist/pages/animal.js"></script>
   </body>
 
 </html>

@@ -1040,10 +1040,10 @@ footer .copyrights {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 100;
 }
 
-.popup.shown {
+.popup.popup-open {
     opacity: 1;
     visibility: visible;
     transition:
@@ -1059,13 +1059,59 @@ footer .copyrights {
     z-index: 0;
 }
 
-.popup__content {
-    padding-bottom: 40px;
+.popup__window {
+    width: 300px;
+    padding: 20px 20px 40px;
     z-index: 10;
     background-color: var(--color-white);
     border-radius: 5px;
     box-shadow: 0 4px 50px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
 }
+
+.popup__close {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s;
+    justify-self: end;
+}
+
+.popup__close:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.cross {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    transform: rotate(-90deg);
+}
+
+.cross,
+.cross::after {
+    width: 42px;
+    height: 3px;
+    transform-origin: center;
+    border-radius: 3px;
+    background-color: var(--color-white);
+}
+
+/*
 
 .popup__content > div {
     display: grid;
@@ -1416,52 +1462,52 @@ label.checkbox {
     color: #a4a8ae;
 }
 
+.popup__close {
+    position: absolute;
+    right: 31px;
+    top: 31px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s;
+}
+
+.popup__close:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.cross {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    transform: rotate(-90deg);
+}
+
+.cross,
+.cross::after {
+    width: 42px;
+    height: 3px;
+    transform-origin: center;
+    border-radius: 3px;
+    background-color: var(--color-white);
+}
+
 @media (min-width: 640px) {
-    .popup__close {
-        position: absolute;
-        right: 31px;
-        top: 31px;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.5s;
-    }
-
-    .popup__close:hover {
-        transform: scale(1.2);
-        cursor: pointer;
-    }
-
     .popup__content > div.active {
         width: clamp(600px, calc(600px + (920px - 600px) * var(--coef-2)), 920px);
         grid-template-columns: repeat(8, 1fr);
         gap: 10px;
-    }
-
-    .cross {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-    }
-
-    .cross::after {
-        position: absolute;
-        left: 0;
-        top: 0;
-        content: '';
-        transform: rotate(-90deg);
-    }
-
-    .cross,
-    .cross::after {
-        width: 42px;
-        height: 3px;
-        transform-origin: center;
-        border-radius: 3px;
-        background-color: var(--color-white);
     }
 
     .popup__content > .content-0.active {
@@ -1814,3 +1860,4 @@ label.checkbox {
         max-width: 570px;
     }
 }
+*/

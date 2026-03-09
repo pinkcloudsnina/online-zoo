@@ -10,12 +10,16 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
+        "@types/leaflet": "^1.9.21",
         "@typescript-eslint/eslint-plugin": "^8.56.1",
         "@typescript-eslint/parser": "^8.56.1",
         "eslint": "^10.0.2",
         "globals": "^17.4.0",
-        "live-server": "^1.2.2",
+        "live-server": "^1.2.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.56.1"
+    },
+    "dependencies": {
+        "leaflet": "^1.9.4"
     }
 }
