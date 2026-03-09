@@ -1,18 +1,16 @@
-import {getAnimalInfo} from '../utils/api.js';
 import {Animal} from '../types/Animal.js';
 import {parseCoordinate} from '../utils/coordinates.js';
 import {renderMap} from '../components/map.js';
 import {openPopup} from '../components/popup.js';
 
-export async function openAnimalMap(id: number): Promise<void> {
-    const animal: Animal | null = await getAnimalInfo(id);
-    if (!animal) {
+export function openAnimalMap(currAnimal: Animal): void {
+    if (!currAnimal) {
         console.error('Animal not found');
         return;
     }
 
-    const lat = parseCoordinate(animal.latitude);
-    const lng = parseCoordinate(animal.longitude);
+    const lat = parseCoordinate(currAnimal.latitude);
+    const lng = parseCoordinate(currAnimal.longitude);
 
     if (isNaN(lat) || isNaN(lng)) {
         console.error('Invalid coordinates');

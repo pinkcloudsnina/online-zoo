@@ -6,7 +6,7 @@ export function renderSidebar(cameras: Camera[]): void {
     if (!aside || cameras.length === 0) return;
 
     aside.innerHTML = '';
-    aside.append(createSidebar(cameras));
+    aside?.append(createSidebar(cameras));
 }
 
 function createSidebar(cameras: Camera[]): HTMLElement {

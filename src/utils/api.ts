@@ -8,6 +8,7 @@ export async function getAnimalInfo(id: number): Promise<Animal | null> {
         const response = await fetch(`${server}/pets/${id}`);
 
         const json = await response.json();
+
         return json.data as Animal;
     } catch (err) {
         console.error('Fetch error:', err);
