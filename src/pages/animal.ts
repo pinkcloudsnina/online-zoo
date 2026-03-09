@@ -1,8 +1,16 @@
 import {openAnimalMap} from '../features/mapPopup.js';
+import {initSidebar} from '../features/animalSidebar.js';
+import {initAnimal} from '../features/animalData.js';
 
-const button = document.querySelector<HTMLElement>('.animal-profile .btn');
-console.log(button);
+const showMapBtn = document.querySelector<HTMLElement>('.animal-profile .btn');
 
-button?.addEventListener('click', () => {
+showMapBtn?.addEventListener('click', () => {
     openAnimalMap(1);
 });
+
+function initState(): void {
+    initSidebar();
+    initAnimal();
+}
+
+initState();
