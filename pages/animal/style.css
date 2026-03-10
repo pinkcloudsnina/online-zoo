@@ -710,6 +710,10 @@ aside.expanded {
     overflow: hidden;
 }
 
+.sidebarCarousel ul {
+    transition: transform 0.5s;
+}
+
 .sidebarCarousel li {
     height: clamp(50px, calc(50px + (100px - 50px) * var(--coef-1)), 100px);
     border-bottom: 1px solid var(--color-white);
@@ -887,6 +891,7 @@ aside.expanded .toggle-btn .btn__icon {
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: background-color 0.5s;
     }
 
     aside .bg-circle img,

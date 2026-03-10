@@ -3,6 +3,7 @@ import {setAnimalCameras, getAnimalCameras} from '../state/animalState.js';
 import {renderSidebar} from '../components/sidebar.js';
 import {Camera} from '../types/Camera.js';
 import {refreshAnimal} from './animalData.js';
+import {initSidebarCarousel} from './sidebarCarousel.js';
 
 export async function initSidebar(): Promise<void> {
     const cameras: Camera[] | null = (await getCamerasInfo()) ?? [];
@@ -16,7 +17,6 @@ export async function initSidebar(): Promise<void> {
     animalCams.forEach((animalCam) =>
         animalCam.addEventListener('click', () => {
             let chosenId: number;
-            console.log(animalCam.dataset);
 
             if (animalCam.dataset.petId) {
                 chosenId = +animalCam.dataset.petId;
@@ -24,6 +24,8 @@ export async function initSidebar(): Promise<void> {
             }
         })
     );
+    setActive(1);
+    initSidebarCarousel();
 }
 
 export function toggleSidebar(): void {
@@ -32,5 +34,13 @@ export function toggleSidebar(): void {
 }
 
 export function chooseAnimalCam(id: number): void {
+    setActive(id);
     refreshAnimal(id);
+}
+
+function setActive(id: number): void {
+    const currentActive = document.querySelector<HTMLLIElement>('.animal-logo.active');
+    const newActive = document.querySelector<HTMLLIElement>(`.animal-logo[data-pet-id="${id}"]`);
+    if (currentActive) currentActive.classList.remove('active');
+    if (newActive) newActive.classList.add('active');
 }
