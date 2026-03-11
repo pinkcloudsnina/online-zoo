@@ -10,7 +10,7 @@ export function openPopup(content: HTMLElement): void {
     popup.classList.add('popup-open');
 }
 
-function closePopup(): void {
+export function closePopup(): void {
     popup?.classList.remove('popup-open');
 }
 

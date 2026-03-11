@@ -1861,3 +1861,46 @@ label.checkbox {
     }
 }
 */
+
+/*LOGIN*/
+
+.authorization {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.authorization .user__icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    background: url(../icons/login.png) center;
+    background-size: cover;
+    border-radius: 50%;
+    transition: border 0.5s;
+    border: 1px solid transparent;
+}
+
+.authorization:hover .user__icon {
+    border: 1px solid black;
+}
+
+input {
+    transition: border-color 0.5s;
+}
+
+.validation-error {
+    border-color: red;
+}
+
+p.validation-error {
+    color: red;
+}
+
+.inactive {
+    background-color: #969696;
+}
+
+.inactive:hover {
+    background-color: #969696;
+}
