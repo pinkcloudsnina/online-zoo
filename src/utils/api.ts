@@ -1,7 +1,6 @@
-import type {Animal, Pet} from '../types/Animal.js';
-import {Camera} from '../types/Camera.js';
-import {LoginRequest, RegisterRequest, RegStatus, LoginStatus, AuthStatus} from '../types/Auth.js';
-import {LoginResponse, User} from '../types/User.js';
+import type {Animal, Pet, Testimonial} from '../types/interfaces.js';
+import {RegStatus, LoginStatus, AuthStatus} from '../types/statuses.js';
+import {LoginResponse, User, LoginRequest, RegisterRequest, Camera} from '../types/interfaces.js';
 import {authState} from '../state/authState.js';
 
 const server = 'https://vsqsnqnxkh.execute-api.eu-central-1.amazonaws.com/prod';
@@ -36,6 +35,17 @@ export async function getPets(): Promise<Pet[] | null> {
         const response = await fetch(`${server}/pets`);
         const json = await response.json();
         return json.data as Pet[];
+    } catch (err) {
+        console.error('Fetch error:', err);
+        return null;
+    }
+}
+
+export async function getTestimonials(): Promise<Testimonial[] | null> {
+    try {
+        const response = await fetch(`${server}/feedback`);
+        const json = await response.json();
+        return json.data as Testimonial[];
     } catch (err) {
         console.error('Fetch error:', err);
         return null;

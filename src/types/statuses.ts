@@ -1,15 +1,3 @@
-export type LoginRequest = {
-    login: string;
-    password: string;
-};
-
-export interface RegisterRequest {
-    login: string;
-    password: string;
-    name: string;
-    email: string;
-}
-
 export enum RegStatus {
     Success = 201,
     ValidationError = 400,

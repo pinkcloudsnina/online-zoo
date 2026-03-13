@@ -1,16 +1,18 @@
-import type {Animal, Pet} from '../types/Animal.js';
-import type {Camera} from '../types/Camera.js';
+import type {Animal, Pet} from '../types/interfaces.js';
+import type {Camera, Testimonial} from '../types/interfaces.js';
 
 export interface AnimalState {
     animalCams: Camera[];
     currentAnimal: Animal | null;
     petsList: Pet[];
+    testimonialsList: Testimonial[];
 }
 
 const state: AnimalState = {
     animalCams: [],
     currentAnimal: null,
     petsList: [],
+    testimonialsList: [],
 };
 
 export function setCurrentAnimal(animal: Animal): void {
@@ -25,6 +27,10 @@ export function setPets(pets: Pet[]): void {
     state.petsList = pets;
 }
 
+export function setTestimonials(testimonials: Testimonial[]): void {
+    state.testimonialsList = testimonials;
+}
+
 export function getCurrentAnimal(): Animal | null {
     return state.currentAnimal;
 }
@@ -35,4 +41,8 @@ export function getAnimalCameras(): Camera[] {
 
 export function getPetsList(): Pet[] {
     return state.petsList;
+}
+
+export function getTestimonialsList(): Testimonial[] {
+    return state.testimonialsList;
 }

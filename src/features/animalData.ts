@@ -1,4 +1,4 @@
-import {getCurrentAnimal, getPetsList} from '../state/animalState.js';
+import {getCurrentAnimal} from '../state/animalState.js';
 import {drawDidYouKnow} from '../components/didYouKnow.js';
 import {drawAnimalInfo} from '../components/animalInfo.js';
 import {openAnimalMap} from '../features/mapPopup.js';

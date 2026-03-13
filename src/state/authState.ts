@@ -1,4 +1,4 @@
-import {User} from '../types/User';
+import {User} from '../types/interfaces';
 
 export interface AuthState {
     token: string | null;

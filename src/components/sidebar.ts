@@ -1,4 +1,4 @@
-import {Camera} from '../types/Camera.js';
+import {Camera} from '../types/interfaces';
 
 export function renderSidebar(cameras: Camera[]): void {
     const aside = document.querySelector<HTMLElement>('aside');

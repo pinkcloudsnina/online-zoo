@@ -1,4 +1,4 @@
-import {Animal} from '../types/Animal.js';
+import {Animal} from '../types/interfaces.js';
 import {parseCoordinate} from '../utils/coordinates.js';
 import {renderMap} from '../components/map.js';
 import {openPopup} from '../components/popup.js';

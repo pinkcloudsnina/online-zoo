@@ -1,7 +1,5 @@
-import {getCamerasInfo} from '../utils/api.js';
-import {setAnimalCameras, getAnimalCameras, setCurrentAnimal} from '../state/animalState.js';
+import {getAnimalCameras, setCurrentAnimal} from '../state/animalState.js';
 import {renderSidebar} from '../components/sidebar.js';
-import {Camera} from '../types/Camera.js';
 import {refreshAnimal} from './animalData.js';
 import {initSidebarCarousel} from './sidebarCarousel.js';
 import {hideLoader, showLoader} from '../components/loader.js';

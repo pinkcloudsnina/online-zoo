@@ -1,4 +1,3 @@
-import {Pet} from '../types/Animal.js';
 import {createTag} from '../utils/tagEl.js';
 
 const main = document.querySelector<HTMLElement>('main');

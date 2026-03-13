@@ -1,21 +1,17 @@
 import {initSidebar} from '../features/animalSidebar.js';
 import {refreshAnimal} from '../features/animalData.js';
-import {initAuthorization, initLogged} from '../features/userAuthorization.js';
 import {showLoader, hideLoader} from '../components/loader.js';
-import {getAnimalInfo, getCamerasInfo, getPets} from '../utils/api.js';
-import {setAnimalCameras, setPets} from '../state/animalState.js';
+import {getAnimalInfo, getCamerasInfo} from '../utils/api.js';
+import {setAnimalCameras} from '../state/animalState.js';
 import {showMessage} from '../components/message.js';
-import {Camera} from '../types/Camera.js';
-import {Animal, Pet} from '../types/Animal.js';
+import {Camera} from '../types/interfaces.js';
+import {Animal} from '../types/interfaces.js';
 import {setCurrentAnimal} from '../state/animalState.js';
 import {showTitle} from '../components/player.js';
 
 const main = document.querySelector<HTMLElement>('main');
 
 async function initState(): Promise<void> {
-    initLogged();
-    initAuthorization();
-
     showTitle();
 
     showLoader(main!);
