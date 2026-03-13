@@ -1,4 +1,4 @@
-import type {Animal} from '../types/Animal.js';
+import type {Animal, Pet} from '../types/Animal.js';
 import {Camera} from '../types/Camera.js';
 import {LoginRequest, RegisterRequest, RegStatus, LoginStatus, AuthStatus} from '../types/Auth.js';
 import {LoginResponse, User} from '../types/User.js';
@@ -25,6 +25,17 @@ export async function getCamerasInfo(): Promise<Camera[] | null> {
 
         const json = await response.json();
         return json.data as Camera[];
+    } catch (err) {
+        console.error('Fetch error:', err);
+        return null;
+    }
+}
+
+export async function getPets(): Promise<Pet[] | null> {
+    try {
+        const response = await fetch(`${server}/pets`);
+        const json = await response.json();
+        return json.data as Pet[];
     } catch (err) {
         console.error('Fetch error:', err);
         return null;

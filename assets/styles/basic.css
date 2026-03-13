@@ -1904,3 +1904,31 @@ p.validation-error {
 .inactive:hover {
     background-color: #969696;
 }
+
+/*PLACEHOLDER*/
+
+.loader {
+    overflow: hidden;
+    width: 120px;
+}
+
+.loader .inner-container {
+    display: flex;
+    align-items: center;
+    transform: translateX(-20px);
+}
+
+.loader-icon {
+    background-color: var(--color-orange);
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    transform: scale(0.8);
+}
+
+.loader-icon:nth-child(even) {
+    transform: scale(1);
+}

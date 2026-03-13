@@ -1,13 +1,16 @@
 import {getCamerasInfo} from '../utils/api.js';
-import {setAnimalCameras, getAnimalCameras} from '../state/animalState.js';
+import {setAnimalCameras, getAnimalCameras, setCurrentAnimal} from '../state/animalState.js';
 import {renderSidebar} from '../components/sidebar.js';
 import {Camera} from '../types/Camera.js';
 import {refreshAnimal} from './animalData.js';
 import {initSidebarCarousel} from './sidebarCarousel.js';
+import {hideLoader, showLoader} from '../components/loader.js';
+import {getAnimalInfo} from '../utils/api.js';
+import {hideMessage, showMessage} from '../components/message.js';
+
+const main = document.querySelector<HTMLElement>('main');
 
 export async function initSidebar(): Promise<void> {
-    const cameras: Camera[] | null = (await getCamerasInfo()) ?? [];
-    setAnimalCameras(cameras);
     renderSidebar(getAnimalCameras());
 
     const toggleSidebarBtn = document.querySelector<HTMLElement>('.toggle-btn');
@@ -33,9 +36,30 @@ export function toggleSidebar(): void {
     aside?.classList.toggle('expanded');
 }
 
-export function chooseAnimalCam(id: number): void {
-    setActive(id);
-    refreshAnimal(id);
+export async function chooseAnimalCam(id: number): Promise<void> {
+    const animalAbout = document.querySelector<HTMLElement>('.animal-about');
+    if (!animalAbout) return;
+
+    animalAbout.innerHTML = '';
+    hideMessage(main!);
+
+    showLoader(animalAbout);
+    try {
+        const newAnimal = await getAnimalInfo(id);
+
+        hideLoader(animalAbout);
+        setActive(id);
+        if (newAnimal) {
+            setCurrentAnimal(newAnimal);
+
+            refreshAnimal(id);
+        }
+        if (!newAnimal) {
+            showMessage(main!, 'Error getting animal data', 'error');
+        }
+    } catch (err) {
+        console.error('Unknown Error', err);
+    }
 }
 
 function setActive(id: number): void {

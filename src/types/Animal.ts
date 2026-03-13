@@ -12,3 +12,10 @@ export interface Animal {
     description: string;
     detailedDescription: string;
 }
+
+export interface Pet {
+    id: number;
+    name: string;
+    commonName: string;
+    description: string;
+}
