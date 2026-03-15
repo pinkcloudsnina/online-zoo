@@ -29,8 +29,8 @@ export function initDonationStep3() {
             } catch {
                 savedCards = [];
             }
+            drawCardItems(savedCards);
         }
-        drawCardItems(savedCards);
     }
     initDropdowns();
     initTextInputs();
@@ -146,7 +146,9 @@ function checkDate() {
 function checkCompleteBtn(): void {
     const completeBtn = document.querySelector<HTMLElement>('.complete-btn');
     const requiredFields = Array.from(
-        document.querySelectorAll<HTMLInputElement>('.popup input[type="text"],.popup input[type="hidden"]')
+        document.querySelectorAll<HTMLInputElement>(
+            '.popup input[type="text"],.month-select input[type="hidden"], .year-select input[type="hidden"]'
+        )
     );
 
     const hasError = requiredFields.some((element) => {

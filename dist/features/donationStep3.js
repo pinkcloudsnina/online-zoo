@@ -31,8 +31,8 @@ export function initDonationStep3() {
             catch (_a) {
                 savedCards = [];
             }
+            drawCardItems(savedCards);
         }
-        drawCardItems(savedCards);
     }
     initDropdowns();
     initTextInputs();
@@ -146,7 +146,7 @@ function checkDate() {
 }
 function checkCompleteBtn() {
     const completeBtn = document.querySelector('.complete-btn');
-    const requiredFields = Array.from(document.querySelectorAll('.popup input[type="text"],.popup input[type="hidden"]'));
+    const requiredFields = Array.from(document.querySelectorAll('.popup input[type="text"],.month-select input[type="hidden"], .year-select input[type="hidden"]'));
     const hasError = requiredFields.some((element) => {
         if (!element.value || element.classList.contains('validation-error'))
             return true;
