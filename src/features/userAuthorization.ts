@@ -168,7 +168,7 @@ function initLoginButton(): void {
 
             localStorage.setItem('token', response.data.access_token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
-            window.location.href = '../animal/panda.html';
+            window.location.href = '../animal/zoo.html';
         } catch (error) {
             responseError!.textContent = (error as Error).message;
         }

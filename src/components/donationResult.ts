@@ -5,9 +5,9 @@ export function drawDonationResult(result: 'success' | 'error', message: string)
         'afterbegin',
         `
           <h2 class="topper">
-            Donation result
+            Donation ${result === 'success' ? 'successful' : 'failed'}
           </h2>
-            <p>
+            <p class='donation-result'>
 ${message}
           </p>`
     );

@@ -8,7 +8,7 @@ export function drawDidYouKnow(animal: Animal | null): void {
 
     let section = document.querySelector<HTMLElement>('.animal-about');
     if (section) section.innerHTML = '';
-    else section = createTag('div', ['animal-about']);
+    else section = createTag('section', ['animal-about']);
 
     if (section) section.innerHTML = '';
     const container = createTag('div', ['container']);

@@ -3,18 +3,22 @@ import {openPopup} from '../components/popup.js';
 import {clearDonationState, setDonationAmount, setDonationAnimal} from '../state/donationState.js';
 import {highlightNode} from '../utils/highlightChosen.js';
 import {validateField} from '../utils/inputValidation.js';
-import {getPetsList} from '../state/animalState.js';
+import {getPetsList, setPets} from '../state/animalState.js';
 import {Pet} from '../types/interfaces.js';
 import {initDonationStep2} from './donationStep2.js';
+import {getPets} from '../utils/api.js';
 
-export function initDonationStep1() {
-    const pets = getPetsList();
-
+export async function initDonationStep1() {
+    const pets = await getPets();
     clearDonationState();
 
     openPopup(drawDonationStep1());
     initDonationBtns();
-    if (pets.length >= 1) drawListItems(pets);
+
+    if (pets && pets.length >= 1) {
+        drawListItems(pets);
+        setPets(pets);
+    }
     initDropdown(getPetsList());
     initNextStepBtn();
 }

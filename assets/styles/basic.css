@@ -1060,9 +1060,9 @@ footer .copyrights {
 }
 
 .popup__window {
+    min-width: 300px;
     max-height: 100vh;
     overflow-y: scroll;
-    padding: 20px 20px 40px;
     z-index: 10;
     background-color: var(--color-white);
     border-radius: 5px;
@@ -1072,44 +1072,14 @@ footer .copyrights {
     grid-gap: 10px;
 }
 
-.popup__close {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s;
-    justify-self: end;
+.popup__window:has(.content-0) {
+    padding: 10px;
+    grid-template-rows: min-content 1fr;
+    min-height: 500px;
 }
 
-.popup__close:hover {
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-.cross {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.cross::after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: '';
-    transform: rotate(-90deg);
-}
-
-.cross,
-.cross::after {
-    width: 42px;
-    height: 3px;
-    transform-origin: center;
-    border-radius: 3px;
-    background-color: var(--color-white);
+.popup__window:has(.content-1) {
+    padding: 0;
 }
 
 .popup__content > div {
@@ -1118,7 +1088,7 @@ footer .copyrights {
 }
 
 .popup__content > div {
-    width: clamp(300px, calc(300px + (600px - 300px) * var(--coef-1)), 600px);
+    width: clamp(280px, calc(280px + (600px - 280px) * var(--coef-1)), 600px);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -1128,6 +1098,11 @@ footer .copyrights {
 .content-2 > *,
 .content-3 > * {
     grid-column: 1 / -1;
+}
+
+.content-1 .error {
+    grid-column: 1 / -1;
+    color: red;
 }
 
 .content-1 .topper,
@@ -1260,7 +1235,6 @@ fieldset.choose-pet .btn {
 
 .dropdown__toggle {
     width: 100%;
-    max-width: 447px;
     padding: 14px 0 14px;
     border: 1px solid var(--color-black);
     border-radius: 5px;
@@ -1406,6 +1380,7 @@ label.checkbox {
     grid-template-columns: 1fr;
     justify-items: center;
     grid-gap: 30px;
+    padding: 0 10px 0;
 }
 
 .steps {
@@ -1416,8 +1391,8 @@ label.checkbox {
 
 .bottom-steps .btn {
     order: 1;
-    width: 213px;
     text-transform: uppercase;
+    min-width: 213px;
 }
 
 .step {
@@ -1456,17 +1431,15 @@ label.checkbox {
 
 .form__field--short {
     width: 100%;
-    max-width: 212px;
 }
 
 .form__input {
     padding-left: 10px;
 }
 
-.bottom-steps .complete {
+.bottom-steps .complete-btn {
     justify-self: center;
     order: 3;
-    width: 280px;
     padding: 14px 0 14px;
 }
 
@@ -1480,17 +1453,14 @@ label.checkbox {
 }
 
 .dropdown__label {
-    color: #a4a8ae;
 }
 
 .popup__close {
-    position: absolute;
-    right: 31px;
-    top: 31px;
+    position: relative;
     width: 30px;
     height: 30px;
     display: flex;
-    justify-content: center;
+    justify-self: end;
     align-items: center;
     transition: transform 0.5s;
 }
@@ -1524,9 +1494,29 @@ label.checkbox {
     background-color: var(--color-white);
 }
 
+.popup__window:has(.content-1) .popup__close,
+.popup__window:has(.content-2) .popup__close,
+.popup__window:has(.content-3) .popup__close {
+    display: none;
+}
+
+.popup__window .container {
+    padding: 10px;
+}
+
+.popup__content {
+    padding-bottom: 10px;
+}
+
 @media (min-width: 640px) {
     .popup__window {
+        min-width: 600px;
     }
+
+    .popup__content {
+        padding-bottom: 30px;
+    }
+
     .popup__content > div {
         width: clamp(600px, calc(600px + (920px - 600px) * var(--coef-2)), 920px);
         grid-template-columns: repeat(8, 1fr);
@@ -1637,7 +1627,8 @@ label.checkbox {
         display: inline;
     }
 
-    fieldset .custom-amount {
+    fieldset .custom-amount,
+    fieldset .custom-amount-btn {
         grid-column: span 3;
         height: 65px;
     }
@@ -1657,6 +1648,8 @@ label.checkbox {
 
     fieldset.choose-pet .btn {
         grid-column: span 3;
+        justify-self: stretch;
+        width: 100%;
     }
 
     .pet-select {
@@ -1727,7 +1720,7 @@ label.checkbox {
         padding-left: 10px;
     }
 
-    .bottom-steps .complete {
+    .bottom-steps .complete-btn {
         grid-column: span 6;
         justify-self: center;
         margin-top: 30px;
@@ -1750,13 +1743,15 @@ label.checkbox {
     }
 
     .dropdown__label {
-        color: #a4a8ae;
     }
 }
 @media (min-width: 1200px) {
     .popup__window {
+        min-width: 920px;
     }
-
+    .popup__content {
+        padding-bottom: 40px;
+    }
     .popup__content > .content-0.active {
         width: clamp(1121px, calc(1121px + (1160px - 1121px) * var(--coef-3)), 1160px);
     }
@@ -1810,7 +1805,8 @@ label.checkbox {
         gap: 40px;
     }
 
-    .choose-amount .custom-amount {
+    .choose-amount .custom-amount,
+    .choose-amount .custom-amount-btn {
         grid-column: span 2;
     }
 
@@ -1849,7 +1845,7 @@ label.checkbox {
         grid-column: span 1;
     }
 
-    .bottom-steps .complete {
+    .bottom-steps .complete-btn {
         margin: 0;
         grid-column: span 3;
         width: 359px;
@@ -1931,6 +1927,9 @@ p.validation-error {
 .loader {
     overflow: hidden;
     width: 120px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .loader .inner-container {
@@ -1952,4 +1951,48 @@ p.validation-error {
 
 .loader-icon:nth-child(even) {
     transform: scale(1);
+}
+
+/*POPUP additional*/
+.user-info {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.user-info li {
+    margin-bottom: 20px;
+}
+
+.user-info span {
+    margin-right: 10px;
+}
+
+.donation-result {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.popup__content > .auth {
+    grid-template-columns: 1fr;
+}
+
+.login,
+.register {
+    justify-self: center;
+    align-self: center;
+    font-size: 20px;
+    height: 40px;
+    color: var(--color-orange-dark);
+}
+
+.popup__window:has(.auth) {
+    padding: 20px;
+}
+
+.popup__window:has(.auth) .cross,
+.popup__window:has(.auth) .cross::after {
+    background-color: black;
 }

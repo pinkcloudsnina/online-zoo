@@ -1,7 +1,7 @@
 import {createTag} from '../utils/tagEl.js';
 
 export function drawAuthorization(): HTMLElement {
-    const container = createTag('div');
+    const container = createTag('div', ['auth']);
     const login = createTag('div', ['login']);
     login.textContent = 'Login';
 

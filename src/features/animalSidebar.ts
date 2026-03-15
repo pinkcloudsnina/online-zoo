@@ -49,11 +49,12 @@ export async function chooseAnimalCam(id: number): Promise<void> {
         setActive(id);
         if (newAnimal) {
             setCurrentAnimal(newAnimal);
-
             refreshAnimal(id);
         }
         if (!newAnimal) {
-            showMessage(main!, 'Error getting animal data', 'error');
+            const aboutSection = document.querySelector<HTMLElement>('.animal-about');
+            if (aboutSection)
+                showMessage(aboutSection, 'Error getting animal data. Please choose animal from sidebar.', 'error');
         }
     } catch (err) {
         console.error('Unknown Error', err);

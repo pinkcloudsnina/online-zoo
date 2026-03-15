@@ -329,6 +329,11 @@ p span {
     margin-bottom: clamp(62px, calc(62px + (97px - 62px) * var(--coef-1)), 97px);
 }
 
+.meet-pets .info-msg {
+    font-size: 20px;
+    text-align: center;
+}
+
 .meet-pets h2 {
     margin-bottom: 27px;
     max-width: 394px;
@@ -809,6 +814,12 @@ p span {
 
 .testimonials .carousel__controls {
     display: none;
+}
+
+.testimonials .info-msg {
+    color: white;
+    font-size: 20px;
+    text-align: center;
 }
 
 @media (min-width: 640px) {

@@ -21,7 +21,7 @@ export function drawPlayerContainer(): void {
     container.insertAdjacentHTML(
         'beforeend',
         `<h1>live cameras</h1>
-        <div class="btn btn--orange"><span class="btn__text">donate now</span></div>
+        <div class="btn btn--orange donate-btn"><span class="btn__text">donate now</span></div>
         <div class="player">
           <a href="https://www.youtube.com/watch?v=3szkFHfr6sA" target="_blank">
             <img src="../../assets/images/animalsCams/1/cam-main.jpg" alt="panda">

@@ -44,6 +44,6 @@ export function drawCams(): void {
           </div>
         </div>
 
-        <div class="btn btn--orange"><span class="btn__text">donate now</span></div>`
+        <div class="btn btn--orange donate-btn"><span class="btn__text">donate now</span></div>`
     );
 }

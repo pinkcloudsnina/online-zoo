@@ -1,11 +1,13 @@
 import {Camera} from '../types/interfaces';
 
 export function renderSidebar(cameras: Camera[]): void {
-    const aside = document.querySelector<HTMLElement>('aside');
+    const main = document.querySelector<HTMLElement>('main');
 
-    if (!aside || cameras.length === 0) return;
+    if (cameras.length === 0) return;
 
+    const aside = createTag('aside');
     aside.innerHTML = '';
+    main?.append(aside);
     aside?.append(createSidebar(cameras));
 }
 

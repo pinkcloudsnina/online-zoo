@@ -8,6 +8,7 @@ import {Camera} from '../types/interfaces.js';
 import {Animal} from '../types/interfaces.js';
 import {setCurrentAnimal} from '../state/animalState.js';
 import {showTitle} from '../components/player.js';
+import {initDonationStep1} from '../features/donationStep1.js';
 
 const main = document.querySelector<HTMLElement>('main');
 
@@ -15,7 +16,6 @@ async function initState(): Promise<void> {
     showTitle();
 
     showLoader(main!);
-
     try {
         const [camerasResult, animalResult] = await Promise.all([getCamerasInfo(), getAnimalInfo(1)]);
 
@@ -37,6 +37,16 @@ async function initState(): Promise<void> {
     } catch (err) {
         console.error('Error', err);
     }
+    initDonateBtns();
+}
+
+function initDonateBtns() {
+    const donateBtns = document.querySelectorAll<HTMLDivElement>('.donate-btn');
+    console.log(donateBtns);
+
+    donateBtns.forEach((btn) => {
+        btn.addEventListener('click', initDonationStep1);
+    });
 }
 
 initState();
