@@ -172,18 +172,34 @@ function initLoginButton(): void {
     });
 }
 
-export function initLogged(): void {
+export async function initLogged(): Promise<void> {
     const userGreet = document.querySelector<HTMLSpanElement>('.authorization .user');
 
     const token = localStorage.getItem('token');
-    const userString = localStorage.getItem('user');
+    if (!token) {
+        if (userGreet) userGreet.textContent = '';
+        return;
+    }
 
-    if (token) authState.token = token;
-    if (userString) authState.user = JSON.parse(userString);
+    authState.token = token;
 
-    if (authState.user && userGreet) userGreet.textContent = authState.user.name;
+    try {
+        const user = await sendProfileRequest();
 
-    if (!authState.user && userGreet) userGreet.textContent = '';
+        authState.user = user;
+        localStorage.setItem('user', JSON.stringify(user));
+        if (userGreet) userGreet.textContent = user.name;
+    } catch (error) {
+        console.error('Auth check failed:', error);
+
+        authState.token = null;
+        authState.user = null;
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+
+        if (userGreet) userGreet.textContent = '';
+    }
 }
 
 function logout(): void {

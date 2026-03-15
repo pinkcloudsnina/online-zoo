@@ -1060,7 +1060,8 @@ footer .copyrights {
 }
 
 .popup__window {
-    width: 300px;
+    max-height: 100vh;
+    overflow-y: scroll;
     padding: 20px 20px 40px;
     z-index: 10;
     background-color: var(--color-white);
@@ -1111,14 +1112,12 @@ footer .copyrights {
     background-color: var(--color-white);
 }
 
-/*
-
 .popup__content > div {
     display: grid;
     display: none;
 }
 
-.popup__content > div.active {
+.popup__content > div {
     width: clamp(300px, calc(300px + (600px - 300px) * var(--coef-1)), 600px);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1181,12 +1180,27 @@ legend span {
     margin-right: 5px;
 }
 
+.popup .btn.disabled {
+    background-color: #a4a8ae;
+    cursor: default;
+    box-shadow: none;
+}
+
 fieldset .btn {
     grid-column: span 1;
     padding-top: 11px;
     padding-bottom: 11px;
     text-transform: uppercase;
     background-color: var(--color-turquois-light);
+}
+
+fieldset .btn:hover {
+    background-color: var(--color-turquois);
+}
+
+fieldset .btn.active {
+    background-color: var(--color-turquois-dark);
+    box-shadow: 0 4px 30px var(--color-turquois-dark-shadow);
 }
 
 fieldset .btn span {
@@ -1233,8 +1247,11 @@ fieldset.choose-pet .btn {
     justify-self: center;
 }
 
-.pet-select {
+.dropdown {
     position: relative;
+}
+
+.pet-select {
     grid-column: span 2;
     height: 65px;
     border-radius: 5px;
@@ -1252,6 +1269,10 @@ fieldset.choose-pet .btn {
     text-align: center;
     position: relative;
     font-size: 18px;
+}
+
+.dropdown:has(.validation-error) .dropdown__toggle {
+    border-color: red;
 }
 
 .dropdown__arrow {
@@ -1504,7 +1525,9 @@ label.checkbox {
 }
 
 @media (min-width: 640px) {
-    .popup__content > div.active {
+    .popup__window {
+    }
+    .popup__content > div {
         width: clamp(600px, calc(600px + (920px - 600px) * var(--coef-2)), 920px);
         grid-template-columns: repeat(8, 1fr);
         gap: 10px;
@@ -1731,8 +1754,7 @@ label.checkbox {
     }
 }
 @media (min-width: 1200px) {
-    .popup__content > div.active {
-        width: 920px;
+    .popup__window {
     }
 
     .popup__content > .content-0.active {
@@ -1860,7 +1882,6 @@ label.checkbox {
         max-width: 570px;
     }
 }
-*/
 
 /*LOGIN*/
 

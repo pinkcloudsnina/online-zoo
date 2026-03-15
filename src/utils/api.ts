@@ -1,5 +1,5 @@
-import type {Animal, Pet, Testimonial} from '../types/interfaces.js';
-import {RegStatus, LoginStatus, AuthStatus} from '../types/statuses.js';
+import type {Animal, ApiResponse, DonationRequest, DonationResponse, Pet, Testimonial} from '../types/interfaces.js';
+import {RegStatus, LoginStatus, AuthStatus, ResponseStatus} from '../types/statuses.js';
 import {LoginResponse, User, LoginRequest, RegisterRequest, Camera} from '../types/interfaces.js';
 import {authState} from '../state/authState.js';
 
@@ -105,6 +105,28 @@ export async function sendProfileRequest(): Promise<User> {
         return result.data;
     } else if (response.status === AuthStatus.Unauthorized) {
         throw new Error('User Unauthorizedd');
+    } else {
+        throw new Error('Unexpected error');
+    }
+}
+
+export async function sendDonationRequest(data: DonationRequest): Promise<DonationResponse> {
+    const response = await fetch(`${server}/donations`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (response.status === ResponseStatus.Success || response.status === ResponseStatus.Ok) {
+        console.log(response);
+        const result: ApiResponse<DonationResponse> = await response.json();
+        return result.data;
+    } else if (response.status === ResponseStatus.ValidationError) {
+        throw new Error('Validation Error');
+    } else if (response.status === ResponseStatus.InternalServerError) {
+        throw new Error('Internal Server Error');
     } else {
         throw new Error('Unexpected error');
     }

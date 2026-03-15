@@ -9,3 +9,7 @@ export const authState: AuthState = {
     token: null,
     user: null,
 };
+
+export function getAuthUser(): User | null {
+    return authState.user;
+}

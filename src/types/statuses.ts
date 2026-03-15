@@ -13,3 +13,10 @@ export enum AuthStatus {
     Success = 200,
     Unauthorized = 401,
 }
+
+export enum ResponseStatus {
+    Success = 200,
+    Ok = 201,
+    ValidationError = 400,
+    InternalServerError = 500,
+}

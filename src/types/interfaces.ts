@@ -60,3 +60,19 @@ export interface RegisterRequest {
     name: string;
     email: string;
 }
+
+export interface DonationRequest {
+    name: string;
+    email: string;
+    amount: number;
+    petId: number;
+}
+
+export interface DonationResponse {
+    message: string;
+    donationId: string;
+}
+
+export interface ApiResponse<T> {
+    data: T;
+}
