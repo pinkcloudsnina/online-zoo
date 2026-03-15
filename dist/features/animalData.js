@@ -14,6 +14,7 @@ import { openAnimalMap } from '../features/mapPopup.js';
 import { drawPlayerContainer } from '../components/player.js';
 import { drawCams } from '../components/cameras.js';
 import { drawQuickDonation } from '../components/quickDonation.js';
+import { initDonationStep1 } from './donationStep1.js';
 export function refreshAnimal() {
     return __awaiter(this, arguments, void 0, function* (id = 1) {
         const currentAnimal = getCurrentAnimal();
@@ -24,10 +25,17 @@ export function refreshAnimal() {
         drawQuickDonation();
         drawDidYouKnow(currentAnimal);
         drawAnimalInfo(currentAnimal);
+        initDonateBtns();
         const showMapBtn = document.querySelector('.animal-profile .btn');
         showMapBtn === null || showMapBtn === void 0 ? void 0 : showMapBtn.addEventListener('click', () => {
             openAnimalMap(currentAnimal);
         });
+    });
+}
+function initDonateBtns() {
+    const donateBtns = document.querySelectorAll('.donate-btn');
+    donateBtns.forEach((btn) => {
+        btn.addEventListener('click', initDonationStep1);
     });
 }
 //# sourceMappingURL=animalData.js.map
