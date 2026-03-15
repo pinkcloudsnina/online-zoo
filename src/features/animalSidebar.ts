@@ -5,8 +5,10 @@ import {initSidebarCarousel} from './sidebarCarousel.js';
 import {hideLoader, showLoader} from '../components/loader.js';
 import {getAnimalInfo} from '../utils/api.js';
 import {hideMessage, showMessage} from '../components/message.js';
+import {createTag} from '../utils/tagEl.js';
 
 const main = document.querySelector<HTMLElement>('main');
+const body = document.body;
 
 export async function initSidebar(): Promise<void> {
     renderSidebar(getAnimalCameras());
@@ -35,17 +37,21 @@ export function toggleSidebar(): void {
 }
 
 export async function chooseAnimalCam(id: number): Promise<void> {
+    const overlay = createTag('div', ['loader-overlay']);
     const animalAbout = document.querySelector<HTMLElement>('.animal-about');
-    if (!animalAbout) return;
+    body.append(overlay);
 
-    animalAbout.innerHTML = '';
+    if (animalAbout) animalAbout.innerHTML = '';
     hideMessage(main!);
+    showLoader(overlay);
 
-    showLoader(animalAbout);
     try {
         const newAnimal = await getAnimalInfo(id);
+        setTimeout(() => {
+            hideLoader(overlay);
+            overlay.remove();
+        }, 300);
 
-        hideLoader(animalAbout);
         setActive(id);
         if (newAnimal) {
             setCurrentAnimal(newAnimal);

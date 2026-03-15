@@ -1459,6 +1459,7 @@ label.checkbox {
     position: relative;
     width: 30px;
     height: 30px;
+    margin: 10px;
     display: flex;
     justify-self: end;
     align-items: center;
