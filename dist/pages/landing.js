@@ -57,7 +57,6 @@ function initState() {
 }
 function initDonateBtns() {
     const donateBtns = document.querySelectorAll('.donate-btn');
-    console.log(donateBtns);
     donateBtns.forEach((btn) => {
         btn.addEventListener('click', initDonationStep1);
     });

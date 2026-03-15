@@ -47,7 +47,6 @@ async function initState(): Promise<void> {
 
 function initDonateBtns() {
     const donateBtns = document.querySelectorAll<HTMLDivElement>('.donate-btn');
-    console.log(donateBtns);
 
     donateBtns.forEach((btn) => {
         btn.addEventListener('click', initDonationStep1);
