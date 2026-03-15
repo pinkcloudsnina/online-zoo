@@ -50,11 +50,13 @@ function initValidation(): void {
     const email = document.querySelector<HTMLInputElement>('#email');
 
     login?.addEventListener('blur', () => {
+        if (!login.value) return;
         const validationResult = validateField(login.value, 'login');
         applyValidationResult(login, validationResult);
     });
 
     password?.addEventListener('blur', () => {
+        if (!password.value) return;
         const validationResult = validateField(password.value, 'password');
         applyValidationResult(password, validationResult);
     });
@@ -66,11 +68,13 @@ function initValidation(): void {
     });
 
     name?.addEventListener('blur', () => {
+        if (!name.value) return;
         const validationResult = validateField(name.value, 'name');
         applyValidationResult(name, validationResult);
     });
 
     email?.addEventListener('blur', () => {
+        if (!email.value) return;
         const validationResult = validateField(email.value, 'email');
         applyValidationResult(email, validationResult);
     });
@@ -78,15 +82,20 @@ function initValidation(): void {
 
 function initInputs(): void {
     const inputs = document.querySelectorAll<HTMLInputElement>('.popup__content input');
+    const responseErr = document.querySelector<HTMLElement>('.response-error');
     inputs.forEach((input) => {
         input.addEventListener('focus', () => {
             input.value = '';
+            if (responseErr) responseErr.textContent = '';
             const p = input?.nextElementSibling as HTMLParagraphElement;
             input.classList.remove('validation-error');
             p.textContent = '';
+            checkFormComplete();
         });
 
-        input.addEventListener('input', checkFormComplete);
+        input.addEventListener('blur', () => {
+            checkFormComplete();
+        });
     });
 
     initValidation();
@@ -110,27 +119,21 @@ function checkFormComplete(): void {
     const loginBtn = document.querySelector<HTMLDivElement>('#loginBtn');
     let correctInput = 0;
     inputs.forEach((input) => {
-        if (input.value.length !== 0 && !input.classList.contains('validation-error')) correctInput++;
+        if (input.value && !input.classList.contains('validation-error')) correctInput++;
     });
     if (inputs.length === correctInput) {
-        registerBtn?.classList.remove('inactive');
-        registerBtn?.classList.add('active');
-
-        loginBtn?.classList.remove('inactive');
-        loginBtn?.classList.add('active');
+        registerBtn?.classList.remove('disabled');
+        loginBtn?.classList.remove('disabled');
     } else {
-        registerBtn?.classList.remove('active');
-        registerBtn?.classList.add('inactive');
-
-        loginBtn?.classList.remove('active');
-        loginBtn?.classList.add('inactive');
+        registerBtn?.classList.add('disabled');
+        loginBtn?.classList.add('disabled');
     }
 }
 
 function initRegisterButton(): void {
     const registerBtn = document.querySelector<HTMLDivElement>('#registerBtn');
     registerBtn?.addEventListener('click', async () => {
-        if (registerBtn.classList.contains('inactive')) return;
+        if (registerBtn.classList.contains('disabled')) return;
 
         const login = document.querySelector<HTMLInputElement>('#login')!.value;
         const password = document.querySelector<HTMLInputElement>('#pass')!.value;
@@ -151,7 +154,7 @@ function initRegisterButton(): void {
 function initLoginButton(): void {
     const loginBtn = document.querySelector<HTMLDivElement>('#loginBtn');
     loginBtn?.addEventListener('click', async () => {
-        if (loginBtn.classList.contains('inactive')) return;
+        if (loginBtn.classList.contains('disabled')) return;
 
         const login = document.querySelector<HTMLInputElement>('#login')!.value;
         const password = document.querySelector<HTMLInputElement>('#pass')!.value;

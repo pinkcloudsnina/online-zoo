@@ -10,6 +10,7 @@ export function drawRegister(): HTMLElement {
           </h2>
           <h3>Registration information:</h3>
           <div class="line"></div>
+          <form>
           <fieldset class="register-details form">
 
             <div class="form__field">
@@ -20,13 +21,13 @@ export function drawRegister(): HTMLElement {
 
             <div class="form__field">
               <label for="pass" class="form__label"><span>*</span>Your Password</label>
-              <input id="pass" type="password" class="form__input" placeholder="Enter your password" required>
+              <input id="pass" type="text" class="form__input" placeholder="Enter your password" required>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field">
               <label for="confirm-pass" class="form__label"><span>*</span>Confirm Password</label>
-              <input id="confirm-pass" type="password" class="form__input" placeholder="Confirm your password" required>
+              <input id="confirm-pass" type="text" class="form__input" placeholder="Confirm your password" required>
               <p class="validation-error"></p>
             </div>
 
@@ -44,10 +45,11 @@ export function drawRegister(): HTMLElement {
 
             <p class="response-error"></p>
 
-            <div id="registerBtn" class="btn btn--turquoise inactive">
+            <div id="registerBtn" class="btn btn--turquoise disabled">
               <div class="btn__text">Register</div>
             </div>
           </fieldset>
+          </form>
       `
     );
     return container;

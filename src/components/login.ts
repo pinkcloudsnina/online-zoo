@@ -21,7 +21,7 @@ export function drawLogin(): HTMLElement {
               <p class="validation-error"></p>
             </div>
             <p class="response-error"></p>
-            <div id="loginBtn" class="btn btn--turquoise inactive">
+            <div id="loginBtn" class="btn btn--turquoise disabled">
               <div class="btn__text">next</div>
             </div>
           </fieldset>`
