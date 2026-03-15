@@ -48,6 +48,7 @@ function initControls(track: HTMLDivElement, step: number, rows: number, colsToM
     });
 
     next?.addEventListener('click', () => {
+        track.style.transition = 'transform .35s';
         track.style.transform = `translateX(-${step}px)`;
 
         track.addEventListener(
@@ -63,7 +64,7 @@ function initControls(track: HTMLDivElement, step: number, rows: number, colsToM
                 track.style.transform = 'translateX(0)';
 
                 setTimeout(() => {
-                    track.style.transition = 'transform .35s ease';
+                    track.style.transition = 'transform .35s';
                 }, 0);
             },
             {once: true}

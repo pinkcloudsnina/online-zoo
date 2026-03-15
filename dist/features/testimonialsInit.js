@@ -39,6 +39,7 @@ function initControls(track, step, rows, colsToMove) {
         }, 0);
     });
     next === null || next === void 0 ? void 0 : next.addEventListener('click', () => {
+        track.style.transition = 'transform .35s';
         track.style.transform = `translateX(-${step}px)`;
         track.addEventListener('transitionend', () => {
             track.style.transition = 'none';
@@ -49,7 +50,7 @@ function initControls(track, step, rows, colsToMove) {
             }
             track.style.transform = 'translateX(0)';
             setTimeout(() => {
-                track.style.transition = 'transform .35s ease';
+                track.style.transition = 'transform .35s';
             }, 0);
         }, { once: true });
     });
