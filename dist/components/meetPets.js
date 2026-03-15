@@ -1,0 +1,47 @@
+import { createTag } from '../utils/tagEl.js';
+export function drawMeetPets(pets) {
+    drawStaticContent();
+    drawCards(pets);
+}
+function drawStaticContent() {
+    const container = document.querySelector('.meet-pets');
+    if (!container)
+        return;
+    container.insertAdjacentHTML('afterbegin', `
+  <h2 class="align--center">meet some our Pets </h2>
+        <div class="container">
+          <p class="subheader align--center">Do you have a special place in your heart for animals? Who are your favorites? Perhaps you'd like to donate
+to special ones or all our pets? We think it's important for you to choose how your donation is used. </p>
+        </div>
+
+        <div class="carousel__controls">
+          <div class="controls controls-prev controls--dark">
+            <div class="prev"></div>
+          </div>
+          <div class="controls controls-next controls--dark">
+            <div class="next"></div>
+          </div>
+        </div>
+        <div class="carousel">
+          
+          </div>
+        </div>
+        <div class="btn btn--transparent-dark"><span class="btn__text">choose your favourite</span></div>`);
+}
+function drawCards(pets) {
+    const carousel = document.querySelector('.carousel');
+    const track = createTag('div', ['carousel__list']);
+    for (const pet of pets) {
+        const card = createTag('div', ['carousel__animal']);
+        card.insertAdjacentHTML('afterbegin', `
+        <div class="animal-name"> Liz</div>
+                <img src="../../assets/images/animal-info/about-${pet.id}.jpg" alt="${pet.commonName}">
+                <h3 class="animal-title header--white">${pet.commonName}</h3>
+                <p class="paragraph--white align--center"> ${pet.description} </p>
+                <div class="btn btn--transparent-orange"><span class="btn__text">view live cam</span> </div>
+        `);
+        track === null || track === void 0 ? void 0 : track.append(card);
+    }
+    carousel === null || carousel === void 0 ? void 0 : carousel.append(track);
+}
+//# sourceMappingURL=meetPets.js.map

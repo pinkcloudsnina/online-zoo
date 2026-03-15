@@ -1,0 +1,1 @@
+{"version":3,"file":"authState.js","sourceRoot":"","sources":["../../src/state/authState.ts"],"names":[],"mappings":"AAOA,MAAM,CAAC,MAAM,SAAS,GAAc;IAChC,KAAK,EAAE,IAAI;IACX,IAAI,EAAE,IAAI;CACb,CAAC;AAEF,MAAM,UAAU,WAAW;IACvB,OAAO,SAAS,CAAC,IAAI,CAAC;AAC1B,CAAC"}
