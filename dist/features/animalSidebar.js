@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { getAnimalCameras, setCurrentAnimal } from '../state/animalState.js';
 import { renderSidebar } from '../components/sidebar.js';
-import { refreshAnimal } from './animalData.js';
+import { refreshAnimal, refreshCams } from './animalData.js';
 import { initSidebarCarousel } from './sidebarCarousel.js';
 import { hideLoader, showLoader } from '../components/loader.js';
 import { getAnimalInfo } from '../utils/api.js';
@@ -59,6 +59,7 @@ export function chooseAnimalCam(id) {
                 refreshAnimal(id);
             }
             if (!newAnimal) {
+                refreshCams(id);
                 const aboutSection = document.querySelector('.animal-about');
                 if (aboutSection)
                     showMessage(aboutSection, 'Error getting animal data. Please choose animal from sidebar.', 'error');

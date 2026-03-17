@@ -1,6 +1,6 @@
 import {getAnimalCameras, setCurrentAnimal} from '../state/animalState.js';
 import {renderSidebar} from '../components/sidebar.js';
-import {refreshAnimal} from './animalData.js';
+import {refreshAnimal, refreshCams} from './animalData.js';
 import {initSidebarCarousel} from './sidebarCarousel.js';
 import {hideLoader, showLoader} from '../components/loader.js';
 import {getAnimalInfo} from '../utils/api.js';
@@ -58,6 +58,7 @@ export async function chooseAnimalCam(id: number): Promise<void> {
             refreshAnimal(id);
         }
         if (!newAnimal) {
+            refreshCams(id);
             const aboutSection = document.querySelector<HTMLElement>('.animal-about');
             if (aboutSection)
                 showMessage(aboutSection, 'Error getting animal data. Please choose animal from sidebar.', 'error');

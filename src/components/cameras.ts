@@ -2,7 +2,7 @@ import {createTag} from '../utils/tagEl.js';
 
 const main = document.querySelector<HTMLElement>('main');
 
-export function drawCams(): void {
+export function drawCams(cameras: {link: string; img: string}[]): void {
     let container = document.querySelector<HTMLElement>('.cams');
 
     if (!container) {
@@ -18,26 +18,6 @@ export function drawCams(): void {
             <div class="prev"></div>
           </div>
           <div class="view__list">
-            <div class="view__element active">
-              <a href="https://www.youtube.com/watch?v=3szkFHfr6sA" target="_blank">
-                <img src="../../assets/images/animalsCams/1/cam-1.jpg" alt="panda">
-              </a>
-              <div class="badge badge--transparent">cam 1</div>
-              <div class="play-btn"></div>
-            </div>
-            <div class="view__element">
-              <a href="https://www.youtube.com/watch?v=ZwChSexiPgQ" target="_blank"><img
-                  src="../../assets/images/animalsCams/1/cam-2.jpg" alt="panda"></a>
-
-              <div class="badge badge--transparent">cam 2</div>
-              <div class="play-btn"></div>
-            </div>
-            <div class="view__element">
-              <a href="https://www.youtube.com/watch?v=5ZDG6op_qqg" target="_blank"><img
-                  src="../../assets/images/animalsCams/1/cam-3.jpg" alt="panda"></a>
-              <div class="badge badge--transparent">cam 2</div>
-              <div class="play-btn"></div>
-            </div>
           </div>
           <div class="controls">
             <div class="next"></div>
@@ -46,4 +26,24 @@ export function drawCams(): void {
 
         <div class="btn btn--orange donate-btn"><span class="btn__text">donate now</span></div>`
     );
+
+    addCamData(cameras);
+}
+
+function addCamData(cameras: {link: string; img: string}[]): void {
+    let viewList = document.querySelector<HTMLElement>('.views__carousel .view__list');
+    if (!viewList) return;
+    cameras.forEach((cam, idx) => {
+        const camEl = createTag('div', ['view__element']);
+        camEl.insertAdjacentHTML(
+            'afterbegin',
+            `
+              <a href="${cam.link}" target="_blank">
+                <img src="${cam.img}" alt="camera preview">
+              </a>
+              <div class="badge badge--transparent">cam ${idx + 1}</div>
+              <div class="play-btn"></div>`
+        );
+        viewList.append(camEl);
+    });
 }
