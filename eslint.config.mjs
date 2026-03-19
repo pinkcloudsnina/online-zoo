@@ -20,5 +20,8 @@ export default defineConfig([
             },
             globals: globals.browser,
         },
+        rules: {
+            '@typescript-eslint/no-explicit-any': 'error',
+        },
     },
 ]);
