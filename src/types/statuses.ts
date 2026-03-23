@@ -1,22 +1,14 @@
-export enum RegStatus {
-    Success = 201,
+export enum APIStatus {
+    Success = 200,
+    Created = 201,
+
     ValidationError = 400,
-    UserExists = 409,
-}
-
-export enum LoginStatus {
-    Success = 200,
-    InvalidCredentials = 401,
-}
-
-export enum AuthStatus {
-    Success = 200,
     Unauthorized = 401,
-}
-
-export enum ResponseStatus {
-    Success = 200,
-    Ok = 201,
-    ValidationError = 400,
+    NotFound = 404,
+    UserExists = 409,
     InternalServerError = 500,
 }
+
+export const isSuccess = (status: APIStatus) => {
+    return status === APIStatus.Success || status === APIStatus.Created;
+};

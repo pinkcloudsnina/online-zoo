@@ -6,10 +6,10 @@ import {validateField} from '../utils/inputValidation.js';
 import {getPetsList, setPets} from '../state/animalState.js';
 import {Pet} from '../types/interfaces.js';
 import {initDonationStep2} from './donationStep2.js';
-import {getPets} from '../utils/api.js';
+import {apiRequest} from '../utils/api.js';
 
 export async function initDonationStep1() {
-    const pets = await getPets();
+    const pets = await apiRequest<Pet[]>('/pets');
     clearDonationState();
 
     openPopup(drawDonationStep1());

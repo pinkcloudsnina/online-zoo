@@ -3,9 +3,10 @@ import {renderSidebar} from '../components/sidebar.js';
 import {refreshAnimal, refreshCams} from './animalData.js';
 import {initSidebarCarousel} from './sidebarCarousel.js';
 import {hideLoader, showLoader} from '../components/loader.js';
-import {getAnimalInfo} from '../utils/api.js';
+import {apiRequest} from '../utils/api.js';
 import {hideMessage, showMessage} from '../components/message.js';
 import {createTag} from '../utils/tagEl.js';
+import {Animal, Pet} from '../types/interfaces.js';
 
 const main = document.querySelector<HTMLElement>('main');
 const body = document.body;
@@ -42,29 +43,23 @@ export async function chooseAnimalCam(id: number): Promise<void> {
     body.append(overlay);
 
     if (animalAbout) animalAbout.innerHTML = '';
-    hideMessage(main!);
-    showLoader(overlay);
 
     try {
-        const newAnimal = await getAnimalInfo(id);
+        const newAnimal = await apiRequest<Animal>(`/pets/${id}`);
+
+        setActive(id);
+        setCurrentAnimal(newAnimal);
+        refreshAnimal();
+    } catch (error) {
+        refreshCams(id);
+        const aboutSection = document.querySelector<HTMLElement>('.animal-about');
+        if (aboutSection)
+            showMessage(aboutSection, 'Error getting animal data. Please choose animal from sidebar.', 'error');
+    } finally {
         setTimeout(() => {
             hideLoader(overlay);
             overlay.remove();
         }, 300);
-
-        setActive(id);
-        if (newAnimal) {
-            setCurrentAnimal(newAnimal);
-            refreshAnimal(id);
-        }
-        if (!newAnimal) {
-            refreshCams(id);
-            const aboutSection = document.querySelector<HTMLElement>('.animal-about');
-            if (aboutSection)
-                showMessage(aboutSection, 'Error getting animal data. Please choose animal from sidebar.', 'error');
-        }
-    } catch (err) {
-        console.error('Unknown Error', err);
     }
 }
 

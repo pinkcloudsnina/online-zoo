@@ -1,12 +1,12 @@
 import {showLoader, hideLoader} from '../components/loader.js';
-import {getPets} from '../utils/api.js';
 import {setPets} from '../state/animalState.js';
 import {showMessage} from '../components/message.js';
 import {initMeetCarousel} from '../features/meetPetsInit.js';
 import {setTestimonials} from '../state/animalState.js';
 import {initTestimonials} from '../features/testimonialsInit.js';
-import {getTestimonials} from '../utils/api.js';
+import {apiRequest} from '../utils/api.js';
 import {initDonationStep1} from '../features/donationStep1.js';
+import {Pet, Testimonial} from '../types/interfaces.js';
 
 const meetPets = document.querySelector<HTMLElement>('.meet-pets');
 const testimonials = document.querySelector<HTMLElement>('.testimonials');
@@ -17,31 +17,27 @@ async function initState(): Promise<void> {
     showLoader(meetPets);
     showLoader(testimonials);
 
-    try {
-        const petsList = await getPets();
-        hideLoader(meetPets);
-        if (!petsList) {
-            showMessage(meetPets, 'Something went wrong. Please, refresh the page', 'error');
-        } else {
-            setPets(petsList);
-            initMeetCarousel();
-        }
-    } catch (err) {
-        console.error('Error', err);
+    const [petsRes, testimonialsRes] = await Promise.allSettled([
+        apiRequest<Pet[]>('/pets'),
+        apiRequest<Testimonial[]>('/feedback'),
+    ]);
+    if (petsRes.status === 'fulfilled') {
+        setPets(petsRes.value);
+        initMeetCarousel();
+    } else {
+        showMessage(meetPets, 'Something went wrong. Please, refresh the page', 'error');
     }
 
-    try {
-        const testimonialsList = await getTestimonials();
-        hideLoader(testimonials);
-        if (!testimonialsList) {
-            showMessage(testimonials, 'Something went wrong. Please, refresh the page', 'error');
-        } else {
-            setTestimonials(testimonialsList);
-            initTestimonials();
-        }
-    } catch (err) {
-        console.error('Error', err);
+    if (testimonialsRes.status === 'fulfilled') {
+        setTestimonials(testimonialsRes.value);
+        initTestimonials();
+    } else {
+        showMessage(testimonials, 'Something went wrong. Please, refresh the page', 'error');
     }
+
+    hideLoader(meetPets);
+    hideLoader(testimonials);
+
     initDonateBtns();
 }
 

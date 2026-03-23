@@ -13,3 +13,8 @@ export const authState: AuthState = {
 export function getAuthUser(): User | null {
     return authState.user;
 }
+
+export function clearAuthState(): void {
+    authState.token = null;
+    authState.user = null;
+}

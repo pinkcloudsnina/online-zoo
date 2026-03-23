@@ -1,21 +1,23 @@
 import {openPopup, closePopup} from '../components/popup.js';
-import {drawAuthorization} from '../components/authorization.js';
+import {drawAuthorization, drawGreet} from '../components/authorization.js';
 import {drawLogin} from '../components/login.js';
-import {sendLoginRequest, sendRegisterRequest, sendProfileRequest} from '../utils/api.js';
+import {apiRequest, createRequestOptions} from '../utils/api.js';
 import {drawRegister} from '../components/register.js';
 import {validateField} from '../utils/inputValidation.js';
-import {authState} from '../state/authState.js';
+import {authState, clearAuthState, getAuthUser} from '../state/authState.js';
 import {drawUserData} from '../components/userData.js';
+import {LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User} from '../types/interfaces.js';
 
 export async function initAuthorization(): Promise<void> {
     try {
-        const response = await sendProfileRequest();
-        authState.user = response;
+        const isAuthorized = await checkAuthorized();
+        const user = getAuthUser();
+        if (isAuthorized) drawGreet(user);
     } catch {
         logout();
     }
-    const loginBtn = document.querySelector<HTMLElement>('.authorization');
-    loginBtn?.addEventListener('click', showAuthorizationPopup);
+    const authBtn = document.querySelector<HTMLElement>('.authorization');
+    authBtn?.addEventListener('click', showAuthorizationPopup);
 }
 
 function showAuthorizationPopup(): void {
@@ -142,7 +144,10 @@ function initRegisterButton(): void {
         const responseError = document.querySelector<HTMLParagraphElement>('p.response-error');
 
         try {
-            await sendRegisterRequest({login, password, name, email});
+            await apiRequest<RegisterResponse>(
+                '/auth/register',
+                createRequestOptions<RegisterRequest>('POST', {login, password, name, email})
+            );
 
             window.location.href = '../landing/index.html';
         } catch (error) {
@@ -161,55 +166,47 @@ function initLoginButton(): void {
         const responseError = document.querySelector<HTMLParagraphElement>('p.response-error');
 
         try {
-            const response = await sendLoginRequest({login, password});
+            const response = await apiRequest<LoginResponse>(
+                '/auth/login',
+                createRequestOptions<LoginRequest>('POST', {login, password})
+            );
 
-            authState.token = response.data.access_token;
-            authState.user = response.data.user;
+            authState.token = response.access_token;
+            authState.user = response.user;
 
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('token', response.access_token);
             window.location.href = '../animal/zoo.html';
-        } catch (error) {
-            responseError!.textContent = (error as Error).message;
+        } catch (err) {
+            responseError!.textContent = (err as Error).message;
         }
     });
 }
 
-export async function initLogged(): Promise<void> {
-    const userGreet = document.querySelector<HTMLSpanElement>('.authorization .user');
+function logout(): void {
+    clearAuth();
+    drawGreet(null);
+    closePopup();
+}
 
-    const token = localStorage.getItem('token');
+async function checkAuthorized(): Promise<boolean> {
+    const token = authState.token ?? localStorage.getItem('token');
     if (!token) {
-        if (userGreet) userGreet.textContent = '';
-        return;
+        clearAuth();
+        return false;
     }
-
-    authState.token = token;
-
     try {
-        const user = await sendProfileRequest();
-
+        const user = await apiRequest<User>('/auth/profile', createRequestOptions('GET', undefined, token));
         authState.user = user;
-        localStorage.setItem('user', JSON.stringify(user));
-        if (userGreet) userGreet.textContent = user.name;
-    } catch (error) {
-        console.error('Auth check failed:', error);
-
-        authState.token = null;
-        authState.user = null;
-
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-
-        if (userGreet) userGreet.textContent = '';
+        authState.token = token;
+        localStorage.setItem('token', token);
+        return true;
+    } catch (err) {
+        clearAuth();
+        return false;
     }
 }
 
-function logout(): void {
-    authState.token = null;
-    authState.user = null;
+function clearAuth(): void {
+    clearAuthState();
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    closePopup();
-    initLogged();
 }

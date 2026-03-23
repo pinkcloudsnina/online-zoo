@@ -9,8 +9,8 @@ import {
 import {openPopup} from '../components/popup.js';
 import {getAuthUser} from '../state/authState.js';
 import {DonationState, getDonationState} from '../state/donationState.js';
-import {DonationRequest} from '../types/interfaces.js';
-import {sendDonationRequest} from '../utils/api.js';
+import {DonationRequest, DonationResponse} from '../types/interfaces.js';
+import {apiRequest, createRequestOptions} from '../utils/api.js';
 import {validateField} from '../utils/inputValidation.js';
 import {initDonationStep2} from './donationStep2.js';
 
@@ -171,7 +171,10 @@ function initCompleteBtn(): void {
         try {
             const donationRequest = getDonationRequestFromState(getDonationState());
 
-            const donation = await sendDonationRequest(donationRequest);
+            const donation = await apiRequest<DonationResponse>(
+                '/donations',
+                createRequestOptions<DonationRequest>('POST', donationRequest)
+            );
 
             const result = donation;
 

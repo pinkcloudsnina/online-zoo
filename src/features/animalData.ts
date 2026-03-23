@@ -8,11 +8,11 @@ import {drawQuickDonation} from '../components/quickDonation.js';
 import {initDonationStep1} from './donationStep1.js';
 import {getAnimalCamsData} from '../state/animalCams.js';
 
-export async function refreshAnimal(id = 1): Promise<void> {
+export async function refreshAnimal(): Promise<void> {
     const currentAnimal = getCurrentAnimal();
     if (!currentAnimal) return;
 
-    refreshCams(id);
+    refreshCams(currentAnimal.id);
 
     drawQuickDonation();
 

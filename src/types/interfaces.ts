@@ -41,17 +41,14 @@ export interface User {
     email: string;
 }
 
-export interface LoginResponse {
-    data: {
-        access_token: string;
-        user: User;
-    };
-    message: string;
-}
-
 export interface LoginRequest {
     login: string;
     password: string;
+}
+
+export interface LoginResponse {
+    access_token: string;
+    user: User;
 }
 
 export interface RegisterRequest {
@@ -59,6 +56,11 @@ export interface RegisterRequest {
     password: string;
     name: string;
     email: string;
+}
+
+export interface RegisterResponse {
+    access_token: string;
+    user: User;
 }
 
 export interface DonationRequest {
@@ -74,5 +76,6 @@ export interface DonationResponse {
 }
 
 export interface ApiResponse<T> {
-    data: T;
+    data?: T;
+    error?: string;
 }
