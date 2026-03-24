@@ -1,7 +1,7 @@
 import {createTag} from '../utils/tagEl.js';
-import {authState} from '../state/authState.js';
+import {User} from '../types/interfaces.js';
 
-export function drawUserData(): HTMLElement {
+export function drawUserData(user: User, handlers: {onLogout: () => void}): HTMLElement {
     const container = createTag('div', ['content-1']);
     container.insertAdjacentHTML(
         'afterbegin',
@@ -13,15 +13,16 @@ export function drawUserData(): HTMLElement {
           <div class="line"></div>
           <div class="container">
             <ul class="user-info">
-              <li><span>Name:</span>${authState.user?.name}</li>
-              <li><span>Email:</span>${authState.user?.email}</li>
-          </ul>
-          <div id="logoutBtn" class="btn btn--turquoise" inactive>
+              <li><span>Name:</span>${user.name}</li>
+              <li><span>Email:</span>${user.email}</li>
+            </ul>
+            <div id="logoutBtn" class="btn btn--turquoise" inactive>
               <div class="btn__text">Logout</div>
             </div>
           </div>
-
       `
     );
+    const logoutBtn = container.querySelector<HTMLElement>('#logoutBtn');
+    logoutBtn?.addEventListener('click', handlers.onLogout);
     return container;
 }

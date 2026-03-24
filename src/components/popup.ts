@@ -11,7 +11,9 @@ export function openPopup(content: HTMLElement): void {
 }
 
 export function closePopup(): void {
-    popup?.classList.remove('popup-open');
+    if (!popup || !popupContent) return;
+    popupContent.innerHTML = '';
+    popup.classList.remove('popup-open');
 }
 
 popupClose?.addEventListener('click', closePopup);
