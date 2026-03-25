@@ -21,8 +21,8 @@ function drawStaticContent() {
             Below you can leave your own
             feedback, or simply view feedback from past clients. </p>
 
-          <div class="testimonials__container">
-            <div class="testimonials__list">
+          <div class="testimonials__container carousel">
+            <div class="testimonials__list carousel__list">
 
             </div>
 

@@ -3,7 +3,6 @@ import {applyValidationResult} from '../components/form.js';
 export type ValidationType = 'login' | 'password' | 'passwordConfirm' | 'name' | 'email' | 'amount' | 'card' | 'cvv';
 
 //returns null if no validation problems were found
-
 export function validateValueError(value: string, type: ValidationType, extra?: string): string | null {
     const problems: string[] = [];
 

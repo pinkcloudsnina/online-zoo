@@ -1,7 +1,7 @@
 import {showLoader, hideLoader} from '../components/loader.js';
 import {setPets} from '../state/animalState.js';
 import {showMessage} from '../components/message.js';
-import {initMeetCarousel} from '../features/meetPetsInit.js';
+import {initMeetPets} from '../features/meetPetsInit.js';
 import {setTestimonials} from '../state/animalState.js';
 import {initTestimonials} from '../features/testimonialsInit.js';
 import {apiRequest} from '../utils/api.js';
@@ -23,14 +23,14 @@ async function initState(): Promise<void> {
     ]);
     if (petsRes.status === 'fulfilled') {
         setPets(petsRes.value);
-        initMeetCarousel();
+        initMeetPets(meetPets);
     } else {
         showMessage(meetPets, 'Something went wrong. Please, refresh the page', 'error');
     }
 
     if (testimonialsRes.status === 'fulfilled') {
         setTestimonials(testimonialsRes.value);
-        initTestimonials();
+        initTestimonials(testimonials);
     } else {
         showMessage(testimonials, 'Something went wrong. Please, refresh the page', 'error');
     }
