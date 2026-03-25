@@ -1,6 +1,6 @@
 import {createTag} from '../utils/tagEl.js';
 
-export function drawDonationStep2(): HTMLElement {
+export function drawDonationStep2(handlers: {onInput: (field: HTMLInputElement) => void}): HTMLElement {
     const container = createTag('div', ['content-2']);
     container.insertAdjacentHTML(
         'afterbegin',
@@ -13,12 +13,12 @@ export function drawDonationStep2(): HTMLElement {
           <fieldset class="payer-details form">
             <div class="form__field">
               <label for="billingName" class="form__label"><span>*</span>Your Name</label>
-              <input id="billingName" type="text" class="form__input" placeholder="First and last name">
+              <input id="billingName" type="text" class="form__input" data-validate='name' placeholder="First and last name">
               <p class="validation-error"></p>
             </div>
             <div class="form__field">
               <label for="billingEmail" class="form__label"><span>*</span>Your Email Address</label>
-              <input id="billingEmail" type="text" class="form__input" placeholder="Enter your email">
+              <input id="billingEmail" type="text" class="form__input" data-validate='email' placeholder="Enter your email">
               <p class="validation-error"></p>
             </div>
             <p>You will receive emails from the Online Zoo, including updates and news on the latest discoveries and
@@ -41,5 +41,12 @@ export function drawDonationStep2(): HTMLElement {
             </div>
           </div>`
     );
+
+    const nameInput = container.querySelector<HTMLInputElement>('#billingName');
+    const emailInput = container.querySelector<HTMLInputElement>('#billingEmail');
+
+    nameInput?.addEventListener('input', () => handlers.onInput(nameInput));
+    emailInput?.addEventListener('input', () => handlers.onInput(emailInput));
+
     return container;
 }

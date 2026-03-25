@@ -1,7 +1,12 @@
 import {Pet} from '../types/interfaces.js';
 import {createTag} from '../utils/tagEl.js';
 
-export function drawDonationStep1(): HTMLElement {
+export function drawDonationStep1(
+    pets: Pet[],
+    handlers: {
+        initDropdowns: (container: HTMLElement) => void;
+    }
+): HTMLElement {
     const container = createTag('div', ['content-1']);
     container.insertAdjacentHTML(
         'afterbegin',
@@ -29,7 +34,7 @@ export function drawDonationStep1(): HTMLElement {
             </div>
             <div class="btn btn--turquoise custom-amount-btn"> other <span>amount</span>
             </div>
-            <div class="custom-amount"><input type="text" placeholder="" id="other-amount-input">
+            <div class="custom-amount"><input type="text" placeholder="" id="other-amount-input" data-validate='amount'>
             <p class="validation-error"></p></div>
             
           </fieldset>
@@ -69,11 +74,21 @@ export function drawDonationStep1(): HTMLElement {
             </div>
           </div>`
     );
+    const list = container.querySelector<HTMLUListElement>('.dropdown__list');
+    const p = container.querySelector<HTMLElement>('.choose-pet .error');
+
+    if (pets.length === 0) {
+        if (p) p.textContent = 'Error getting pet data. Please refresh page';
+    }
+
+    if (list) drawListItems(pets, list);
+
+    handlers.initDropdowns(container);
+
     return container;
 }
 
-export function drawListItems(pets: Pet[]): void {
-    const list = document.querySelector<HTMLUListElement>('.dropdown__list');
+function drawListItems(pets: Pet[], list: HTMLUListElement): void {
     pets.forEach((pet) => {
         const el = createTag('li', ['dropdown__item']);
         el.textContent = `${pet.name} the ${pet.commonName}`;

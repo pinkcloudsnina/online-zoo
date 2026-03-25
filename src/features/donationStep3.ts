@@ -1,24 +1,35 @@
 import {drawDonationResult} from '../components/donationResult.js';
-import {
-    drawCardItems,
-    drawDonationStep3,
-    drawMonthItems,
-    drawYearItems,
-    showSaveCardCheck,
-} from '../components/donationStep3.js';
+import {drawCardItems, drawDonationStep3, highlightDateErr, showSaveCardCheck} from '../components/donationStep3.js';
 import {openPopup} from '../components/popup.js';
 import {getAuthUser} from '../state/authState.js';
-import {DonationState, getDonationState} from '../state/donationState.js';
+import {
+    DonationState,
+    getCardMonth,
+    getCardState,
+    getCardYear,
+    getDonationState,
+    setCardDate,
+} from '../state/donationState.js';
 import {DonationRequest, DonationResponse} from '../types/interfaces.js';
 import {apiRequest, createRequestOptions} from '../utils/api.js';
-import {validateField} from '../utils/inputValidation.js';
+import {validateValueError} from '../utils/inputValidation.js';
+import {initPrevStepBtn} from './donation.js';
 import {initDonationStep2} from './donationStep2.js';
+import {initDropdowns} from './dropdown.js';
+import {fieldInput} from './form.js';
 
 export function initDonationStep3() {
     const currentUser = getAuthUser();
-    openPopup(drawDonationStep3());
-    drawMonthItems();
-    drawYearItems();
+    openPopup(
+        drawDonationStep3({
+            initDropdowns: (container) => initDropdowns(container, handleDropdownChange),
+            onInput: (el) => fieldInput(el, enableCompleteBtn),
+        })
+    );
+
+    initCompleteBtn();
+    initPrevStepBtn(initDonationStep2);
+
     if (currentUser) {
         showSaveCardCheck();
         const savedCardsString = localStorage.getItem('savedCards');
@@ -32,132 +43,29 @@ export function initDonationStep3() {
             drawCardItems(savedCards);
         }
     }
-    initDropdowns();
-    initTextInputs();
-    checkCompleteBtn();
-    initCompleteBtn();
-    initPrevStepBtn();
 }
 
-function initTextInputs() {
-    const inputCard = document.querySelector<HTMLInputElement>('#card-num');
-    const inputCVV = document.querySelector<HTMLInputElement>('#cvv');
-
-    inputCard?.addEventListener('blur', () => {
-        const p = inputCard.nextElementSibling;
-        if (inputCard.value) {
-            const validationMsg = validateField(inputCard.value, 'card');
-            if (!validationMsg) {
-                inputCard.classList.remove('validation-error');
-                if (p) p.textContent = '';
-            } else {
-                inputCard.classList.add('validation-error');
-                if (p) p.textContent = validationMsg;
-            }
-        }
-        checkCompleteBtn();
-    });
-
-    inputCVV?.addEventListener('blur', () => {
-        const p = inputCVV.nextElementSibling;
-        if (inputCVV.value) {
-            const validationMsg = validateField(inputCVV.value, 'cvv');
-            if (!validationMsg) {
-                inputCVV.classList.remove('validation-error');
-                if (p) p.textContent = '';
-            } else {
-                inputCVV.classList.add('validation-error');
-                if (p) p.textContent = validationMsg;
-            }
-        }
-        checkCompleteBtn();
-    });
-}
-
-function initDropdowns(): void {
-    document.querySelectorAll('.dropdown').forEach((dropdown) => {
-        const toggle = dropdown.querySelector<HTMLElement>('.dropdown__toggle');
-        const items = dropdown.querySelectorAll<HTMLElement>('.dropdown__item');
-        const label = dropdown.querySelector<HTMLElement>('.dropdown__label');
-        const hiddenInput = dropdown.querySelector<HTMLInputElement>('input[type="hidden"]');
-
-        toggle?.addEventListener('click', () => {
-            dropdown.classList.toggle('open');
-        });
-
-        items.forEach((item) => {
-            item.addEventListener('click', () => {
-                if (label) label.textContent = item.textContent;
-                const dropdownValue = item.dataset.value;
-                if (dropdownValue && hiddenInput) {
-                    hiddenInput.value = dropdownValue;
-                    checkDate();
-                    checkCompleteBtn();
-                }
-                dropdown.classList.remove('open');
-
-                if (dropdown.classList.contains('card-select') && dropdownValue) {
-                    const cardInput = document.querySelector<HTMLInputElement>('#card-num');
-                    if (cardInput) cardInput.value = dropdownValue;
-                }
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            const target = e.target as Node;
-            if (!dropdown.contains(target)) {
-                dropdown.classList.remove('open');
-            }
-        });
-    });
-}
-
-function checkDate() {
-    const year = document.querySelector<HTMLInputElement>('#year');
-    const month = document.querySelector<HTMLInputElement>('#month');
-    const p = document.querySelector<HTMLParagraphElement>('.date-error');
-    if (year?.value && month?.value) {
-        const now = new Date();
-        const currentMonth = now.getMonth() + 1;
-        const currentYear = now.getFullYear();
-
-        const inputMonth = parseInt(month.value);
-        const inputYear = parseInt(year.value);
-
-        if (inputYear > currentYear) {
-            if (p) p.textContent = '';
-
-            month.classList.remove('validation-error');
-            year.classList.remove('validation-error');
-            return;
-        }
-        if (inputYear === currentYear && inputMonth >= currentMonth) {
-            if (p) p.textContent = '';
-            month.classList.remove('validation-error');
-            year.classList.remove('validation-error');
-        } else {
-            if (p) p.textContent = 'Date expired';
-            month.classList.add('validation-error');
-            year.classList.add('validation-error');
-        }
+function handleDropdownChange(id: string, value: string) {
+    if (id === 'month' || id === 'year') {
+        setCardDate(id, parseInt(value));
+        isDateValid(getCardYear(), getCardMonth());
     }
+    enableCompleteBtn();
 }
 
-function checkCompleteBtn(): void {
-    const completeBtn = document.querySelector<HTMLElement>('.complete-btn');
-    const requiredFields = Array.from(
-        document.querySelectorAll<HTMLInputElement>(
-            '.popup input[type="text"],.month-select input[type="hidden"], .year-select input[type="hidden"]'
-        )
-    );
+function isDateValid(year: number | null, month: number | null): boolean {
+    if (!year || !month) {
+        return false;
+    }
 
-    const hasError = requiredFields.some((element) => {
-        if (!element.value || element.classList.contains('validation-error')) return true;
-        else return false;
-    });
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
 
-    if (hasError) completeBtn?.classList.add('disabled');
-    else completeBtn?.classList.remove('disabled');
+    const isValid = year > currentYear || (year === currentYear && month >= currentMonth);
+
+    highlightDateErr(!isValid);
+    return isValid;
 }
 
 function initCompleteBtn(): void {
@@ -221,12 +129,22 @@ function getDonationRequestFromState(state: DonationState): DonationRequest {
     return {
         name: state.name,
         email: state.email,
-        amount: state.amount,
+        amount: parseFloat(state.amount),
         petId: state.petId,
     };
 }
 
-function initPrevStepBtn() {
-    const prevStepBtn = document.querySelector<HTMLElement>('.prev-step');
-    prevStepBtn?.addEventListener('click', initDonationStep2);
+function enableCompleteBtn(): void {
+    const completeBtn = document.querySelector<HTMLElement>('.complete-btn');
+    if (validateDonationStep3()) {
+        completeBtn?.classList.remove('disabled');
+    } else completeBtn?.classList.add('disabled');
+}
+
+function validateDonationStep3(): boolean {
+    const cardDetails = getCardState();
+    const isNumValid = cardDetails.cardNum != null && !validateValueError(cardDetails.cardNum, 'card');
+    const isCVVValid = cardDetails.cvv != null && !validateValueError(cardDetails.cvv.toString(), 'cvv');
+
+    return isNumValid && isCVVValid && isDateValid(cardDetails.date.year, cardDetails.date.month);
 }

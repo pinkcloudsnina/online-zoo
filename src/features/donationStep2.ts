@@ -2,52 +2,17 @@ import {openPopup} from '../components/popup.js';
 import {drawDonationStep2} from '../components/donationStep2.js';
 import {initDonationStep1} from './donationStep1.js';
 import {getAuthUser} from '../state/authState.js';
-import {validateField} from '../utils/inputValidation.js';
-import {setDonationUserName, setDonationUserEmail, getDonationState} from '../state/donationState.js';
+import {setDonationUserName, setDonationUserEmail, getDonationName, getDonationEmail} from '../state/donationState.js';
 import {initDonationStep3} from './donationStep3.js';
+import {initPrevStepBtn, initNextStepBtn} from './donation.js';
+import {fieldInput} from './form.js';
+import {validateValueError} from '../utils/inputValidation.js';
 
 export function initDonationStep2() {
-    openPopup(drawDonationStep2());
+    openPopup(drawDonationStep2({onInput: (el) => fieldInput(el, enableNextBtn)}));
     preFillData();
-    initPrevStepBtn();
-    initNextStepBtn();
-
-    const nameInput = document.querySelector<HTMLInputElement>('#billingName');
-    const emailInput = document.querySelector<HTMLInputElement>('#billingEmail');
-
-    nameInput?.addEventListener('blur', () => {
-        const p = nameInput.nextElementSibling;
-        if (nameInput.value) {
-            const validationMsg = validateField(nameInput.value, 'name');
-
-            if (!validationMsg) {
-                nameInput.classList.remove('validation-error');
-                if (p) p.textContent = '';
-                setDonationUserName(nameInput.value);
-            } else {
-                nameInput.classList.add('validation-error');
-                if (p) p.textContent = validationMsg;
-            }
-        }
-        checkNextBtn();
-    });
-
-    emailInput?.addEventListener('blur', () => {
-        const p = emailInput.nextElementSibling;
-        if (emailInput.value) {
-            const validationMsg = validateField(emailInput.value, 'email');
-
-            if (!validationMsg) {
-                emailInput.classList.remove('validation-error');
-                if (p) p.textContent = '';
-                setDonationUserEmail(emailInput.value);
-            } else {
-                emailInput.classList.add('validation-error');
-                if (p) p.textContent = validationMsg;
-            }
-        }
-        checkNextBtn();
-    });
+    initPrevStepBtn(initDonationStep1);
+    initNextStepBtn(initDonationStep3);
 }
 
 function preFillData(): void {
@@ -59,7 +24,7 @@ function preFillData(): void {
         if (emailInput) emailInput.value = currentUser.email;
         setDonationUserName(currentUser.name);
         setDonationUserEmail(currentUser.email);
-        checkNextBtn();
+        enableNextBtn();
     } else {
         if (nameInput) nameInput.value = '';
         if (emailInput) emailInput.value = '';
@@ -68,30 +33,19 @@ function preFillData(): void {
     }
 }
 
-function checkNextBtn(): void {
-    const nameInput = document.querySelector<HTMLInputElement>('#billingName');
-    const emailInput = document.querySelector<HTMLInputElement>('#billingEmail');
+function enableNextBtn(): void {
     const nextStepBtn = document.querySelector<HTMLElement>('.next-step');
 
-    if (nameInput?.classList.contains('validation-error') || emailInput?.classList.contains('validation-error')) {
-        nextStepBtn?.classList.add('disabled');
-
-        return;
-    }
-    if (nameInput?.value && emailInput?.value) {
+    if (validateDonationStep2()) {
         nextStepBtn?.classList.remove('disabled');
     } else nextStepBtn?.classList.add('disabled');
 }
 
-function initNextStepBtn(): void {
-    const nextStepBtn = document.querySelector<HTMLElement>('.next-step');
-    nextStepBtn?.addEventListener('click', () => {
-        if (nextStepBtn?.classList.contains('disabled')) return;
-        initDonationStep3();
-    });
-}
+function validateDonationStep2(): boolean {
+    const donaterName = getDonationName();
+    const donaterEmail = getDonationEmail();
+    const isNameValid = donaterName != null && !validateValueError(donaterName, 'name');
+    const isEmailValid = donaterEmail != null && !validateValueError(donaterEmail, 'email');
 
-function initPrevStepBtn() {
-    const prevStepBtn = document.querySelector<HTMLElement>('.prev-step');
-    prevStepBtn?.addEventListener('click', initDonationStep1);
+    return isNameValid && isEmailValid;
 }

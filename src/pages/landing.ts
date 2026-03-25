@@ -5,8 +5,8 @@ import {initMeetCarousel} from '../features/meetPetsInit.js';
 import {setTestimonials} from '../state/animalState.js';
 import {initTestimonials} from '../features/testimonialsInit.js';
 import {apiRequest} from '../utils/api.js';
-import {initDonationStep1} from '../features/donationStep1.js';
 import {Pet, Testimonial} from '../types/interfaces.js';
+import {initDonateBtns} from '../features/donation.js';
 
 const meetPets = document.querySelector<HTMLElement>('.meet-pets');
 const testimonials = document.querySelector<HTMLElement>('.testimonials');
@@ -39,14 +39,6 @@ async function initState(): Promise<void> {
     hideLoader(testimonials);
 
     initDonateBtns();
-}
-
-function initDonateBtns() {
-    const donateBtns = document.querySelectorAll<HTMLDivElement>('.donate-btn');
-
-    donateBtns.forEach((btn) => {
-        btn.addEventListener('click', initDonationStep1);
-    });
 }
 
 initState();

@@ -3,12 +3,13 @@ import {drawAuthorization, drawGreet} from '../components/authorization.js';
 import {drawLogin} from '../components/login.js';
 import {apiRequest, createRequestOptions} from '../utils/api.js';
 import {drawRegister} from '../components/register.js';
-import {validateField, ValidationType} from '../utils/inputValidation.js';
+import {validateInput, ValidationType} from '../utils/inputValidation.js';
 import {authState, clearAuthState, getAuthUser} from '../state/authState.js';
 import {drawUserData} from '../components/userData.js';
 import {LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User} from '../types/interfaces.js';
-import {applyValidationResult, resetInputError} from '../components/form.js';
+import {resetInputError} from '../components/form.js';
 import {hideMessage, showMessage} from '../components/message.js';
+import {enableBtnIfComplete} from './form.js';
 
 export async function initAuthorization(): Promise<void> {
     try {
@@ -84,26 +85,6 @@ function checkFormInput(input: HTMLInputElement, inputs: NodeListOf<HTMLInputEle
         if (passConfirmInput && passConfirmInput?.value) validateInput(passConfirmInput, 'passwordConfirm', input);
         validateInput(input, validationType);
     } else validateInput(input, validationType);
-}
-
-//extra if need to validate 2 inputs (for password and passwordConfirm)
-function validateInput(input: HTMLInputElement, validationType: ValidationType, extra?: HTMLInputElement) {
-    if (input.value.length > 0) {
-        const validationResult = validateField(input.value, validationType, extra?.value);
-        applyValidationResult(input, validationResult);
-    }
-}
-
-function enableBtnIfComplete(inputs: NodeListOf<HTMLInputElement>, btn: HTMLElement): void {
-    let correctInput = 0;
-    inputs.forEach((input) => {
-        if (input.value && !input.classList.contains('validation-error')) correctInput++;
-    });
-    if (inputs.length === correctInput) {
-        btn?.classList.remove('disabled');
-    } else {
-        btn?.classList.add('disabled');
-    }
 }
 
 function initRegisterButton(btn: HTMLElement): void {

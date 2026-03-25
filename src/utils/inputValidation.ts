@@ -1,6 +1,10 @@
-type ValidationType = 'login' | 'password' | 'passwordConfirm' | 'name' | 'email' | 'amount' | 'card' | 'cvv';
+import {applyValidationResult} from '../components/form.js';
 
-export function validateField(value: string, type: ValidationType, extra?: string): string | null {
+export type ValidationType = 'login' | 'password' | 'passwordConfirm' | 'name' | 'email' | 'amount' | 'card' | 'cvv';
+
+//returns null if no validation problems were found
+
+export function validateValueError(value: string, type: ValidationType, extra?: string): string | null {
     const problems: string[] = [];
 
     switch (type) {
@@ -24,6 +28,7 @@ export function validateField(value: string, type: ValidationType, extra?: strin
             if (value.length < 3) problems.push('have at least 3 characters');
             if (!/^[a-zA-Z]+$/.test(value)) problems.push('contain only English letters');
             break;
+
         case 'email':
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) problems.push('contain valid email');
             break;
@@ -47,4 +52,18 @@ export function validateField(value: string, type: ValidationType, extra?: strin
     }
 
     return problems.length !== 0 ? `Field should: ${problems.join(', ')}` : null;
+}
+
+//extra if need to validate 2 inputs (for password and passwordConfirm)
+export function validateInput(
+    input: HTMLInputElement,
+    validationType: ValidationType,
+    extra?: HTMLInputElement
+): boolean {
+    if (input.value.length > 0) {
+        const validationResult = validateValueError(input.value, validationType, extra?.value);
+        applyValidationResult(input, validationResult);
+        return validationResult ? false : true;
+    }
+    return false;
 }
