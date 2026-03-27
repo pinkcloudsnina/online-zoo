@@ -11,13 +11,32 @@ h1 {
     font-weight: 500;
 }
 
-.map {
+.dark h1 {
+    color: var(--color-white);
+}
+
+.map-container {
     position: relative;
-    background: url('../../assets/images/map.svg') no-repeat center;
+    margin-bottom: clamp(53px, calc(53px + (100px - 53px) * var(--coef-1)), 100px);
     width: 100%;
     height: clamp(233px, calc(233px + (415px - 233px) * var(--coef-1)), 415px);
-    background-size: cover;
-    margin-bottom: clamp(53px, calc(53px + (100px - 53px) * var(--coef-1)), 100px);
+}
+
+.map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-navy);
+    mask-image: url(../../assets/images/map.svg);
+    mask-repeat: no-repeat;
+    mask-clip: border-box;
+    mask-position: center;
+    mask-size: contain;
+}
+
+.dark .map {
+    background: var(--color-white);
 }
 
 #lion {
@@ -112,6 +131,14 @@ h1 {
     filter: drop-shadow(0 1.3px 30px rgba(255, 255, 255, 0.5));
 }
 
+.dark .geo-tag:hover .shape {
+    color: var(--color-orange-dark);
+}
+
+.dark .geo-icon .outline {
+    stroke: var(--color-orange-dark);
+}
+
 .geo-tag:hover .outline {
     opacity: 1;
 }
@@ -138,7 +165,7 @@ h1 {
         font-weight: 600;
     }
 
-    .map {
+    .map-container {
         height: clamp(415px, calc(415px + (777px - 415px) * var(--coef-2)), 777px);
     }
 
@@ -200,7 +227,7 @@ h1 {
         margin-bottom: clamp(11px, calc(11px + (65px - 11px) * var(--coef-3)), 65px);
     }
 
-    .map {
+    .map-container {
         height: clamp(777px, calc(777px + (912px - 777px) * var(--coef-3)), 912px);
         width: clamp(1200px, calc(1200px + (1406px - 1200px) * var(--coef-3)), 1406px);
         margin-bottom: clamp(100px, calc(100px + (150px - 100px) * var(--coef-3)), 150px);

@@ -65,21 +65,21 @@ p span {
     position: relative;
     height: clamp(644px, calc(644px + (686px - 644px) * (1 - var(--coef-1))), 686px);
     padding-top: clamp(20px, calc(20px + (47px - 20px) * var(--coef-1)), 47px);
+    background:
+        linear-gradient(to bottom, #ffffffff 44%, #ffffff00 70%),
+        linear-gradient(89deg, rgba(255, 255, 255, calc(1 * var(--coef-1))) 15%, #ffffff00 70%),
+        url('../../assets/images/hero.png');
+
+    background-position: calc(75% + (50% - 75%) * var(--coef-1)) calc(105% + (120% - 105%) * var(--coef-1));
+    background-size: calc(170% + (115% - 170%) * var(--coef-1)) auto;
+    background-repeat: no-repeat;
 }
 
-.hero-bg {
-    position: absolute;
-    height: clamp(291px, calc(291px + (387px - 291px) * var(--coef-1)), 387px);
-    width: 100%;
-    padding-bottom: 1px;
-    bottom: 0;
-    z-index: -1;
-}
-
-.hero-bg img {
-    height: 100%;
-    object-fit: cover;
-    object-position: 98% 2px;
+.dark .hero {
+    background: linear-gradient(rgba(32, 17, 61, 1), rgba(32, 17, 61, 0.4)), url('../../assets/images/hero.png');
+    background-position: calc(75% + (50% - 75%) * var(--coef-1)) calc(105% + (120% - 105%) * var(--coef-1));
+    background-size: calc(170% + (115% - 170%) * var(--coef-1)) auto;
+    background-repeat: no-repeat;
 }
 
 .hero p {
@@ -92,14 +92,31 @@ p span {
     .hero {
         height: clamp(644px, calc(644px + (690px - 644px) * var(--coef-2)), 690px);
         padding-top: clamp(47px, calc(47px + (100px - 47px) * var(--coef-2)), 100px);
+
+        background-image:
+            linear-gradient(89deg, #ffffffff 15%, #ffffff00 80%),
+            linear-gradient(to bottom, #ffffffff 0%, #ffffff00 8%),
+            linear-gradient(
+                to bottom,
+                #ffffffff calc(44% - 50% * var(--coef-2)),
+                #ffffff00 calc(70% - 63% * var(--coef-2))
+            ),
+            url('../../assets/images/hero.png');
+
+        background-position: calc(50% + (55% - 50%) * var(--coef-2)) calc(120% + (27% - 120%) * var(--coef-2));
+        background-size: calc(115% + (100% - 115%) * var(--coef-2)) auto;
+        background-repeat: no-repeat;
+    }
+
+    .dark .hero {
+        background: linear-gradient(rgba(32, 17, 61, 1), rgba(32, 17, 61, 0.4)), url('../../assets/images/hero.png');
+        background-position: calc(50% + (55% - 50%) * var(--coef-2)) calc(120% + (27% - 120%) * var(--coef-2));
+        background-size: calc(115% + (100% - 115%) * var(--coef-2)) auto;
+        background-repeat: no-repeat;
     }
 
     .hero p {
         margin-bottom: 25px;
-    }
-
-    .hero-bg {
-        height: clamp(387px, calc(387px + (690px - 387px) * var(--coef-2)), 690px);
     }
 }
 
@@ -107,10 +124,25 @@ p span {
     .hero {
         height: clamp(690px, calc(690px + (790px - 690px) * var(--coef-3)), 790px);
         padding-top: clamp(100px, calc(100px + (129px - 100px) * var(--coef-3)), 129px);
+        background:
+            linear-gradient(
+                119deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.65) 30%,
+                rgba(255, 255, 255, 0) 50%
+            ),
+            linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 10%),
+            url('../../assets/images/hero.png');
+        background-position: 55% 27%;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
     }
 
-    .hero-bg {
-        height: 100%;
+    .dark .hero {
+        background: linear-gradient(rgba(32, 17, 61, 1), rgba(32, 17, 61, 0.4)), url('../../assets/images/hero.png');
+        background-position: 55% 27%;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
     }
 
     .hero p {
@@ -124,16 +156,25 @@ p span {
     .hero {
         height: 790px;
         padding-top: 129px;
-    }
-    .hero-bg {
-        overflow: hidden;
+        background:
+            linear-gradient(
+                119deg,
+                rgba(255, 255, 255, 1) 15%,
+                rgba(255, 255, 255, 0.65) 30%,
+                rgba(255, 255, 255, 0) 50%
+            ),
+            linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 10%),
+            url('../../assets/images/hero.png');
+        background-position: 55% 27%;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
     }
 
-    .hero-bg img {
-        overflow: hidden;
-        object-fit: contain;
-        transform: scale(1.5);
-        object-position: bottom;
+    .dark .hero {
+        background: linear-gradient(rgba(32, 17, 61, 1), rgba(32, 17, 61, 0.4)), url('../../assets/images/hero.png');
+        background-position: 55% 27%;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
     }
 
     .hero p {
@@ -233,6 +274,12 @@ p span {
     background-color: var(--color-navy);
     padding-top: clamp(28px, calc(28px + (50px - 28px) * var(--coef-1)), 50px);
     padding-bottom: clamp(40px, calc(40px + (47px - 40px) * var(--coef-1)), 47px);
+}
+
+.dark .quick-donation {
+    border-top: 1px solid var(--color-white);
+    border-bottom: 1px solid var(--color-white);
+    box-shadow: 0 3px 70px rgba(255, 255, 255, 0.3);
 }
 
 .quick-donation h2 {
@@ -370,6 +417,10 @@ p span {
     height: 600px;
     border-radius: 5px;
     width: clamp(290px, calc(290px + (300px - 290px) * (1 - var(--coef-1))), 300px);
+}
+
+.dark .carousel__animal {
+    border: 1px solid var(--color-white);
 }
 
 .carousel__animal img {
@@ -976,9 +1027,17 @@ p span {
     transition: box-shadow 0.5s;
 }
 
+.dark .care__element {
+    border: 1px solid var(--color-white);
+}
+
 .care__element:first-child {
     display: none;
     cursor: default;
+}
+
+.dark .care__element:first-child {
+    border: none;
 }
 
 .care__description {

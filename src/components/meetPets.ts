@@ -43,7 +43,7 @@ function drawCards(pets: Pet[]) {
         card.insertAdjacentHTML(
             'afterbegin',
             `
-        <div class="animal-name"> Liz</div>
+        <div class="animal-name"> ${pet.name}</div>
                 <img src="../../assets/images/animal-info/about-${pet.id}.jpg" alt="${pet.commonName}">
                 <h3 class="animal-title header--white">${pet.commonName}</h3>
                 <p class="paragraph--white align--center"> ${pet.description} </p>

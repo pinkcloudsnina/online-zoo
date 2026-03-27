@@ -60,6 +60,10 @@ section {
     font-size: clamp(18px, calc(18px + (26px - 18px) * var(--coef-1)), 26px);
 }
 
+.dark .cams h2 {
+    color: var(--color-white);
+}
+
 .cams .controls {
     display: none;
 }
@@ -397,6 +401,12 @@ section {
     padding-bottom: 48px;
 }
 
+.dark .quick-donation {
+    border-top: 1px solid var(--color-white);
+    border-bottom: 1px solid var(--color-white);
+    box-shadow: 0 3px 70px rgba(255, 255, 255, 0.3);
+}
+
 .quick-donation h2 {
     margin-bottom: clamp(26px, calc(26px + (35px - 26px) * var(--coef-1)), 35px);
     font-size: clamp(26px, calc(26px + (42px - 26px) * var(--coef-1)), 42px);
@@ -489,6 +499,11 @@ section {
     margin-bottom: clamp(48px, calc(48px + (80px - 48px) * var(--coef-1)), 80px);
 }
 
+.dark .did-you-know {
+    border: 1px solid var(--color-white);
+    box-shadow: 0 4px 50px rgba(255, 255, 255, 0.25);
+}
+
 .did-you-know h2 {
     margin-bottom: clamp(21px, calc(21px + (27px - 21px) * (1 - var(--coef-2))), 27px);
     font-size: clamp(26px, calc(26px + (42px - 26px) * var(--coef-1)), 42px);
@@ -526,7 +541,9 @@ section {
     line-height: 150%;
     font-size: 18px;
     font-weight: 400;
+    color: var(--color-main-text);
 }
+
 .animal-profile strong {
     display: block;
     font-size: 26px;
@@ -679,6 +696,11 @@ aside {
     justify-content: center;
     align-self: flex-start;
     height: 100%;
+}
+
+.dark .side-navigation {
+    border: 1px solid var(--color-white);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
 }
 
 aside {
@@ -975,6 +997,11 @@ aside.expanded .toggle-btn .btn__icon {
 .cross,
 .cross::after {
     background-color: var(--color-orange);
+}
+
+.dark .cross,
+.cross::after {
+    background-color: var(--color-turquois);
 }
 
 .loader {
