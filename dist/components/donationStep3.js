@@ -1,5 +1,19 @@
 import { createTag } from '../utils/tagEl.js';
-export function drawDonationStep3() {
+const months = [
+    { label: 'January', value: '1' },
+    { label: 'February', value: '2' },
+    { label: 'March', value: '3' },
+    { label: 'April', value: '4' },
+    { label: 'May', value: '5' },
+    { label: 'June', value: '6' },
+    { label: 'July', value: '7' },
+    { label: 'August', value: '8' },
+    { label: 'September', value: '9' },
+    { label: 'October', value: '10' },
+    { label: 'November', value: '11' },
+    { label: 'December', value: '12' },
+];
+export function drawDonationStep3(handlers) {
     const container = createTag('div', ['content-3']);
     container.insertAdjacentHTML('afterbegin', `
           <h2 class="topper">
@@ -10,13 +24,13 @@ export function drawDonationStep3() {
           <fieldset class="payer-details form">
             <div id="card-input" class="form__field">
               <label for="card-num" class="form__label"><span>*</span>Credit Card Number</label>
-              <input id="card-num" type="text" class="form__input" placeholder="">
+              <input id="card-num" type="text" class="form__input" placeholder="" data-validate='card'>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field form__field--short">
               <label for="cvv" class="form__label"><span>*</span>CVV Number</label>
-              <input id="cvv" type="text" class="form__input" placeholder="">
+              <input id="cvv" type="text" class="form__input" placeholder="" data-validate='cvv'>
               <p class="validation-error"></p>
             </div>
 
@@ -58,42 +72,36 @@ export function drawDonationStep3() {
               <div class="btn__text">Complete donation</div>
             </div>
           </div>`);
+    const monthDropdown = container.querySelector('.month-select');
+    const yearDropdown = container.querySelector('.year-select');
+    if (monthDropdown)
+        drawDropdownItems(monthDropdown, months);
+    if (yearDropdown)
+        drawDropdownItems(yearDropdown, generateYears(20));
+    const inputCard = container.querySelector('#card-num');
+    const inputCVV = container.querySelector('#cvv');
+    inputCard === null || inputCard === void 0 ? void 0 : inputCard.addEventListener('input', () => handlers.onInput(inputCard));
+    inputCVV === null || inputCVV === void 0 ? void 0 : inputCVV.addEventListener('input', () => handlers.onInput(inputCVV));
     return container;
 }
-export function drawMonthItems() {
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-    const list = document.querySelector('.month-select .dropdown__list');
-    months.forEach((month, idx) => {
+export function drawDropdownItems(dropdown, elements) {
+    const list = dropdown.querySelector('.dropdown__list');
+    elements.forEach((item) => {
         const el = createTag('li', ['dropdown__item']);
-        el.textContent = month;
-        el.dataset.value = (idx + 1).toString();
+        el.textContent = item.label;
+        el.dataset.value = item.value.toString();
         list === null || list === void 0 ? void 0 : list.append(el);
     });
 }
-export function drawYearItems() {
-    const list = document.querySelector('.year-select .dropdown__list');
+export function generateYears(yearsAmount) {
     const currYear = new Date().getFullYear();
-    for (let year = currYear; year <= currYear + 20; year++) {
-        const el = createTag('li', ['dropdown__item']);
-        el.textContent = year.toString();
-        el.dataset.value = year.toString();
-        list === null || list === void 0 ? void 0 : list.append(el);
+    const years = [];
+    for (let year = currYear; year <= currYear + yearsAmount; year++) {
+        years.push({ label: year.toString(), value: year.toString() });
     }
+    return years;
 }
-export function drawCardItems(savedCards) {
+export function drawCardsDropdownContainer() {
     const cardInput = document.querySelector('#card-input');
     const cardDropdown = createTag('div');
     cardDropdown.insertAdjacentHTML('afterbegin', `
@@ -108,13 +116,6 @@ export function drawCardItems(savedCards) {
               <input id="dropdownSelectedCard" type="hidden" name="savedCardChosen" value="">
             </div>`);
     cardInput === null || cardInput === void 0 ? void 0 : cardInput.prepend(cardDropdown);
-    const list = document.querySelector('.card-select .dropdown__list');
-    savedCards.forEach((card) => {
-        const el = createTag('li', ['dropdown__item']);
-        el.textContent = `${card.slice(0, 4)} **** **** ${card.slice(-4)}`;
-        el.dataset.value = card;
-        list === null || list === void 0 ? void 0 : list.append(el);
-    });
 }
 export function showSaveCardCheck() {
     const cardInput = document.querySelector('#card-input');
@@ -125,5 +126,26 @@ export function showSaveCardCheck() {
             Save card for later payments
       `);
     cardInput === null || cardInput === void 0 ? void 0 : cardInput.append(saveCardChk);
+}
+export function highlightDateErr(hasError) {
+    const p = document.querySelector('.date-error');
+    const yearEl = document.querySelector('#year');
+    const monthEl = document.querySelector('#month');
+    if (hasError) {
+        if (p)
+            p.textContent = 'Date expired';
+        if (monthEl)
+            monthEl.classList.add('validation-error');
+        if (yearEl)
+            yearEl.classList.add('validation-error');
+    }
+    else {
+        if (p)
+            p.textContent = '';
+        if (monthEl)
+            monthEl.classList.remove('validation-error');
+        if (yearEl)
+            yearEl.classList.remove('validation-error');
+    }
 }
 //# sourceMappingURL=donationStep3.js.map

@@ -4,8 +4,9 @@
         "module": "ES6",
         "rootDir": "./src",
         "outDir": "./dist",
-        "types": [],
+        "types": ["jest", "node"],
         "sourceMap": true,
+        "esModuleInterop": true,
         "noUncheckedIndexedAccess": true,
         "exactOptionalPropertyTypes": true,
         // Recommended Options

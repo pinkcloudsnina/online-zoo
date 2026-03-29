@@ -8,207 +8,172 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { openPopup, closePopup } from '../components/popup.js';
-import { drawAuthorization } from '../components/authorization.js';
+import { drawAuthorization, drawGreet } from '../components/authorization.js';
 import { drawLogin } from '../components/login.js';
-import { sendLoginRequest, sendRegisterRequest, sendProfileRequest } from '../utils/api.js';
+import { apiRequest, createRequestOptions } from '../utils/api.js';
 import { drawRegister } from '../components/register.js';
-import { validateField } from '../utils/inputValidation.js';
-import { authState } from '../state/authState.js';
+import { validateInput } from '../utils/inputValidation.js';
+import { authState, clearAuthState, getAuthUser } from '../state/authState.js';
 import { drawUserData } from '../components/userData.js';
+import { resetInputError } from '../components/form.js';
+import { hideMessage, showMessage } from '../components/message.js';
+import { enableBtnIfComplete } from './form.js';
 export function initAuthorization() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield sendProfileRequest();
-            authState.user = response;
+            const isAuthorized = yield checkAuthorized();
+            const user = getAuthUser();
+            if (isAuthorized)
+                drawGreet(user);
         }
         catch (_a) {
             logout();
         }
-        const loginBtn = document.querySelector('.authorization');
-        loginBtn === null || loginBtn === void 0 ? void 0 : loginBtn.addEventListener('click', showAuthorizationPopup);
+        const authBtn = document.querySelector('.authorization');
+        authBtn === null || authBtn === void 0 ? void 0 : authBtn.addEventListener('click', showAuthorizationPopup);
     });
 }
 function showAuthorizationPopup() {
-    if (authState.user) {
-        openPopup(drawUserData());
-        const logoutBtn = document.querySelector('#logoutBtn');
-        logoutBtn === null || logoutBtn === void 0 ? void 0 : logoutBtn.addEventListener('click', logout);
+    const currUser = getAuthUser();
+    if (currUser) {
+        openPopup(drawUserData(currUser, { onLogout: logout }));
     }
     else {
-        openPopup(drawAuthorization());
-        const login = document.querySelector('.login');
-        const register = document.querySelector('.register');
-        login === null || login === void 0 ? void 0 : login.addEventListener('click', () => {
-            openPopup(drawLogin());
-            initInputs();
-            initLoginButton();
-        });
-        register === null || register === void 0 ? void 0 : register.addEventListener('click', () => {
-            openPopup(drawRegister());
-            initInputs();
-            initRegisterButton();
-        });
+        const container = document.querySelector('.popup__content');
+        openPopup(drawAuthorization({
+            onLogin: () => {
+                openPopup(drawLogin());
+                const loginBtn = document.querySelector('#loginBtn');
+                if (container && loginBtn)
+                    initForm(container, loginBtn);
+                if (loginBtn)
+                    initLoginButton(loginBtn);
+            },
+            onRegister: () => {
+                openPopup(drawRegister());
+                const registerBtn = document.querySelector('#registerBtn');
+                if (container && registerBtn)
+                    initForm(container, registerBtn);
+                if (registerBtn)
+                    initRegisterButton(registerBtn);
+            },
+        }));
     }
 }
-function initValidation() {
-    const login = document.querySelector('#login');
-    const password = document.querySelector('#pass');
-    const passwordConfirm = document.querySelector('#confirm-pass');
-    const name = document.querySelector('#name');
-    const email = document.querySelector('#email');
-    login === null || login === void 0 ? void 0 : login.addEventListener('blur', () => {
-        if (!login.value)
-            return;
-        const validationResult = validateField(login.value, 'login');
-        applyValidationResult(login, validationResult);
-    });
-    password === null || password === void 0 ? void 0 : password.addEventListener('blur', () => {
-        if (!password.value)
-            return;
-        const validationResult = validateField(password.value, 'password');
-        applyValidationResult(password, validationResult);
-    });
-    passwordConfirm === null || passwordConfirm === void 0 ? void 0 : passwordConfirm.addEventListener('blur', () => {
-        if (!password || !passwordConfirm)
-            return;
-        const validationResult = validateField(password.value, 'passwordConfirm', passwordConfirm.value);
-        applyValidationResult(passwordConfirm, validationResult);
-    });
-    name === null || name === void 0 ? void 0 : name.addEventListener('blur', () => {
-        if (!name.value)
-            return;
-        const validationResult = validateField(name.value, 'name');
-        applyValidationResult(name, validationResult);
-    });
-    email === null || email === void 0 ? void 0 : email.addEventListener('blur', () => {
-        if (!email.value)
-            return;
-        const validationResult = validateField(email.value, 'email');
-        applyValidationResult(email, validationResult);
-    });
-}
-function initInputs() {
-    const inputs = document.querySelectorAll('.popup__content input');
-    const responseErr = document.querySelector('.response-error');
+function initForm(container, button) {
+    const inputs = container.querySelectorAll('input');
+    const responseRes = container.querySelector('.response-result');
     inputs.forEach((input) => {
         input.addEventListener('focus', () => {
-            input.value = '';
-            if (responseErr)
-                responseErr.textContent = '';
-            const p = input === null || input === void 0 ? void 0 : input.nextElementSibling;
-            input.classList.remove('validation-error');
-            p.textContent = '';
-            checkFormComplete();
+            resetInputError(input);
+            if (responseRes)
+                hideMessage(responseRes);
+            checkFormInput(input, inputs);
+            enableBtnIfComplete(inputs, button);
         });
         input.addEventListener('blur', () => {
-            checkFormComplete();
+            checkFormInput(input, inputs);
+            enableBtnIfComplete(inputs, button);
+        });
+        input.addEventListener('input', () => {
+            resetInputError(input);
+            if (responseRes)
+                hideMessage(responseRes);
+            checkFormInput(input, inputs);
+            enableBtnIfComplete(inputs, button);
         });
     });
-    initValidation();
 }
-function applyValidationResult(input, msg) {
-    const p = input === null || input === void 0 ? void 0 : input.nextElementSibling;
-    if (msg !== null) {
-        input.classList.add('validation-error');
-        p.textContent = msg;
+function checkFormInput(input, inputs) {
+    const validationType = input.dataset.validate;
+    if (validationType === 'passwordConfirm') {
+        const passInput = Array.from(inputs).find((el) => el.id === 'pass');
+        validateInput(input, validationType, passInput);
     }
-    else {
-        input.classList.remove('validation-error');
-        p.textContent = '';
+    else if (validationType === 'password') {
+        const passConfirmInput = Array.from(inputs).find((el) => el.id === 'confirm-pass');
+        if (passConfirmInput && (passConfirmInput === null || passConfirmInput === void 0 ? void 0 : passConfirmInput.value))
+            validateInput(passConfirmInput, 'passwordConfirm', input);
+        validateInput(input, validationType);
     }
+    else
+        validateInput(input, validationType);
 }
-function checkFormComplete() {
-    const inputs = document.querySelectorAll('.popup__content input');
-    const registerBtn = document.querySelector('#registerBtn');
-    const loginBtn = document.querySelector('#loginBtn');
-    let correctInput = 0;
-    inputs.forEach((input) => {
-        if (input.value && !input.classList.contains('validation-error'))
-            correctInput++;
-    });
-    if (inputs.length === correctInput) {
-        registerBtn === null || registerBtn === void 0 ? void 0 : registerBtn.classList.remove('disabled');
-        loginBtn === null || loginBtn === void 0 ? void 0 : loginBtn.classList.remove('disabled');
-    }
-    else {
-        registerBtn === null || registerBtn === void 0 ? void 0 : registerBtn.classList.add('disabled');
-        loginBtn === null || loginBtn === void 0 ? void 0 : loginBtn.classList.add('disabled');
-    }
-}
-function initRegisterButton() {
-    const registerBtn = document.querySelector('#registerBtn');
-    registerBtn === null || registerBtn === void 0 ? void 0 : registerBtn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
-        if (registerBtn.classList.contains('disabled'))
+function initRegisterButton(btn) {
+    btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
+        if (btn.classList.contains('disabled'))
             return;
         const login = document.querySelector('#login').value;
         const password = document.querySelector('#pass').value;
         const name = document.querySelector('#name').value;
         const email = document.querySelector('#email').value;
-        const responseError = document.querySelector('p.response-error');
+        const responseResult = document.querySelector('p.response-result');
+        if (responseResult)
+            hideMessage(responseResult);
         try {
-            yield sendRegisterRequest({ login, password, name, email });
-            window.location.href = '../landing/index.html';
+            const response = yield apiRequest('/auth/register', createRequestOptions('POST', { login, password, name, email }));
+            showMessage(responseResult, 'Registration successful', 'success');
+            setTimeout(() => {
+                window.location.href = '../landing/index.html';
+            }, 2000);
         }
         catch (error) {
-            responseError.textContent = error.message;
+            showMessage(responseResult, error.message, 'error');
         }
     }));
 }
-function initLoginButton() {
-    const loginBtn = document.querySelector('#loginBtn');
-    loginBtn === null || loginBtn === void 0 ? void 0 : loginBtn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
-        if (loginBtn.classList.contains('disabled'))
+function initLoginButton(btn) {
+    btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
+        if (btn.classList.contains('disabled'))
             return;
         const login = document.querySelector('#login').value;
         const password = document.querySelector('#pass').value;
-        const responseError = document.querySelector('p.response-error');
+        const responseResult = document.querySelector('p.response-result');
+        if (responseResult)
+            hideMessage(responseResult);
         try {
-            const response = yield sendLoginRequest({ login, password });
-            authState.token = response.data.access_token;
-            authState.user = response.data.user;
-            localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            window.location.href = '../animal/zoo.html';
+            const response = yield apiRequest('/auth/login', createRequestOptions('POST', { login, password }));
+            authState.token = response.access_token;
+            authState.user = response.user;
+            localStorage.setItem('token', response.access_token);
+            showMessage(responseResult, 'Login successful', 'success');
+            setTimeout(() => {
+                window.location.href = '../animal/zoo.html';
+            }, 2000);
         }
         catch (error) {
-            responseError.textContent = error.message;
+            showMessage(responseResult, error.message, 'error');
         }
     }));
 }
-export function initLogged() {
+function logout() {
+    clearAuth();
+    drawGreet(null);
+    closePopup();
+}
+function checkAuthorized() {
     return __awaiter(this, void 0, void 0, function* () {
-        const userGreet = document.querySelector('.authorization .user');
-        const token = localStorage.getItem('token');
+        var _a;
+        const token = (_a = authState.token) !== null && _a !== void 0 ? _a : localStorage.getItem('token');
         if (!token) {
-            if (userGreet)
-                userGreet.textContent = '';
-            return;
+            clearAuth();
+            return false;
         }
-        authState.token = token;
         try {
-            const user = yield sendProfileRequest();
+            const user = yield apiRequest('/auth/profile', createRequestOptions('GET', undefined, token));
             authState.user = user;
-            localStorage.setItem('user', JSON.stringify(user));
-            if (userGreet)
-                userGreet.textContent = user.name;
+            authState.token = token;
+            localStorage.setItem('token', token);
+            return true;
         }
-        catch (error) {
-            console.error('Auth check failed:', error);
-            authState.token = null;
-            authState.user = null;
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            if (userGreet)
-                userGreet.textContent = '';
+        catch (err) {
+            clearAuth();
+            return false;
         }
     });
 }
-function logout() {
-    authState.token = null;
-    authState.user = null;
+function clearAuth() {
+    clearAuthState();
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    closePopup();
-    initLogged();
 }
 //# sourceMappingURL=userAuthorization.js.map

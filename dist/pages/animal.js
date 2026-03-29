@@ -10,42 +10,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { initSidebar } from '../features/animalSidebar.js';
 import { refreshAnimal } from '../features/animalData.js';
 import { showLoader, hideLoader } from '../components/loader.js';
-import { getAnimalInfo, getCamerasInfo } from '../utils/api.js';
+import { apiRequest } from '../utils/api.js';
 import { setAnimalCameras } from '../state/animalState.js';
 import { showMessage } from '../components/message.js';
 import { setCurrentAnimal } from '../state/animalState.js';
 import { showTitle } from '../components/player.js';
-import { initDonationStep1 } from '../features/donationStep1.js';
+import { initDonateBtns } from '../features/donation.js';
 const main = document.querySelector('main');
 function initState() {
     return __awaiter(this, void 0, void 0, function* () {
         showTitle();
         showLoader(main);
         try {
-            const [camerasResult, animalResult] = yield Promise.all([getCamerasInfo(), getAnimalInfo(1)]);
-            hideLoader(main);
-            if (!camerasResult || !animalResult) {
-                showMessage(main, 'Something went wrong. Please, refresh the page', 'error');
-            }
-            if (camerasResult && animalResult) {
-                const cameras = camerasResult;
-                setAnimalCameras(cameras);
-                initSidebar();
-                const animal = animalResult;
-                setCurrentAnimal(animal);
-                refreshAnimal(1);
-            }
+            const [camerasResult, animalResult] = yield Promise.all([
+                apiRequest(`/cameras`),
+                apiRequest(`/pets/1`),
+            ]);
+            setAnimalCameras(camerasResult);
+            setCurrentAnimal(animalResult);
+            refreshAnimal();
+            initSidebar();
         }
         catch (err) {
-            console.error('Error', err);
+            showMessage(main, 'Something went wrong. Please, refresh the page', 'error');
+        }
+        finally {
+            hideLoader(main);
         }
         initDonateBtns();
-    });
-}
-function initDonateBtns() {
-    const donateBtns = document.querySelectorAll('.donate-btn');
-    donateBtns.forEach((btn) => {
-        btn.addEventListener('click', initDonationStep1);
     });
 }
 initState();

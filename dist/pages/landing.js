@@ -8,14 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { showLoader, hideLoader } from '../components/loader.js';
-import { getPets } from '../utils/api.js';
 import { setPets } from '../state/animalState.js';
 import { showMessage } from '../components/message.js';
-import { initMeetCarousel } from '../features/meetPetsInit.js';
+import { initMeetPets } from '../features/meetPetsInit.js';
 import { setTestimonials } from '../state/animalState.js';
 import { initTestimonials } from '../features/testimonialsInit.js';
-import { getTestimonials } from '../utils/api.js';
-import { initDonationStep1 } from '../features/donationStep1.js';
+import { apiRequest } from '../utils/api.js';
+import { initDonateBtns } from '../features/donation.js';
 const meetPets = document.querySelector('.meet-pets');
 const testimonials = document.querySelector('.testimonials');
 function initState() {
@@ -24,41 +23,27 @@ function initState() {
             return;
         showLoader(meetPets);
         showLoader(testimonials);
-        try {
-            const petsList = yield getPets();
-            hideLoader(meetPets);
-            if (!petsList) {
-                showMessage(meetPets, 'Something went wrong. Please, refresh the page', 'error');
-            }
-            else {
-                setPets(petsList);
-                initMeetCarousel();
-            }
+        const [petsRes, testimonialsRes] = yield Promise.allSettled([
+            apiRequest('/pets'),
+            apiRequest('/feedback'),
+        ]);
+        if (petsRes.status === 'fulfilled') {
+            setPets(petsRes.value);
+            initMeetPets(meetPets);
         }
-        catch (err) {
-            console.error('Error', err);
+        else {
+            showMessage(meetPets, 'Something went wrong. Please, refresh the page', 'error');
         }
-        try {
-            const testimonialsList = yield getTestimonials();
-            hideLoader(testimonials);
-            if (!testimonialsList) {
-                showMessage(testimonials, 'Something went wrong. Please, refresh the page', 'error');
-            }
-            else {
-                setTestimonials(testimonialsList);
-                initTestimonials();
-            }
+        if (testimonialsRes.status === 'fulfilled') {
+            setTestimonials(testimonialsRes.value);
+            initTestimonials(testimonials);
         }
-        catch (err) {
-            console.error('Error', err);
+        else {
+            showMessage(testimonials, 'Something went wrong. Please, refresh the page', 'error');
         }
+        hideLoader(meetPets);
+        hideLoader(testimonials);
         initDonateBtns();
-    });
-}
-function initDonateBtns() {
-    const donateBtns = document.querySelectorAll('.donate-btn');
-    donateBtns.forEach((btn) => {
-        btn.addEventListener('click', initDonationStep1);
     });
 }
 initState();

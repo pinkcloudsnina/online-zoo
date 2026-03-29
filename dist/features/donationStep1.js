@@ -7,29 +7,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { drawDonationStep1, drawListItems } from '../components/donationStep1.js';
+import { drawDonationStep1 } from '../components/donationStep1.js';
 import { openPopup } from '../components/popup.js';
-import { clearDonationState, setDonationAmount, setDonationAnimal } from '../state/donationState.js';
+import { clearDonationState, getDonationAmount, getDonationPet, setDonationAmount, setDonationPet, } from '../state/donationState.js';
 import { highlightNode } from '../utils/highlightChosen.js';
-import { validateField } from '../utils/inputValidation.js';
-import { getPetsList, setPets } from '../state/animalState.js';
+import { validateInput, validateValueError } from '../utils/inputValidation.js';
 import { initDonationStep2 } from './donationStep2.js';
-import { getPets } from '../utils/api.js';
+import { apiRequest } from '../utils/api.js';
+import { initDropdowns } from './dropdown.js';
+import { initNextStepBtn } from './donation.js';
 export function initDonationStep1() {
     return __awaiter(this, void 0, void 0, function* () {
-        const pets = yield getPets();
         clearDonationState();
-        openPopup(drawDonationStep1());
-        initDonationBtns();
-        if (pets && pets.length >= 1) {
-            drawListItems(pets);
-            setPets(pets);
-        }
-        initDropdown(getPetsList());
-        initNextStepBtn();
+        const pets = yield apiRequest('/pets');
+        const step1 = drawDonationStep1(pets, {
+            initDropdowns: (container) => initDropdowns(container, handleDropdownChange),
+        });
+        openPopup(step1);
+        initDonationAmountBtns();
+        initNextStepBtn(initDonationStep2);
     });
 }
-function initDonationBtns() {
+function handleDropdownChange(id, value) {
+    if (id === 'for-pet') {
+        choosePet(value);
+        enableNextBtn();
+    }
+}
+function choosePet(value) {
+    setDonationPet(parseInt(value));
+    enableNextBtn();
+}
+function initDonationAmountBtns() {
     const amountBtns = document.querySelectorAll('.choose-amount .btn');
     const customBtn = document.querySelector('.custom-amount-btn');
     const inputCustom = document.querySelector('.custom-amount input');
@@ -48,18 +57,18 @@ function initDonationBtns() {
                 highlightNode(amountBtns, btn, 'active');
                 if (btn.classList.contains('custom-amount-btn')) {
                     if (inputCustom) {
-                        const amount = parseInt(inputCustom.value);
+                        const amount = inputCustom.value;
                         setDonationAmount(amount);
                     }
                 }
                 else {
                     if (inputCustom)
                         inputCustom.value = '';
-                    const amount = Number(btn.dataset.donationAmount);
+                    const amount = btn.dataset.donationAmount || '';
                     setDonationAmount(amount);
                 }
             }
-            checkNextBtn();
+            enableNextBtn();
         });
     });
     inputCustom === null || inputCustom === void 0 ? void 0 : inputCustom.addEventListener('click', () => {
@@ -70,86 +79,30 @@ function initDonationBtns() {
             inputCustom.value = '';
         if (p)
             p.textContent = '';
-        checkNextBtn();
+        enableNextBtn();
     });
-    inputCustom === null || inputCustom === void 0 ? void 0 : inputCustom.addEventListener('blur', () => {
-        if (inputCustom.value) {
-            const validationMsg = validateField(inputCustom.value, 'amount');
-            if (!validationMsg) {
-                inputCustom.classList.remove('validation-error');
-                if (p)
-                    p.textContent = '';
-                setDonationAmount(parseFloat(inputCustom.value));
-                checkNextBtn();
-            }
-            else {
-                inputCustom.classList.add('validation-error');
-                if (p)
-                    p.textContent = validationMsg;
-            }
-        }
-        else {
-            customBtn === null || customBtn === void 0 ? void 0 : customBtn.classList.remove('active');
-            setDonationAmount(null);
-        }
-        checkNextBtn();
-    });
-}
-function initDropdown(pets) {
-    const p = document.querySelector('.choose-pet .error');
-    if (pets.length === 0) {
+    inputCustom === null || inputCustom === void 0 ? void 0 : inputCustom.addEventListener('input', () => {
         if (p)
-            p.textContent = 'Error getting pet data. Please refresh page';
-    }
-    document.querySelectorAll('.dropdown').forEach((dropdown) => {
-        const toggle = dropdown.querySelector('.dropdown__toggle');
-        const list = dropdown.querySelector('.dropdown__list');
-        const items = dropdown.querySelectorAll('.dropdown__item');
-        const label = dropdown.querySelector('.dropdown__label');
-        const hiddenInput = dropdown.querySelector('input[type="hidden"]');
-        toggle === null || toggle === void 0 ? void 0 : toggle.addEventListener('click', () => {
-            dropdown.classList.toggle('open');
-        });
-        items.forEach((item) => {
-            item.addEventListener('click', () => {
-                if (label)
-                    label.textContent = item.textContent;
-                const dropdownValue = item.dataset.value;
-                if (dropdownValue && hiddenInput) {
-                    setDonationAnimal(parseInt(dropdownValue));
-                    hiddenInput.value = dropdownValue;
-                    checkNextBtn();
-                }
-                dropdown.classList.remove('open');
-            });
-        });
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            if (!dropdown.contains(target)) {
-                dropdown.classList.remove('open');
-            }
-        });
+            p.textContent = '';
+        const validationType = inputCustom.dataset.validate;
+        validateInput(inputCustom, validationType);
+        setDonationAmount(inputCustom.value);
+        enableNextBtn();
     });
 }
-function checkNextBtn() {
-    const donationAmount = document.querySelector('.choose-amount .btn.active');
-    const customAmount = document.querySelector('#other-amount-input');
-    const petChoice = document.querySelector('#for-pet');
+function enableNextBtn() {
     const nextStepBtn = document.querySelector('.next-step');
-    if (donationAmount && (petChoice === null || petChoice === void 0 ? void 0 : petChoice.value)) {
-        if (donationAmount.classList.contains('custom-amount-btn') && !customAmount)
-            nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.add('disabled');
+    if (validateDonationStep1()) {
         nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.remove('disabled');
     }
     else
         nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.add('disabled');
 }
-function initNextStepBtn() {
-    const nextStepBtn = document.querySelector('.next-step');
-    nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.addEventListener('click', () => {
-        if (nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.contains('disabled'))
-            return;
-        initDonationStep2();
-    });
+function validateDonationStep1() {
+    const donationAmount = getDonationAmount();
+    const donationPet = getDonationPet();
+    const isAmountValid = donationAmount != null && !validateValueError(donationAmount.toString(), 'amount');
+    const isPetSelected = donationPet != null;
+    return isAmountValid && isPetSelected;
 }
 //# sourceMappingURL=donationStep1.js.map

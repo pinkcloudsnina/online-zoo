@@ -2,52 +2,16 @@ import { openPopup } from '../components/popup.js';
 import { drawDonationStep2 } from '../components/donationStep2.js';
 import { initDonationStep1 } from './donationStep1.js';
 import { getAuthUser } from '../state/authState.js';
-import { validateField } from '../utils/inputValidation.js';
-import { setDonationUserName, setDonationUserEmail } from '../state/donationState.js';
+import { setDonationUserName, setDonationUserEmail, getDonationName, getDonationEmail } from '../state/donationState.js';
 import { initDonationStep3 } from './donationStep3.js';
+import { initPrevStepBtn, initNextStepBtn } from './donation.js';
+import { fieldInput } from './form.js';
+import { validateValueError } from '../utils/inputValidation.js';
 export function initDonationStep2() {
-    openPopup(drawDonationStep2());
+    openPopup(drawDonationStep2({ onInput: (el) => fieldInput(el, enableNextBtn) }));
     preFillData();
-    initPrevStepBtn();
-    initNextStepBtn();
-    const nameInput = document.querySelector('#billingName');
-    const emailInput = document.querySelector('#billingEmail');
-    nameInput === null || nameInput === void 0 ? void 0 : nameInput.addEventListener('blur', () => {
-        const p = nameInput.nextElementSibling;
-        if (nameInput.value) {
-            const validationMsg = validateField(nameInput.value, 'name');
-            if (!validationMsg) {
-                nameInput.classList.remove('validation-error');
-                if (p)
-                    p.textContent = '';
-                setDonationUserName(nameInput.value);
-            }
-            else {
-                nameInput.classList.add('validation-error');
-                if (p)
-                    p.textContent = validationMsg;
-            }
-        }
-        checkNextBtn();
-    });
-    emailInput === null || emailInput === void 0 ? void 0 : emailInput.addEventListener('blur', () => {
-        const p = emailInput.nextElementSibling;
-        if (emailInput.value) {
-            const validationMsg = validateField(emailInput.value, 'email');
-            if (!validationMsg) {
-                emailInput.classList.remove('validation-error');
-                if (p)
-                    p.textContent = '';
-                setDonationUserEmail(emailInput.value);
-            }
-            else {
-                emailInput.classList.add('validation-error');
-                if (p)
-                    p.textContent = validationMsg;
-            }
-        }
-        checkNextBtn();
-    });
+    initPrevStepBtn(initDonationStep1);
+    initNextStepBtn(initDonationStep3);
 }
 function preFillData() {
     const nameInput = document.querySelector('#billingName');
@@ -60,7 +24,7 @@ function preFillData() {
             emailInput.value = currentUser.email;
         setDonationUserName(currentUser.name);
         setDonationUserEmail(currentUser.email);
-        checkNextBtn();
+        enableNextBtn();
     }
     else {
         if (nameInput)
@@ -71,30 +35,19 @@ function preFillData() {
         setDonationUserEmail(null);
     }
 }
-function checkNextBtn() {
-    const nameInput = document.querySelector('#billingName');
-    const emailInput = document.querySelector('#billingEmail');
+function enableNextBtn() {
     const nextStepBtn = document.querySelector('.next-step');
-    if ((nameInput === null || nameInput === void 0 ? void 0 : nameInput.classList.contains('validation-error')) || (emailInput === null || emailInput === void 0 ? void 0 : emailInput.classList.contains('validation-error'))) {
-        nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.add('disabled');
-        return;
-    }
-    if ((nameInput === null || nameInput === void 0 ? void 0 : nameInput.value) && (emailInput === null || emailInput === void 0 ? void 0 : emailInput.value)) {
+    if (validateDonationStep2()) {
         nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.remove('disabled');
     }
     else
         nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.add('disabled');
 }
-function initNextStepBtn() {
-    const nextStepBtn = document.querySelector('.next-step');
-    nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.addEventListener('click', () => {
-        if (nextStepBtn === null || nextStepBtn === void 0 ? void 0 : nextStepBtn.classList.contains('disabled'))
-            return;
-        initDonationStep3();
-    });
-}
-function initPrevStepBtn() {
-    const prevStepBtn = document.querySelector('.prev-step');
-    prevStepBtn === null || prevStepBtn === void 0 ? void 0 : prevStepBtn.addEventListener('click', initDonationStep1);
+function validateDonationStep2() {
+    const donaterName = getDonationName();
+    const donaterEmail = getDonationEmail();
+    const isNameValid = donaterName != null && !validateValueError(donaterName, 'name');
+    const isEmailValid = donaterEmail != null && !validateValueError(donaterEmail, 'email');
+    return isNameValid && isEmailValid;
 }
 //# sourceMappingURL=donationStep2.js.map

@@ -17,11 +17,11 @@ import { drawQuickDonation } from '../components/quickDonation.js';
 import { initDonationStep1 } from './donationStep1.js';
 import { getAnimalCamsData } from '../state/animalCams.js';
 export function refreshAnimal() {
-    return __awaiter(this, arguments, void 0, function* (id = 1) {
+    return __awaiter(this, void 0, void 0, function* () {
         const currentAnimal = getCurrentAnimal();
         if (!currentAnimal)
             return;
-        refreshCams(id);
+        refreshCams(currentAnimal.id);
         drawQuickDonation();
         drawDidYouKnow(currentAnimal);
         drawAnimalInfo(currentAnimal);

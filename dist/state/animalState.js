@@ -28,4 +28,7 @@ export function getPetsList() {
 export function getTestimonialsList() {
     return state.testimonialsList;
 }
+export function getPetById(id) {
+    return state.petsList.find((el) => el.id === id);
+}
 //# sourceMappingURL=animalState.js.map

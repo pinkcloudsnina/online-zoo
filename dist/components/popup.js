@@ -10,7 +10,10 @@ export function openPopup(content) {
     popup.classList.add('popup-open');
 }
 export function closePopup() {
-    popup === null || popup === void 0 ? void 0 : popup.classList.remove('popup-open');
+    if (!popup || !popupContent)
+        return;
+    popupContent.innerHTML = '';
+    popup.classList.remove('popup-open');
 }
 popupClose === null || popupClose === void 0 ? void 0 : popupClose.addEventListener('click', closePopup);
 overlay === null || overlay === void 0 ? void 0 : overlay.addEventListener('click', closePopup);

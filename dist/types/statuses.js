@@ -1,24 +1,14 @@
-export var RegStatus;
-(function (RegStatus) {
-    RegStatus[RegStatus["Success"] = 201] = "Success";
-    RegStatus[RegStatus["ValidationError"] = 400] = "ValidationError";
-    RegStatus[RegStatus["UserExists"] = 409] = "UserExists";
-})(RegStatus || (RegStatus = {}));
-export var LoginStatus;
-(function (LoginStatus) {
-    LoginStatus[LoginStatus["Success"] = 200] = "Success";
-    LoginStatus[LoginStatus["InvalidCredentials"] = 401] = "InvalidCredentials";
-})(LoginStatus || (LoginStatus = {}));
-export var AuthStatus;
-(function (AuthStatus) {
-    AuthStatus[AuthStatus["Success"] = 200] = "Success";
-    AuthStatus[AuthStatus["Unauthorized"] = 401] = "Unauthorized";
-})(AuthStatus || (AuthStatus = {}));
-export var ResponseStatus;
-(function (ResponseStatus) {
-    ResponseStatus[ResponseStatus["Success"] = 200] = "Success";
-    ResponseStatus[ResponseStatus["Ok"] = 201] = "Ok";
-    ResponseStatus[ResponseStatus["ValidationError"] = 400] = "ValidationError";
-    ResponseStatus[ResponseStatus["InternalServerError"] = 500] = "InternalServerError";
-})(ResponseStatus || (ResponseStatus = {}));
+export var APIStatus;
+(function (APIStatus) {
+    APIStatus[APIStatus["Success"] = 200] = "Success";
+    APIStatus[APIStatus["Created"] = 201] = "Created";
+    APIStatus[APIStatus["ValidationError"] = 400] = "ValidationError";
+    APIStatus[APIStatus["Unauthorized"] = 401] = "Unauthorized";
+    APIStatus[APIStatus["NotFound"] = 404] = "NotFound";
+    APIStatus[APIStatus["UserExists"] = 409] = "UserExists";
+    APIStatus[APIStatus["InternalServerError"] = 500] = "InternalServerError";
+})(APIStatus || (APIStatus = {}));
+export const isSuccess = (status) => {
+    return status === APIStatus.Success || status === APIStatus.Created;
+};
 //# sourceMappingURL=statuses.js.map

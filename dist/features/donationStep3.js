@@ -8,167 +8,77 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { drawDonationResult } from '../components/donationResult.js';
-import { drawCardItems, drawDonationStep3, drawMonthItems, drawYearItems, showSaveCardCheck, } from '../components/donationStep3.js';
+import { drawCardsDropdownContainer, drawDonationStep3, drawDropdownItems, highlightDateErr, showSaveCardCheck, } from '../components/donationStep3.js';
 import { openPopup } from '../components/popup.js';
 import { getAuthUser } from '../state/authState.js';
-import { getDonationState } from '../state/donationState.js';
-import { sendDonationRequest } from '../utils/api.js';
-import { validateField } from '../utils/inputValidation.js';
+import { getCardMonth, getCardState, getCardYear, getDonationState, setCardDate, setCardNum, } from '../state/donationState.js';
+import { apiRequest, createRequestOptions } from '../utils/api.js';
+import { validateInput, validateValueError } from '../utils/inputValidation.js';
+import { initPrevStepBtn } from './donation.js';
 import { initDonationStep2 } from './donationStep2.js';
+import { initDropdowns } from './dropdown.js';
+import { initDonationStats } from './fav-stats.js';
+import { fieldInput } from './form.js';
 export function initDonationStep3() {
     const currentUser = getAuthUser();
-    openPopup(drawDonationStep3());
-    drawMonthItems();
-    drawYearItems();
+    openPopup(drawDonationStep3({
+        onInput: (el) => fieldInput(el, enableCompleteBtn),
+    }));
     if (currentUser) {
         showSaveCardCheck();
-        const savedCardsString = localStorage.getItem('savedCards');
-        let savedCards = [];
-        if (savedCardsString) {
-            try {
-                savedCards = JSON.parse(savedCardsString);
-            }
-            catch (_a) {
-                savedCards = [];
-            }
-            drawCardItems(savedCards);
-        }
+        drawCardsDropdown();
     }
-    initDropdowns();
-    initTextInputs();
-    checkCompleteBtn();
+    const popup = document.querySelector('.popup');
+    if (popup)
+        initDropdowns(popup, handleDropdownChange);
     initCompleteBtn();
-    initPrevStepBtn();
+    initPrevStepBtn(initDonationStep2);
 }
-function initTextInputs() {
-    const inputCard = document.querySelector('#card-num');
-    const inputCVV = document.querySelector('#cvv');
-    inputCard === null || inputCard === void 0 ? void 0 : inputCard.addEventListener('blur', () => {
-        const p = inputCard.nextElementSibling;
-        if (inputCard.value) {
-            const validationMsg = validateField(inputCard.value, 'card');
-            if (!validationMsg) {
-                inputCard.classList.remove('validation-error');
-                if (p)
-                    p.textContent = '';
-            }
-            else {
-                inputCard.classList.add('validation-error');
-                if (p)
-                    p.textContent = validationMsg;
-            }
-        }
-        checkCompleteBtn();
-    });
-    inputCVV === null || inputCVV === void 0 ? void 0 : inputCVV.addEventListener('blur', () => {
-        const p = inputCVV.nextElementSibling;
-        if (inputCVV.value) {
-            const validationMsg = validateField(inputCVV.value, 'cvv');
-            if (!validationMsg) {
-                inputCVV.classList.remove('validation-error');
-                if (p)
-                    p.textContent = '';
-            }
-            else {
-                inputCVV.classList.add('validation-error');
-                if (p)
-                    p.textContent = validationMsg;
-            }
-        }
-        checkCompleteBtn();
-    });
-}
-function initDropdowns() {
-    document.querySelectorAll('.dropdown').forEach((dropdown) => {
-        const toggle = dropdown.querySelector('.dropdown__toggle');
-        const items = dropdown.querySelectorAll('.dropdown__item');
-        const label = dropdown.querySelector('.dropdown__label');
-        const hiddenInput = dropdown.querySelector('input[type="hidden"]');
-        toggle === null || toggle === void 0 ? void 0 : toggle.addEventListener('click', () => {
-            dropdown.classList.toggle('open');
-        });
-        items.forEach((item) => {
-            item.addEventListener('click', () => {
-                if (label)
-                    label.textContent = item.textContent;
-                const dropdownValue = item.dataset.value;
-                if (dropdownValue && hiddenInput) {
-                    hiddenInput.value = dropdownValue;
-                    checkDate();
-                    checkCompleteBtn();
-                }
-                dropdown.classList.remove('open');
-                if (dropdown.classList.contains('card-select') && dropdownValue) {
-                    const cardInput = document.querySelector('#card-num');
-                    if (cardInput)
-                        cardInput.value = dropdownValue;
-                }
-            });
-        });
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            if (!dropdown.contains(target)) {
-                dropdown.classList.remove('open');
-            }
-        });
-    });
-}
-function checkDate() {
-    const year = document.querySelector('#year');
-    const month = document.querySelector('#month');
-    const p = document.querySelector('.date-error');
-    if ((year === null || year === void 0 ? void 0 : year.value) && (month === null || month === void 0 ? void 0 : month.value)) {
-        const now = new Date();
-        const currentMonth = now.getMonth() + 1;
-        const currentYear = now.getFullYear();
-        const inputMonth = parseInt(month.value);
-        const inputYear = parseInt(year.value);
-        if (inputYear > currentYear) {
-            if (p)
-                p.textContent = '';
-            month.classList.remove('validation-error');
-            year.classList.remove('validation-error');
-            return;
-        }
-        if (inputYear === currentYear && inputMonth >= currentMonth) {
-            if (p)
-                p.textContent = '';
-            month.classList.remove('validation-error');
-            year.classList.remove('validation-error');
-        }
-        else {
-            if (p)
-                p.textContent = 'Date expired';
-            month.classList.add('validation-error');
-            year.classList.add('validation-error');
+function handleDropdownChange(id, value) {
+    if (id === 'month' || id === 'year') {
+        setCardDate(id, parseInt(value));
+        isDateValid(getCardYear(), getCardMonth());
+    }
+    if (id === 'dropdownSelectedCard') {
+        const cardInput = document.querySelector('#card-num');
+        if (cardInput) {
+            const validateRule = cardInput.dataset.validate;
+            setCardNum(value);
+            cardInput.value = value;
+            if (validateRule)
+                validateInput(cardInput, validateRule);
         }
     }
+    enableCompleteBtn();
 }
-function checkCompleteBtn() {
-    const completeBtn = document.querySelector('.complete-btn');
-    const requiredFields = Array.from(document.querySelectorAll('.popup input[type="text"],.month-select input[type="hidden"], .year-select input[type="hidden"]'));
-    const hasError = requiredFields.some((element) => {
-        if (!element.value || element.classList.contains('validation-error'))
-            return true;
-        else
-            return false;
-    });
-    if (hasError)
-        completeBtn === null || completeBtn === void 0 ? void 0 : completeBtn.classList.add('disabled');
-    else
-        completeBtn === null || completeBtn === void 0 ? void 0 : completeBtn.classList.remove('disabled');
+function isDateValid(year, month) {
+    if (!year || !month) {
+        return false;
+    }
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
+    const isValid = year > currentYear || (year === currentYear && month >= currentMonth);
+    highlightDateErr(!isValid);
+    return isValid;
 }
 function initCompleteBtn() {
     const completeBtn = document.querySelector('.complete-btn');
     completeBtn === null || completeBtn === void 0 ? void 0 : completeBtn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
         if (completeBtn.classList.contains('disabled'))
             return;
-        saveCurrCard();
+        const currUser = getAuthUser();
+        if (currUser === null || currUser === void 0 ? void 0 : currUser.name)
+            saveCurrCard();
         try {
             const donationRequest = getDonationRequestFromState(getDonationState());
-            const donation = yield sendDonationRequest(donationRequest);
+            const donation = yield apiRequest('/donations', createRequestOptions('POST', donationRequest));
             const result = donation;
             openPopup(drawDonationResult('success', result.message));
+            saveDonationDetails(donationRequest.petId, donationRequest.amount);
+            const path = window.location.pathname;
+            console.log(path);
+            initDonationStats();
         }
         catch (error) {
             console.error('Donation error:', error);
@@ -206,12 +116,48 @@ function getDonationRequestFromState(state) {
     return {
         name: state.name,
         email: state.email,
-        amount: state.amount,
+        amount: parseFloat(state.amount),
         petId: state.petId,
     };
 }
-function initPrevStepBtn() {
-    const prevStepBtn = document.querySelector('.prev-step');
-    prevStepBtn === null || prevStepBtn === void 0 ? void 0 : prevStepBtn.addEventListener('click', initDonationStep2);
+function enableCompleteBtn() {
+    const completeBtn = document.querySelector('.complete-btn');
+    if (validateDonationStep3()) {
+        completeBtn === null || completeBtn === void 0 ? void 0 : completeBtn.classList.remove('disabled');
+    }
+    else
+        completeBtn === null || completeBtn === void 0 ? void 0 : completeBtn.classList.add('disabled');
+}
+function validateDonationStep3() {
+    const cardDetails = getCardState();
+    const isNumValid = cardDetails.cardNum != null && !validateValueError(cardDetails.cardNum, 'card');
+    const isCVVValid = cardDetails.cvv != null && !validateValueError(cardDetails.cvv.toString(), 'cvv');
+    return isNumValid && isCVVValid && isDateValid(cardDetails.date.year, cardDetails.date.month);
+}
+function saveDonationDetails(pet, sum) {
+    const donationList = JSON.parse(localStorage.getItem('donations') || '[]');
+    donationList.push({ time: new Date(), petId: pet, amount: sum });
+    const renewedDonations = JSON.stringify(donationList);
+    localStorage.setItem('donations', renewedDonations);
+}
+function drawCardsDropdown() {
+    const savedCardsString = localStorage.getItem('savedCards');
+    let savedCardsList = [];
+    drawCardsDropdownContainer();
+    if (savedCardsString) {
+        try {
+            const savedCards = JSON.parse(savedCardsString);
+            savedCardsList = savedCards.map((card) => {
+                return { label: `${card.slice(0, 4)} **** **** ${card.slice(-4)}`, value: card };
+            });
+        }
+        catch (_a) {
+            savedCardsList = [];
+        }
+        console.log(savedCardsList);
+        const dropdownContainer = document.querySelector('.card-select');
+        if (dropdownContainer)
+            drawDropdownItems(dropdownContainer, savedCardsList);
+    }
 }
 //# sourceMappingURL=donationStep3.js.map

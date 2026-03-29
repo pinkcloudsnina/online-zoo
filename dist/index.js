@@ -1,8 +1,9 @@
 import { initMenu } from './components/menu.js';
-import { initAuthorization, initLogged } from './features/userAuthorization.js';
+import { initTheme } from './components/theme.js';
+import { initAuthorization } from './features/userAuthorization.js';
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initMenu();
-    initLogged();
     initAuthorization();
 });
 //# sourceMappingURL=index.js.map

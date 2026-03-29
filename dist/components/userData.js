@@ -1,7 +1,5 @@
 import { createTag } from '../utils/tagEl.js';
-import { authState } from '../state/authState.js';
-export function drawUserData() {
-    var _a, _b;
+export function drawUserData(user, handlers) {
     const container = createTag('div', ['content-1']);
     container.insertAdjacentHTML('afterbegin', `
         <h2 class="topper">
@@ -11,15 +9,16 @@ export function drawUserData() {
           <div class="line"></div>
           <div class="container">
             <ul class="user-info">
-              <li><span>Name:</span>${(_a = authState.user) === null || _a === void 0 ? void 0 : _a.name}</li>
-              <li><span>Email:</span>${(_b = authState.user) === null || _b === void 0 ? void 0 : _b.email}</li>
-          </ul>
-          <div id="logoutBtn" class="btn btn--turquoise" inactive>
+              <li><span>Name:</span>${user.name}</li>
+              <li><span>Email:</span>${user.email}</li>
+            </ul>
+            <div id="logoutBtn" class="btn btn--turquoise" inactive>
               <div class="btn__text">Logout</div>
             </div>
           </div>
-
       `);
+    const logoutBtn = container.querySelector('#logoutBtn');
+    logoutBtn === null || logoutBtn === void 0 ? void 0 : logoutBtn.addEventListener('click', handlers.onLogout);
     return container;
 }
 //# sourceMappingURL=userData.js.map

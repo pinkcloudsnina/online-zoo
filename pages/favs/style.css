@@ -94,9 +94,10 @@
 .relative-track {
     display: flex;
     height: 60px;
-    min-width: 10px;
+    width: 10px;
     background-color: var(--color-orange);
     align-items: center;
+    transition: width 0.5s ease-in-out;
 }
 
 .relative-track span {

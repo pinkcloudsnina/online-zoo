@@ -5,8 +5,6 @@ export function drawFavDonations(
     accumulatedDonations: AccumulatedDonation[],
     handlers: {getPetData: (id: number) => Pet | undefined}
 ): void {
-    console.log(accumulatedDonations);
-
     const donationContainer = document.querySelector<HTMLElement>('.donation-stats');
     if (donationContainer) donationContainer.innerHTML = '';
     for (const donation of accumulatedDonations) {
@@ -27,7 +25,10 @@ export function drawFavDonations(
           `
         );
         const track = item.querySelector<HTMLElement>('.relative-track');
-        if (track) track.style.width = `${donation.share}%`;
+        setTimeout(() => {
+            if (track && donation.share) track.style.width = `${donation.share}%`;
+        }, 1000);
+
         donationContainer?.append(item);
     }
 }

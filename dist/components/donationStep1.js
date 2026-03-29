@@ -1,5 +1,5 @@
 import { createTag } from '../utils/tagEl.js';
-export function drawDonationStep1() {
+export function drawDonationStep1(pets, handlers) {
     const container = createTag('div', ['content-1']);
     container.insertAdjacentHTML('afterbegin', `<h2 class="topper">
             Make your donation
@@ -25,7 +25,7 @@ export function drawDonationStep1() {
             </div>
             <div class="btn btn--turquoise custom-amount-btn"> other <span>amount</span>
             </div>
-            <div class="custom-amount"><input type="text" placeholder="" id="other-amount-input">
+            <div class="custom-amount"><input type="text" placeholder="" id="other-amount-input" data-validate='amount'>
             <p class="validation-error"></p></div>
             
           </fieldset>
@@ -64,10 +64,18 @@ export function drawDonationStep1() {
               <div class="btn__text">next</div>
             </div>
           </div>`);
+    const list = container.querySelector('.dropdown__list');
+    const p = container.querySelector('.choose-pet .error');
+    if (pets.length === 0) {
+        if (p)
+            p.textContent = 'Error getting pet data. Please refresh page';
+    }
+    if (list)
+        drawListItems(pets, list);
+    handlers.initDropdowns(container);
     return container;
 }
-export function drawListItems(pets) {
-    const list = document.querySelector('.dropdown__list');
+function drawListItems(pets, list) {
     pets.forEach((pet) => {
         const el = createTag('li', ['dropdown__item']);
         el.textContent = `${pet.name} the ${pet.commonName}`;

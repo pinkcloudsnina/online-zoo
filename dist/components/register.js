@@ -12,35 +12,35 @@ export function drawRegister() {
 
             <div class="form__field">
               <label for="login" class="form__label"><span>*</span>Your Login</label>
-              <input id="login" type="text" class="form__input" placeholder="Enter your login" required>
+              <input id="login" type="text" class="form__input" data-validate='login' placeholder="Enter your login" required>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field">
               <label for="pass" class="form__label"><span>*</span>Your Password</label>
-              <input id="pass" type="text" class="form__input" placeholder="Enter your password" required>
+              <input id="pass" type="text" class="form__input" data-validate='password' placeholder="Enter your password" required>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field">
               <label for="confirm-pass" class="form__label"><span>*</span>Confirm Password</label>
-              <input id="confirm-pass" type="text" class="form__input" placeholder="Confirm your password" required>
+              <input id="confirm-pass" type="text" class="form__input" data-validate='passwordConfirm' placeholder="Confirm your password" required>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field">
               <label for="name" class="form__label"><span>*</span>Your Name</label>
-              <input id="name" type="text" class="form__input" placeholder="Enter your name" required>
+              <input id="name" type="text" class="form__input" data-validate='name' placeholder="Enter your name" required>
               <p class="validation-error"></p>
             </div>
 
             <div class="form__field">
               <label for="email" class="form__label"><span>*</span>Your Email Address</label>
-              <input id="email" type="text" class="form__input" placeholder="Enter your email" required>
+              <input id="email" type="text" class="form__input" placeholder="Enter your email" data-validate='email' required>
               <p class="validation-error"></p>
             </div>
 
-            <p class="response-error"></p>
+            <p class="response-result"></p>
 
             <div id="registerBtn" class="btn btn--turquoise disabled">
               <div class="btn__text">Register</div>

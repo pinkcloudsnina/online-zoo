@@ -1,4 +1,6 @@
-export function validateField(value, type, extra) {
+import { applyValidationResult } from '../components/form.js';
+//returns null if no validation problems were found
+export function validateValueError(value, type, extra) {
     const problems = [];
     switch (type) {
         case 'login':
@@ -52,5 +54,14 @@ export function validateField(value, type, extra) {
             break;
     }
     return problems.length !== 0 ? `Field should: ${problems.join(', ')}` : null;
+}
+//extra if need to validate 2 inputs (for password and passwordConfirm)
+export function validateInput(input, validationType, extra) {
+    if (input.value.length > 0) {
+        const validationResult = validateValueError(input.value, validationType, extra === null || extra === void 0 ? void 0 : extra.value);
+        applyValidationResult(input, validationResult);
+        return validationResult ? false : true;
+    }
+    return false;
 }
 //# sourceMappingURL=inputValidation.js.map
