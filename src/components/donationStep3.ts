@@ -1,7 +1,7 @@
 import {Pet, User} from '../types/interfaces.js';
 import {createTag} from '../utils/tagEl.js';
 
-type DropdownItem = {
+export type DropdownItem = {
     label: string;
     value: string;
 };
@@ -21,10 +21,7 @@ const months = [
     {label: 'December', value: '12'},
 ];
 
-export function drawDonationStep3(handlers: {
-    initDropdowns: (container: HTMLElement) => void;
-    onInput: (inputField: HTMLInputElement) => void;
-}): HTMLElement {
+export function drawDonationStep3(handlers: {onInput: (inputField: HTMLInputElement) => void}): HTMLElement {
     const container = createTag('div', ['content-3']);
     container.insertAdjacentHTML(
         'afterbegin',
@@ -91,8 +88,6 @@ export function drawDonationStep3(handlers: {
     if (monthDropdown) drawDropdownItems(monthDropdown, months);
     if (yearDropdown) drawDropdownItems(yearDropdown, generateYears(20));
 
-    handlers.initDropdowns(container);
-
     const inputCard = container.querySelector<HTMLInputElement>('#card-num');
     const inputCVV = container.querySelector<HTMLInputElement>('#cvv');
 
@@ -122,7 +117,7 @@ export function generateYears(yearsAmount: number): DropdownItem[] {
     return years;
 }
 
-export function drawCardItems(savedCards: string[]): void {
+export function drawCardsDropdownContainer(): void {
     const cardInput = document.querySelector<HTMLElement>('#card-input');
 
     const cardDropdown = createTag('div');
@@ -141,14 +136,6 @@ export function drawCardItems(savedCards: string[]): void {
             </div>`
     );
     cardInput?.prepend(cardDropdown);
-
-    const list = document.querySelector('.card-select .dropdown__list');
-    savedCards.forEach((card) => {
-        const el = createTag('li', ['dropdown__item']);
-        el.textContent = `${card.slice(0, 4)} **** **** ${card.slice(-4)}`;
-        el.dataset.value = card;
-        list?.append(el);
-    });
 }
 
 export function showSaveCardCheck(): void {

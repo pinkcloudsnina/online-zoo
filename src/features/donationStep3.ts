@@ -1,5 +1,12 @@
 import {drawDonationResult} from '../components/donationResult.js';
-import {drawCardItems, drawDonationStep3, highlightDateErr, showSaveCardCheck} from '../components/donationStep3.js';
+import {
+    drawCardsDropdownContainer,
+    drawDonationStep3,
+    drawDropdownItems,
+    DropdownItem,
+    highlightDateErr,
+    showSaveCardCheck,
+} from '../components/donationStep3.js';
 import {openPopup} from '../components/popup.js';
 import {getAuthUser} from '../state/authState.js';
 import {
@@ -9,10 +16,11 @@ import {
     getCardYear,
     getDonationState,
     setCardDate,
+    setCardNum,
 } from '../state/donationState.js';
 import {DonationRequest, DonationResponse, DonationStats} from '../types/interfaces.js';
 import {apiRequest, createRequestOptions} from '../utils/api.js';
-import {validateValueError} from '../utils/inputValidation.js';
+import {validateInput, validateValueError, ValidationType} from '../utils/inputValidation.js';
 import {initPrevStepBtn} from './donation.js';
 import {initDonationStep2} from './donationStep2.js';
 import {initDropdowns} from './dropdown.js';
@@ -23,33 +31,33 @@ export function initDonationStep3() {
     const currentUser = getAuthUser();
     openPopup(
         drawDonationStep3({
-            initDropdowns: (container) => initDropdowns(container, handleDropdownChange),
             onInput: (el) => fieldInput(el, enableCompleteBtn),
         })
     );
 
-    initCompleteBtn();
-    initPrevStepBtn(initDonationStep2);
-
     if (currentUser) {
         showSaveCardCheck();
-        const savedCardsString = localStorage.getItem('savedCards');
-        let savedCards: string[] = [];
-        if (savedCardsString) {
-            try {
-                savedCards = JSON.parse(savedCardsString);
-            } catch {
-                savedCards = [];
-            }
-            drawCardItems(savedCards);
-        }
+        drawCardsDropdown();
     }
+    const popup = document.querySelector<HTMLElement>('.popup');
+    if (popup) initDropdowns(popup, handleDropdownChange);
+    initCompleteBtn();
+    initPrevStepBtn(initDonationStep2);
 }
 
 function handleDropdownChange(id: string, value: string) {
     if (id === 'month' || id === 'year') {
         setCardDate(id, parseInt(value));
         isDateValid(getCardYear(), getCardMonth());
+    }
+    if (id === 'dropdownSelectedCard') {
+        const cardInput = document.querySelector<HTMLInputElement>('#card-num');
+        if (cardInput) {
+            const validateRule = cardInput.dataset.validate as ValidationType;
+            setCardNum(value);
+            cardInput.value = value;
+            if (validateRule) validateInput(cardInput, validateRule);
+        }
     }
     enableCompleteBtn();
 }
@@ -160,4 +168,26 @@ function saveDonationDetails(pet: number, sum: number): void {
     donationList.push({time: new Date(), petId: pet, amount: sum});
     const renewedDonations = JSON.stringify(donationList);
     localStorage.setItem('donations', renewedDonations);
+}
+
+function drawCardsDropdown() {
+    const savedCardsString = localStorage.getItem('savedCards');
+    let savedCardsList: DropdownItem[] = [];
+
+    drawCardsDropdownContainer();
+
+    if (savedCardsString) {
+        try {
+            const savedCards: string[] = JSON.parse(savedCardsString);
+            savedCardsList = savedCards.map((card) => {
+                return {label: `${card.slice(0, 4)} **** **** ${card.slice(-4)}`, value: card};
+            });
+        } catch {
+            savedCardsList = [];
+        }
+        console.log(savedCardsList);
+
+        const dropdownContainer = document.querySelector<HTMLElement>('.card-select');
+        if (dropdownContainer) drawDropdownItems(dropdownContainer, savedCardsList);
+    }
 }
