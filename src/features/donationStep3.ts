@@ -10,12 +10,13 @@ import {
     getDonationState,
     setCardDate,
 } from '../state/donationState.js';
-import {DonationRequest, DonationResponse} from '../types/interfaces.js';
+import {DonationRequest, DonationResponse, DonationStats} from '../types/interfaces.js';
 import {apiRequest, createRequestOptions} from '../utils/api.js';
 import {validateValueError} from '../utils/inputValidation.js';
 import {initPrevStepBtn} from './donation.js';
 import {initDonationStep2} from './donationStep2.js';
 import {initDropdowns} from './dropdown.js';
+import {initDonationStats} from './fav-stats.js';
 import {fieldInput} from './form.js';
 
 export function initDonationStep3() {
@@ -73,8 +74,8 @@ function initCompleteBtn(): void {
 
     completeBtn?.addEventListener('click', async () => {
         if (completeBtn.classList.contains('disabled')) return;
-
-        saveCurrCard();
+        const currUser = getAuthUser();
+        if (currUser?.name) saveCurrCard();
 
         try {
             const donationRequest = getDonationRequestFromState(getDonationState());
@@ -87,6 +88,11 @@ function initCompleteBtn(): void {
             const result = donation;
 
             openPopup(drawDonationResult('success', result.message));
+            saveDonationDetails(donationRequest.petId, donationRequest.amount);
+            const path = window.location.pathname;
+            console.log(path);
+
+            initDonationStats();
         } catch (error) {
             console.error('Donation error:', error);
             openPopup(drawDonationResult('error', 'Something went wrong. Please, try again later.'));
@@ -147,4 +153,11 @@ function validateDonationStep3(): boolean {
     const isCVVValid = cardDetails.cvv != null && !validateValueError(cardDetails.cvv.toString(), 'cvv');
 
     return isNumValid && isCVVValid && isDateValid(cardDetails.date.year, cardDetails.date.month);
+}
+
+function saveDonationDetails(pet: number, sum: number): void {
+    const donationList: DonationStats[] = JSON.parse(localStorage.getItem('donations') || '[]');
+    donationList.push({time: new Date(), petId: pet, amount: sum});
+    const renewedDonations = JSON.stringify(donationList);
+    localStorage.setItem('donations', renewedDonations);
 }

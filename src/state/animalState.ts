@@ -46,3 +46,7 @@ export function getPetsList(): Pet[] {
 export function getTestimonialsList(): Testimonial[] {
     return state.testimonialsList;
 }
+
+export function getPetById(id: number): Pet | undefined {
+    return state.petsList.find((el) => el.id === id);
+}

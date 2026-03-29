@@ -47,6 +47,65 @@
     mask-image: url(../../assets/icons/heart-fill.svg);
 }
 
+/*FAV Stats*/
+
+.fav-stats {
+    margin: 40px 0 40px;
+}
+
+.donation-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.fav-animal {
+    display: flex;
+    flex-direction: column;
+}
+
+.fav-animal img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.fav-animal img:hover {
+    cursor: pointer;
+}
+
+.fav-name {
+    align-self: center;
+    font-size: 30px;
+    color: var(--color-main-text);
+}
+
+.animal-stats {
+    display: flex;
+    gap: 40px;
+}
+
+.donation-track {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.relative-track {
+    display: flex;
+    height: 60px;
+    min-width: 10px;
+    background-color: var(--color-orange);
+    align-items: center;
+}
+
+.relative-track span {
+    display: inline-block;
+    color: var(--color-navy);
+    font-size: 30px;
+    margin-left: 20px;
+}
+
 @media (min-width: 1200px) {
     .carousel {
         width: 100%;

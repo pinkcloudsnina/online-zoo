@@ -79,3 +79,15 @@ export interface ApiResponse<T> {
     data?: T;
     error?: string;
 }
+
+export interface DonationStats {
+    time: Date;
+    petId: number;
+    amount: number;
+}
+
+export interface AccumulatedDonation {
+    petId: number;
+    totalDonation: number;
+    share?: number;
+}

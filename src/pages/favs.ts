@@ -5,6 +5,7 @@ import {apiRequest} from '../utils/api.js';
 import {Pet} from '../types/interfaces.js';
 import {initDonateBtns} from '../features/donation.js';
 import {initChoosePets} from '../features/chooseFavs.js';
+import {initDonationStats} from '../features/fav-stats.js';
 
 const chooseCarousel = document.querySelector<HTMLElement>('.choose-carousel');
 
@@ -21,6 +22,7 @@ async function initState(): Promise<void> {
             }
         }
         initChoosePets(chooseCarousel);
+        initDonationStats();
     } catch (err) {
         showMessage(chooseCarousel, 'Something went wrong. Please, refresh the page', 'error');
     } finally {

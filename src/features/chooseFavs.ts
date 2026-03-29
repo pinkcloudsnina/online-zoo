@@ -1,6 +1,7 @@
 import {drawChoosePets} from '../components/chooseFav.js';
 import {getPetsList} from '../state/animalState.js';
 import {initCarousel} from './carousel.js';
+import {initDonationStats} from './fav-stats.js';
 
 export function initChoosePets(container: HTMLElement): void {
     const petsList = getPetsList();
@@ -17,9 +18,10 @@ function toggleFav(id: number): void {
 
     setFavs(updatedPets);
     updateSelected(id, !isSelected);
+    initDonationStats();
 }
 
-function getFavs(): number[] {
+export function getFavs(): number[] {
     const selectedPets = JSON.parse(localStorage.getItem('favourite') || '[]');
     return selectedPets;
 }
