@@ -14,20 +14,48 @@ export function drawFavDonations(
 
         item.insertAdjacentHTML(
             'afterbegin',
-            `
-            <div class="fav-animal">
-                <img src="../../assets/images/animal-info/about-${donation.petId}.jpg" alt="">
+            `<div class="fav-animal">
+                <img src="../../assets/images/animal-info/about-${donation.petId}.jpg" alt="${animalData.commonName}">
                 <div class="fav-name">${animalData.name}</div>
+                <div class="like filled"></div>
+            </div>
+            <div class="donation-track">
+              <div class="relative-track">
+               <span class="donation-amount">${donation.totalDonation}$</span>
               </div>
-              <div class="donation-track">
-                <div class="relative-track"><span class="donation-amount">${donation.totalDonation}$</span></div>
-              </div>
-          `
+            </div>`
         );
         const track = item.querySelector<HTMLElement>('.relative-track');
         setTimeout(() => {
             if (track && donation.share) track.style.width = `${donation.share}%`;
         }, 1000);
+
+        donationContainer?.append(item);
+    }
+}
+
+export function drawOtherDonations(
+    accumulatedDonations: AccumulatedDonation[],
+    handlers: {getPetData: (id: number) => Pet | undefined}
+): void {
+    const donationContainer = document.querySelector<HTMLElement>('.other-donation-list');
+    if (donationContainer) donationContainer.innerHTML = '';
+
+    for (const donation of accumulatedDonations) {
+        const item = createTag('li', ['other-donation-item']);
+        const animalData = handlers.getPetData(donation.petId);
+        if (!animalData) return;
+
+        item.insertAdjacentHTML(
+            'afterbegin',
+            `
+              <div class="animal-logo">
+                <img src="../../assets/images/animal-info/about-${animalData.id}.jpg" alt="${animalData.commonName}">
+              </div>
+              <div class="fav-name">${animalData.name}</div>
+              <div class="donation-amount">${donation.totalDonation}$</div>
+          `
+        );
 
         donationContainer?.append(item);
     }
