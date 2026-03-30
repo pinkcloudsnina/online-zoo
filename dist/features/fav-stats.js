@@ -1,25 +1,43 @@
-import { drawFavDonations } from '../components/donationStats.js';
+import { drawFavDonations, drawOtherDonations } from '../components/donationStats.js';
 import { getPetById } from '../state/animalState.js';
 import { getFavs } from './chooseFavs.js';
 export function initDonationStats() {
     const currentFavs = getFavs();
     const donationsList = getDonationList();
-    const accumulatedDonations = getAccumulatedDonations(currentFavs, donationsList);
-    const donationsWithShare = calcRelShare(accumulatedDonations);
+    const accumulatedFavDonations = getAccDonations(currentFavs, donationsList, 'fav');
+    const donationsWithShare = calcRelShare(accumulatedFavDonations);
+    const otherDonations = getAccDonations(currentFavs, donationsList, 'other');
     drawFavDonations(donationsWithShare, { getPetData: getPetById });
+    drawOtherDonations(otherDonations, { getPetData: getPetById });
 }
 function getDonationList() {
     const donationList = JSON.parse(localStorage.getItem('donations') || '[]');
     return donationList;
 }
-function getAccumulatedDonations(currentFavs, donationsList) {
+function getAccDonations(currentFavs, donationsList, setting) {
     const accumulatedDonations = [];
-    for (const favAnimal of currentFavs) {
-        const donationsForAnimal = donationsList.filter((donation) => donation.petId === favAnimal);
+    if (setting === 'fav') {
+        for (const favAnimal of currentFavs) {
+            calcTotal(favAnimal);
+        }
+    }
+    if (setting === 'other') {
+        const otherAnimalList = donationsList.reduce((acc, curr) => {
+            if (!acc.includes(curr.petId) && !currentFavs.includes(curr.petId)) {
+                acc.push(curr.petId);
+            }
+            return acc;
+        }, []);
+        for (const otherAnimal of otherAnimalList) {
+            calcTotal(otherAnimal);
+        }
+    }
+    function calcTotal(animalId) {
+        const donationsForAnimal = donationsList.filter((donation) => donation.petId === animalId);
         const total = donationsForAnimal.reduce((acc, curr) => {
             return acc + curr.amount;
         }, 0);
-        accumulatedDonations.push({ petId: favAnimal, totalDonation: total });
+        accumulatedDonations.push({ petId: animalId, totalDonation: total });
     }
     return accumulatedDonations;
 }
