@@ -2132,7 +2132,7 @@ p.validation-error {
 /*FAVOURITE*/
 
 .fav-icon {
-    background-color: var(--color-orange);
+    background-color: var(--color-white);
     mask-image: url('../icons/heart.svg');
     mask-size: contain;
     display: block;
@@ -2140,8 +2140,23 @@ p.validation-error {
     height: 30px;
 }
 
+.dark .fav-icon {
+    background-color: var(--color-white);
+}
+
+header .active .fav-icon,
+.dark .fav-icon:hover {
+    background-color: var(--color-turquois);
+}
+
 .fav-icon:hover {
     mask-image: url('../icons/heart-fill.svg');
+}
+
+@media (min-width: 1200px) {
+    .fav-icon {
+        background-color: var(--color-black);
+    }
 }
 
 /*CAROUSEL*/

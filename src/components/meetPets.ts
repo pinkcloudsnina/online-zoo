@@ -31,7 +31,7 @@ to special ones or all our pets? We think it's important for you to choose how y
           
           </div>
         </div>
-        <div class="btn btn--transparent-dark"><span class="btn__text">choose your favourite</span></div>`
+        <a href="../favs/favourite.html" class="btn btn--transparent-dark"><span class="btn__text">choose your favourite</span></a>`
     );
 }
 
