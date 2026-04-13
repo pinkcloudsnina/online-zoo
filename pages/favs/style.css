@@ -67,6 +67,14 @@
     flex-direction: column;
 }
 
+.donation-track .donation-amount {
+    font-weight: 500;
+}
+
+.dark .donation-track .donation-amount {
+    color: var(--color-white);
+}
+
 .other-donation-list {
     display: flex;
     justify-content: center;

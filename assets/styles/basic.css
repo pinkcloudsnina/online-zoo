@@ -643,7 +643,7 @@ header .container {
 }
 
 .navigation.is-open {
-    max-height: 500px;
+    max-height: 550px;
 }
 
 header nav {
@@ -2290,4 +2290,13 @@ header .active .fav-icon,
     }
 }
 @media (min-width: 1920px) {
+}
+
+/*INFo MSG*/
+.info-msg {
+    text-align: center;
+    font-size: 20px;
+}
+.info-msg.error {
+    color: red;
 }

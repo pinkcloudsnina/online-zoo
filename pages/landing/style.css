@@ -741,12 +741,6 @@ p span {
     display: none;
 }
 
-.testimonials .info-msg {
-    color: white;
-    font-size: 20px;
-    text-align: center;
-}
-
 @media (min-width: 640px) {
     .testimonials {
         background-color: var(--color-navy);
