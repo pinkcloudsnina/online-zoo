@@ -22,13 +22,12 @@ async function initState(): Promise<void> {
             }
         }
         initChoosePets(chooseCarousel);
-        initDonationStats();
     } catch (err) {
         showMessage(chooseCarousel, 'Something went wrong. Please, refresh the page', 'error');
     } finally {
         hideLoader(chooseCarousel);
     }
-
+    initDonationStats();
     initDonateBtns();
 }
 

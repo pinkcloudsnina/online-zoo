@@ -89,5 +89,7 @@ export interface DonationStats {
 export interface AccumulatedDonation {
     petId: number;
     totalDonation: number;
+    petName?: string;
+    commonName?: string;
     share?: number;
 }

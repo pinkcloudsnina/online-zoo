@@ -177,3 +177,45 @@
         margin: 0;
     }
 }
+
+/*CHARTS*/
+.charts {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.chart-icon {
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-navy);
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    transition: transform 0.3s;
+}
+
+.chart-icon.selected,
+.chart-icon:hover {
+    background-color: var(--color-turquois);
+    transform: scale(1.2);
+}
+
+#main-chart {
+    mask-image: url(../../assets/icons/dot-chart.svg);
+}
+
+#bar-chart {
+    mask-image: url(../../assets/icons/bar-chart.svg);
+}
+
+#pie-chart {
+    mask-image: url(../../assets/icons/pie-chart.svg);
+}
+
+#chartCanvas {
+    width: 80%;
+    min-width: 300px;
+    min-height: 300px;
+    height: clamp(300px, calc(300px + (400px - 300px) * var(--coef-1)), 400px);
+}

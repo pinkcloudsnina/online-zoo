@@ -29,7 +29,6 @@ function initState() {
                 }
             }
             initChoosePets(chooseCarousel);
-            initDonationStats();
         }
         catch (err) {
             showMessage(chooseCarousel, 'Something went wrong. Please, refresh the page', 'error');
@@ -37,6 +36,7 @@ function initState() {
         finally {
             hideLoader(chooseCarousel);
         }
+        initDonationStats();
         initDonateBtns();
     });
 }
