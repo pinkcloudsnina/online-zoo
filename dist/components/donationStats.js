@@ -149,6 +149,7 @@ export function drawPieDonations(accumulatedDonations, allDonations) {
         if (donation.share)
             ctx.fillText(`${donation.share}%`, textX, textY);
     }
+    ctx.fillStyle = 'lightgrey';
     ctx.textAlign = 'left';
     ctx.fillText(`TOTAL: ${allDonations}$`, legendX, legendCurrItemStart + 40);
 }

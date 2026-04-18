@@ -195,6 +195,10 @@
     transition: transform 0.3s;
 }
 
+.dark .chart-icon {
+    background-color: var(--color-white);
+}
+
 .chart-icon.selected,
 .chart-icon:hover {
     background-color: var(--color-turquois);
@@ -215,7 +219,7 @@
 
 #chartCanvas {
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     min-width: 300px;
     min-height: 300px;
     height: clamp(300px, calc(300px + (400px - 300px) * var(--coef-1)), 400px);
