@@ -215,7 +215,10 @@
 
 #chartCanvas {
     width: 80%;
+    margin: 0 auto;
     min-width: 300px;
     min-height: 300px;
     height: clamp(300px, calc(300px + (400px - 300px) * var(--coef-1)), 400px);
+    border: 1px solid lightgrey;
+    border-radius: 5px;
 }

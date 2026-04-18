@@ -27,6 +27,7 @@ async function initState(): Promise<void> {
     } finally {
         hideLoader(chooseCarousel);
     }
+    window.addEventListener('resize', initDonationStats);
     initDonationStats();
     initDonateBtns();
 }

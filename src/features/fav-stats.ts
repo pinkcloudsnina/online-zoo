@@ -1,4 +1,4 @@
-import {drawBarDonations, drawFavDonations, drawOtherDonations} from '../components/donationStats.js';
+import {drawBarDonations, drawFavDonations, drawOtherDonations, drawPieDonations} from '../components/donationStats.js';
 import {getPetById} from '../state/animalState.js';
 import {AccumulatedDonation, DonationStats} from '../types/interfaces.js';
 import {highlightNode} from '../utils/highlightChosen.js';
@@ -6,15 +6,16 @@ import {getFavs} from './chooseFavs.js';
 
 export function initDonationStats(): void {
     const selectedChartId = document.querySelector<HTMLElement>('.chart-icon.selected')?.id;
+    const accumulatedFavDonations = getAccDonations('fav');
     switch (selectedChartId) {
         case 'main-chart':
-            showMainChart();
+            showMainChart(accumulatedFavDonations);
             break;
         case 'bar-chart':
-            showBarChart();
+            showBarChart(accumulatedFavDonations);
             break;
         case 'pie-chart':
-            showPieChart();
+            showPieChart(accumulatedFavDonations);
             break;
     }
 
@@ -31,7 +32,7 @@ function getDonationList(): DonationStats[] {
     return donationList;
 }
 
-function getAccDonations(setting: 'fav' | 'other') {
+function getAccDonations(setting: 'fav' | 'other'): AccumulatedDonation[] {
     const currentFavs = getFavs();
     const donationsList: DonationStats[] = getDonationList();
 
@@ -77,7 +78,7 @@ function addRelShare(donations: AccumulatedDonation[], setting: 'total' | 'bigge
 
     return donations.map((el) => ({
         ...el,
-        share: basis ? Math.floor((el.totalDonation / basis) * 100) : 0,
+        share: basis ? Number(((el.totalDonation / basis) * 100).toFixed(2)) : 0,
     }));
 }
 
@@ -92,26 +93,23 @@ function chartHandler(e: Event) {
     const clickedBtn = e.target as HTMLElement;
     const chartBtns = document.querySelectorAll<HTMLElement>('.chart-icon');
     highlightNode(chartBtns, clickedBtn, 'selected');
-
+    const accumulatedFavDonations = getAccDonations('fav');
     switch (clickedBtn?.id) {
         case 'main-chart':
-            showMainChart();
+            showMainChart(accumulatedFavDonations);
             break;
         case 'bar-chart':
-            showBarChart();
+            showBarChart(accumulatedFavDonations);
             break;
         case 'pie-chart':
-            showPieChart();
+            showPieChart(accumulatedFavDonations);
             break;
     }
 }
 
-function showMainChart(): void {
-    const accumulatedFavDonations = getAccDonations('fav');
-    const donationsWithShare = addRelShare(accumulatedFavDonations, 'biggest');
-
+function showMainChart(donations: AccumulatedDonation[]): void {
+    const donationsWithShare = addRelShare(donations, 'biggest');
     const accDonationsWithNames = addPetInfo(donationsWithShare);
-
     drawFavDonations(accDonationsWithNames);
 }
 
@@ -127,12 +125,16 @@ function findBiggestAnimalDonation(donations: AccumulatedDonation[]): number {
     }, 0);
 }
 
-function showBarChart(): void {
-    const accumulatedFavDonations = getAccDonations('fav');
-    const donationsWithShare = addRelShare(accumulatedFavDonations, 'biggest');
+function showBarChart(donations: AccumulatedDonation[]): void {
+    const donationsWithShare = addRelShare(donations, 'biggest');
     const donationsWithAnimalInfo = addPetInfo(donationsWithShare);
-    const topDonation = findBiggestAnimalDonation(accumulatedFavDonations);
+    const topDonation = findBiggestAnimalDonation(donations);
     drawBarDonations(donationsWithAnimalInfo, topDonation);
 }
 
-function showPieChart(): void {}
+function showPieChart(donations: AccumulatedDonation[]): void {
+    const donationsWithShare = addRelShare(donations, 'total');
+    const donationsWithAnimalInfo = addPetInfo(donationsWithShare);
+    const totalDonation = calcTotalDonations(donations);
+    drawPieDonations(donationsWithAnimalInfo, totalDonation);
+}

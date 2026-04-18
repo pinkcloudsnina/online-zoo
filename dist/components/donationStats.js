@@ -1,4 +1,36 @@
 import { createTag } from '../utils/tagEl.js';
+const colors = [
+    '#FF6B6B',
+    '#4ECDC4',
+    '#45B7D1',
+    '#FFA07A',
+    '#98D8C8',
+    '#F7DC6F',
+    '#BB8FCE',
+    '#85C1E9',
+    '#F8C471',
+    '#82E0AA',
+    '#EC7063',
+    '#5DADE2',
+    '#AF7AC5',
+    '#48C9B0',
+    '#F5B041',
+    '#DC7633',
+    '#A569BD',
+    '#5499C7',
+    '#58D68D',
+    '#F4D03F',
+    '#EB984E',
+    '#73C6B6',
+    '#7FB3D5',
+    '#C39BD3',
+    '#76D7C4',
+    '#F1948A',
+    '#AED6F1',
+    '#F9E79F',
+    '#A3E4D7',
+    '#D7BDE2',
+];
 const donationContainer = document.querySelector('.donation-stats');
 const imageCache = {};
 export function drawFavDonations(accumulatedDonations) {
@@ -53,6 +85,72 @@ export function drawBarDonations(accumulatedDonations, topDonation) {
         drawBarDonations(accumulatedDonations, topDonation);
     };
     drawAxis(ctx, accumulatedDonations, topDonation, canvasWidth, canvasHeight, redraw);
+}
+export function drawPieDonations(accumulatedDonations, allDonations) {
+    var _a, _b;
+    if (donationContainer)
+        donationContainer.innerHTML = '';
+    const dpr = window.devicePixelRatio;
+    const { canvas } = setupCanvas(dpr);
+    const ctx = canvas.getContext('2d');
+    if (!ctx)
+        return;
+    let sectorLast = 0;
+    let legendCurrItemStart = 30;
+    const legendX = canvas.width * 0.8;
+    const chartSize = 200;
+    for (let i = 0; i < accumulatedDonations.length; i++) {
+        //draw pie sector
+        const color = colors[i] || 'lightgrey';
+        const donation = accumulatedDonations[i];
+        if (!donation)
+            return;
+        const currShare = (_a = donation.share) !== null && _a !== void 0 ? _a : 0;
+        const chartCenterX = (canvas.width * 0.8) / 2;
+        const chartCenterY = canvas.height / 2;
+        const start = sectorLast;
+        const angle = convertShareToRad(currShare);
+        const end = start + angle;
+        sectorLast = end;
+        drawSector(ctx, chartCenterX, chartCenterY, chartSize, start, end, color);
+        //draw legend
+        ctx.fillStyle = color;
+        const legendSize = 30;
+        const legendGap = 10;
+        ctx.fillRect(legendX, legendCurrItemStart, legendSize, legendSize);
+        // add legend text
+        ctx.fillStyle = 'darkgrey';
+        ctx.font = `${legendSize}px Montserrat`;
+        ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
+        ctx.fillText(donation.petName || '', legendX + legendSize * 2, legendCurrItemStart);
+        legendCurrItemStart += legendSize + legendGap;
+    }
+    sectorLast = 0;
+    for (let i = 0; i < accumulatedDonations.length; i++) {
+        const donation = accumulatedDonations[i];
+        if (!donation)
+            return;
+        const currShare = (_b = donation.share) !== null && _b !== void 0 ? _b : 0;
+        const chartCenterX = (canvas.width * 0.8) / 2;
+        const chartCenterY = canvas.height / 2;
+        const start = sectorLast;
+        const angle = convertShareToRad(currShare);
+        const end = start + angle;
+        const textAngle = sectorLast + angle / 2;
+        sectorLast = end;
+        //draw values
+        const rText = (1.4 * chartSize) / 2;
+        const textX = chartCenterX + rText * Math.cos(textAngle);
+        const textY = chartCenterY + rText * Math.sin(textAngle);
+        ctx.fillStyle = 'black';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        if (donation.share)
+            ctx.fillText(`${donation.share}%`, textX, textY);
+    }
+    ctx.textAlign = 'left';
+    ctx.fillText(`TOTAL: ${allDonations}$`, legendX, legendCurrItemStart + 40);
 }
 function setupCanvas(dpr) {
     const canvas = createTag('canvas');
@@ -173,5 +271,17 @@ function getPetImg(petId, onLoad) {
         imageCache[petId] = img;
     }
     return imageCache[petId];
+}
+function drawSector(ctx, x, y, radius, startAngle, endAngle, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.arc(x, y, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fill();
+}
+function convertShareToRad(share) {
+    const angle = 360 * (share / 100);
+    return angle * (Math.PI / 180);
 }
 //# sourceMappingURL=donationStats.js.map

@@ -36,6 +36,7 @@ function initState() {
         finally {
             hideLoader(chooseCarousel);
         }
+        window.addEventListener('resize', initDonationStats);
         initDonationStats();
         initDonateBtns();
     });
