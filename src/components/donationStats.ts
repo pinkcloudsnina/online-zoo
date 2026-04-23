@@ -312,7 +312,12 @@ function drawBarData(
 
 function drawPetPic(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number): void {
     const radius = 30;
+
     if (!img) return;
+    const size = Math.min(img.width, img.height);
+    const sx = (img.width - size) / 2;
+    const sy = (img.height - size) / 2;
+
     ctx.save();
 
     ctx.beginPath();
@@ -320,7 +325,7 @@ function drawPetPic(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: num
     ctx.closePath();
     ctx.clip();
 
-    ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
+    ctx.drawImage(img, sx, sy, size, size, x - radius, y - radius, radius * 2, radius * 2);
     ctx.restore();
 }
 
