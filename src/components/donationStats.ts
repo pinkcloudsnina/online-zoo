@@ -116,7 +116,7 @@ export function drawPieDonations(accumulatedDonations: AccumulatedDonation[], al
 
     let legendCurrItemStart = 30;
     const legendX = canvas.width * 0.8;
-    const chartSize = 200;
+    const chartSize = window.innerWidth < 700 ? 200 : 400;
 
     for (let i = 0; i < accumulatedDonations.length; i++) {
         //draw pie sector
@@ -138,7 +138,7 @@ export function drawPieDonations(accumulatedDonations: AccumulatedDonation[], al
 
         //draw legend
         ctx.fillStyle = color;
-        const legendSize = 30;
+        const legendSize = window.innerWidth < 700 ? 20 : 30;
         const legendGap = 10;
 
         ctx.fillRect(legendX, legendCurrItemStart, legendSize, legendSize);
