@@ -112,7 +112,7 @@ export function drawPieDonations(accumulatedDonations: AccumulatedDonation[], al
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    let sectorLast = 0;
+    let sectorLast = -Math.PI / 2;
 
     let legendCurrItemStart = 30;
     const legendX = canvas.width * 0.8;
@@ -153,7 +153,7 @@ export function drawPieDonations(accumulatedDonations: AccumulatedDonation[], al
         legendCurrItemStart += legendSize + legendGap;
     }
 
-    sectorLast = 0;
+    sectorLast = -Math.PI / 2;
     for (let i = 0; i < accumulatedDonations.length; i++) {
         const donation = accumulatedDonations[i];
         if (!donation) return;
@@ -178,6 +178,7 @@ export function drawPieDonations(accumulatedDonations: AccumulatedDonation[], al
         ctx.textAlign = 'center';
         if (donation.share) ctx.fillText(`${donation.share}%`, textX, textY);
     }
+
     ctx.fillStyle = 'lightgrey';
     ctx.textAlign = 'left';
     ctx.fillText(`TOTAL: ${allDonations}$`, legendX, legendCurrItemStart + 40);

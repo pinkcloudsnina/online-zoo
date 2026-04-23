@@ -95,7 +95,7 @@ export function drawPieDonations(accumulatedDonations, allDonations) {
     const ctx = canvas.getContext('2d');
     if (!ctx)
         return;
-    let sectorLast = 0;
+    let sectorLast = -Math.PI / 2;
     let legendCurrItemStart = 30;
     const legendX = canvas.width * 0.8;
     const chartSize = 200;
@@ -126,7 +126,7 @@ export function drawPieDonations(accumulatedDonations, allDonations) {
         ctx.fillText(donation.petName || '', legendX + legendSize * 2, legendCurrItemStart);
         legendCurrItemStart += legendSize + legendGap;
     }
-    sectorLast = 0;
+    sectorLast = -Math.PI / 2;
     for (let i = 0; i < accumulatedDonations.length; i++) {
         const donation = accumulatedDonations[i];
         if (!donation)
