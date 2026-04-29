@@ -1,0 +1,1 @@
+{"version":3,"file":"tagEl.js","sourceRoot":"","sources":["../../src/utils/tagEl.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,SAAS,CACrB,GAAM,EACN,SAAoB;IAEpB,MAAM,OAAO,GAAG,QAAQ,CAAC,aAAa,CAAC,GAAG,CAAC,CAAC;IAC5C,IAAI,SAAS;QAAE,OAAO,CAAC,SAAS,CAAC,GAAG,CAAC,GAAG,SAAS,CAAC,CAAC;IACnD,OAAO,OAAO,CAAC;AACnB,CAAC"}

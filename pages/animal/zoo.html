@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../assets/icons/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/styles/basic.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Online ZOO - Panda</title>
+  </head>
+
+  <body>
+
+    <svg style="display:none" fill="none">
+      <symbol id="icon-fforward" viewBox="0 0 18 17">
+        <path
+          d="M9.01465 0.643555C9.20916 0.452477 9.5213 0.452477 9.71582 0.643555L17.3506 8.14355C17.4461 8.23755 17.5 8.36595 17.5 8.5C17.5 8.63405 17.4461 8.76245 17.3506 8.85645L9.71582 16.3564C9.5213 16.5475 9.20916 16.5475 9.01465 16.3564L7.64941 15.0156L8 14.6592L7.64941 14.3027L13.5566 8.5L7.64941 2.69727C7.55388 2.60328 7.5 2.47485 7.5 2.34082C7.50002 2.20678 7.55384 2.07835 7.64941 1.98438L9.01465 0.643555Z"
+          fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+        <path
+          d="M2.01465 0.643555C2.20916 0.452477 2.5213 0.452477 2.71582 0.643555L10.3506 8.14355C10.4461 8.23755 10.5 8.36595 10.5 8.5C10.5 8.63405 10.4461 8.76245 10.3506 8.85645L2.71582 16.3564C2.5213 16.5475 2.20916 16.5475 2.01465 16.3564L0.649414 15.0156L1 14.6592L0.649414 14.3027L6.55664 8.5L0.649414 2.69727C0.553879 2.60328 0.5 2.47485 0.5 2.34082C0.500024 2.20678 0.553844 2.07835 0.649414 1.98438L2.01465 0.643555Z"
+          fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+    </svg>
+
+    <header>
+      <div class="container">
+        <a href="../landing/index.html" class="logo"></a>
+
+        <div class="menu-toggle menu--closed">
+          <div class="menu-burger"></div>
+        </div>
+
+        <nav class="navigation">
+          <ul class="nav__list">
+            <li><a href="../landing/index.html">about</a></li>
+            <li><a href="../map/map.html">map</a></li>
+            <li class="active"><a href="../animal/panda.html">zoos</a></li>
+            <li><a href="../contact/contact.html">contact us</a></li>
+            <li><a href="https://www.figma.com/file/lnK11foY8Aoa6oOlDXovVN/Online-ZOO-Project?node-id=0%3A1"
+                target="_blank">design</a>
+            </li>
+            <li><a href="../favs/favourite.html"><span class="fav-icon"></span></a>
+          </ul>
+        </nav>
+
+        <ul class="social__list">
+          <li class="social-youtube"><a href="https://www.youtube.com/c/RSschool"></a></li>
+          <li class="social-instagram"><a href="https://www.instagram.com/rsschool_en/?hl=en"></a></li>
+          <li class="social-fb"><a href="https://www.facebook.com/rsschoolEN/"></a></li>
+        </ul>
+        <div class="authorization">
+          <div><span class="icon"></span></div></span><span class="user"></span>
+        </div>
+
+        <div class="theme">
+          <div>
+            <span class="icon icon-light"></span>
+            <span class="icon icon-dark"></span>
+          </div></span>
+        </div>
+      </div>
+
+    </header>
+    <main>
+    </main>
+    <footer>
+      <div class="container">
+        <div class="logos">
+          <a href="https://github.com/rolling-scopes-school/qualifying-stage/blob/main/tasks/online-zoo/online-zoo-layout.md"
+            class="logo"></a>
+          <a href="https://www.figma.com/file/lnK11foY8Aoa6oOlDXovVN/Online-ZOO-Project?node-id=0%3A1"
+            class="logo-designer"></a>
+          <a href="https://rs.school/" class="logo-school"></a>
+        </div>
+
+        <nav>
+          <ul class="nav__list">
+            <li><a href="../landing/index.html">about</a></li>
+            <li><a href="../map/map.html">map</a></li>
+            <li><a href="../animal/panda.html">zoos</a></li>
+            <li><a href="../contact/contact.html">contact us</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn btn--transparent-light"><span class="btn__text">Donate for volunteers</span></div>
+
+        <ul class="social__list">
+          <li class="social-youtube"><a href="https://www.youtube.com/c/RSschool" target="_blank"></a></li>
+          <li class="social-instagram"><a href="https://www.instagram.com/rsschool_en/?hl=en" target="_blank"></a>
+          </li>
+          <li class="social-fb"><a href="https://www.facebook.com/rsschoolEN/" target="_blank"></a></li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <div class="copyrights">
+          <div class="copyright">© 2021 DinaK</div>
+          <div class="copyright">© Yem Digital</div>
+          <div class="copyright">© RSSchool</div>
+        </div>
+
+      </div>
+
+    </footer>
+
+    <div class="popup">
+      <div class="overlay"></div>
+
+      <div class="popup__window">
+        <div class="popup__close">
+          <div class="cross"></div>
+        </div>
+
+        <div class="popup__content">
+        </div>
+
+      </div>
+    </div>
+
+
+    <script type="module" src="../../dist/pages/animal.js">
+    </script>
+    <script type="module" src="../../dist/index.js"></script>
+  </body>
+
+</html>

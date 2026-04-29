@@ -1,0 +1,283 @@
+h1 {
+    color: var(--color-navy);
+    text-transform: lowercase;
+    font-size: clamp(26px, calc(26px + (42px - 26px) * var(--coef-1)), 42px);
+    line-height: 130%;
+    text-align: center;
+    margin-top: clamp(20px, calc(20px + (28px - 20px) * var(--coef-1)), 28px);
+    margin-bottom: clamp(21px, calc(21px + (63px - 21px) * var(--coef-1)), 63px);
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+}
+
+.dark h1 {
+    color: var(--color-white);
+}
+
+.map-container {
+    position: relative;
+    margin-bottom: clamp(53px, calc(53px + (100px - 53px) * var(--coef-1)), 100px);
+    width: 100%;
+    height: clamp(233px, calc(233px + (415px - 233px) * var(--coef-1)), 415px);
+}
+
+.map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-navy);
+    mask-image: url(../../assets/images/map.svg);
+    mask-repeat: no-repeat;
+    mask-clip: border-box;
+    mask-position: center;
+    mask-size: contain;
+}
+
+.dark .map {
+    background: var(--color-white);
+}
+
+#lion {
+    top: clamp(148px, calc(148px + (266px - 148px) * var(--coef-1)), 266px);
+    left: clamp(173px, calc(173px + (322px - 173px) * var(--coef-1)), 322px);
+}
+
+#eagle {
+    top: clamp(130px, calc(130px + (228px - 130px) * var(--coef-1)), 228px);
+    left: clamp(62px, calc(62px + (128px - 62px) * var(--coef-1)), 128px);
+}
+
+#crocodile {
+    top: clamp(144px, calc(144px + (244px - 144px) * var(--coef-1)), 244px);
+    left: clamp(100px, calc(100px + (188px - 100px) * var(--coef-1)), 188px);
+}
+
+#gorilla {
+    top: clamp(168px, calc(168px + (275px - 168px) * var(--coef-1)), 275px);
+    left: clamp(201px, calc(201px + (369px - 201px) * var(--coef-1)), 369px);
+}
+
+#koala {
+    top: clamp(203px, calc(203px + (340px - 203px) * var(--coef-1)), 340px);
+    left: clamp(314px, calc(314px + (566px - 314px) * var(--coef-1)), 566px);
+}
+
+#lemur {
+    top: clamp(191px, calc(191px + (331px - 191px) * var(--coef-1)), 331px);
+    left: clamp(226px, calc(226px + (418px - 226px) * var(--coef-1)), 418px);
+}
+
+#panda {
+    top: clamp(130px, calc(130px + (210px - 130px) * var(--coef-1)), 210px);
+    left: clamp(269px, calc(269px + (517px - 269px) * var(--coef-1)), 517px);
+}
+
+#tiger {
+    top: clamp(173px, calc(173px + (300px - 173px) * var(--coef-1)), 300px);
+    left: clamp(286px, calc(286px + (519px - 286px) * var(--coef-1)), 519px);
+}
+
+.geo-tag {
+    position: absolute;
+    transform: translate(-150%, -100%);
+}
+
+.geo-tag:hover {
+    cursor: pointer;
+}
+
+/*GEO TAG*/
+.geo-tag {
+    display: inline-block;
+    height: clamp(42px, calc(42px + (52px - 42px) * var(--coef-1)), 52px);
+    width: clamp(28px, calc(28px + (34px - 28px) * var(--coef-1)), 34px);
+}
+
+.geo-icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+    transform-origin: center;
+    transition: transform 0.5s;
+}
+
+.geo-icon .shape {
+    color: var(--color-orange);
+    transform: scale(1);
+    transform-origin: center;
+    filter: drop-shadow(0 1.28px 20px rgba(245, 128, 33, 0.5)) drop-shadow(0 1.28px 1.28px rgba(0, 0, 0, 0.25));
+}
+
+.geo-icon .outline {
+    fill: none;
+    color: transparent;
+    stroke: white;
+    stroke-width: 3;
+    transform: scale(1.2) translateY(2px);
+    transform-origin: center;
+    filter: drop-shadow(0 1.3px 9.75px rgba(0, 0, 0, 0.5));
+    opacity: 0;
+}
+
+.geo-tag:hover .geo-icon {
+    transform: scale(1.14);
+}
+
+.geo-tag:hover .shape {
+    color: white;
+    filter: drop-shadow(0 1.3px 30px rgba(255, 255, 255, 0.5));
+}
+
+.dark .geo-tag:hover .shape {
+    color: var(--color-orange-dark);
+}
+
+.dark .geo-icon .outline {
+    stroke: var(--color-orange-dark);
+}
+
+.geo-tag:hover .outline {
+    opacity: 1;
+}
+
+.animal-icon {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: clamp(16px, calc(16px + (21px - 16px) * var(--coef-1)), 21px);
+    object-fit: contain;
+    transition: transform 0.5s;
+}
+
+.geo-tag:hover .animal-icon {
+    transform: scale(1.2);
+}
+
+@media (min-width: 640px) {
+    h1 {
+        text-transform: uppercase;
+        max-width: 600px;
+        font-size: clamp(42px, calc(42px + (54px - 42px) * var(--coef-2)), 54px);
+        margin-bottom: clamp(11px, calc(11px + (63px - 11px) * (1 - var(--coef-2))), 63px);
+        font-weight: 600;
+    }
+
+    .map-container {
+        height: clamp(415px, calc(415px + (777px - 415px) * var(--coef-2)), 777px);
+    }
+
+    .geo-tag {
+        height: clamp(52px, calc(52px + (122px - 52px) * var(--coef-2)), 122px);
+        width: clamp(34px, calc(34px + (81px - 34px) * var(--coef-2)), 81px);
+    }
+
+    .animal-icon {
+        height: clamp(21px, calc(21px + (50px - 21px) * var(--coef-2)), 50px);
+        top: clamp(5px, calc(5px + (14px - 5px) * var(--coef-2)), 14px);
+    }
+
+    #lion {
+        top: clamp(266px, calc(266px + (488px - 266px) * var(--coef-2)), 488px);
+        left: clamp(322px, calc(322px + (613px - 322px) * var(--coef-2)), 613px);
+    }
+
+    #eagle {
+        top: clamp(228px, calc(228px + (441px - 228px) * var(--coef-2)), 441px);
+        left: clamp(128px, calc(128px + (257px - 128px) * var(--coef-2)), 257px);
+    }
+
+    #crocodile {
+        top: clamp(244px, calc(244px + (463px - 244px) * var(--coef-2)), 463px);
+        left: clamp(188px, calc(188px + (376px - 188px) * var(--coef-2)), 376px);
+    }
+
+    #gorilla {
+        top: clamp(275px, calc(275px + (515px - 275px) * var(--coef-2)), 515px);
+        left: clamp(369px, calc(369px + (714px - 369px) * var(--coef-2)), 714px);
+    }
+
+    #koala {
+        top: clamp(340px, calc(340px + (639px - 340px) * var(--coef-2)), 639px);
+        left: clamp(566px, calc(566px + (1099px - 566px) * var(--coef-2)), 1099px);
+    }
+
+    #lemur {
+        top: clamp(331px, calc(331px + (617px - 331px) * var(--coef-2)), 617px);
+        left: clamp(418px, calc(418px + (804px - 418px) * var(--coef-2)), 804px);
+    }
+
+    #panda {
+        top: clamp(210px, calc(210px + (383px - 210px) * var(--coef-2)), 383px);
+        left: clamp(517px, calc(517px + (985px - 517px) * var(--coef-2)), 985px);
+    }
+
+    #tiger {
+        top: clamp(300px, calc(300px + (554px - 300px) * var(--coef-2)), 554px);
+        left: clamp(519px, calc(519px + (986px - 519px) * var(--coef-2)), 986px);
+    }
+}
+@media (min-width: 1200px) {
+    h1 {
+        text-transform: uppercase;
+        max-width: 600px;
+        margin-top: clamp(28px, calc(28px + (35px - 28px) * var(--coef-3)), 35px);
+        margin-bottom: clamp(11px, calc(11px + (65px - 11px) * var(--coef-3)), 65px);
+    }
+
+    .map-container {
+        height: clamp(777px, calc(777px + (912px - 777px) * var(--coef-3)), 912px);
+        width: clamp(1200px, calc(1200px + (1406px - 1200px) * var(--coef-3)), 1406px);
+        margin-bottom: clamp(100px, calc(100px + (150px - 100px) * var(--coef-3)), 150px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .geo-tag {
+        height: clamp(122px, calc(122px + (124px - 122px) * var(--coef-3)), 122px);
+    }
+
+    #lion {
+        top: clamp(488px, calc(488px + (586px - 488px) * var(--coef-3)), 586px);
+        left: clamp(613px, calc(613px + (701px - 613px) * var(--coef-3)), 701px);
+    }
+
+    #eagle {
+        top: clamp(441px, calc(441px + (526px - 441px) * var(--coef-3)), 526px);
+        left: clamp(257px, calc(257px + (292px - 257px) * var(--coef-3)), 292px);
+    }
+
+    #crocodile {
+        top: clamp(463px, calc(463px + (541px - 463px) * var(--coef-3)), 541px);
+        left: clamp(376px, calc(376px + (418px - 376px) * var(--coef-3)), 418px);
+    }
+
+    #gorilla {
+        top: clamp(515px, calc(515px + (606px - 515px) * var(--coef-3)), 606px);
+        left: clamp(714px, calc(714px + (818px - 714px) * var(--coef-3)), 818px);
+    }
+
+    #koala {
+        top: clamp(639px, calc(639px + (752px - 639px) * var(--coef-3)), 752px);
+        left: clamp(1099px, calc(1099px + (1272px - 1099px) * var(--coef-3)), 1272px);
+    }
+
+    #lemur {
+        top: clamp(617px, calc(617px + (726px - 617px) * var(--coef-3)), 726px);
+        left: clamp(804px, calc(804px + (921px - 804px) * var(--coef-3)), 921px);
+    }
+
+    #panda {
+        top: clamp(383px, calc(383px + (480px - 383px) * var(--coef-3)), 480px);
+        left: clamp(985px, calc(985px + (1078px - 985px) * var(--coef-3)), 1078px);
+    }
+
+    #tiger {
+        top: clamp(554px, calc(554px + (637px - 554px) * var(--coef-3)), 637px);
+        left: clamp(986px, calc(986px + (1139px - 986px) * var(--coef-3)), 1139px);
+    }
+}
+@media (min-width: 1920px) {
+}

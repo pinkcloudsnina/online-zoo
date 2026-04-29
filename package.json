@@ -1,0 +1,28 @@
+{
+    "name": "online-zoo",
+    "version": "1.0.0",
+    "description": "online zoo task for rs school with Business functionality (TS)",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "lint": "eslint src --ext .ts,.js",
+        "start": "live-server --port=5500 --open=./pages/landing/index.html"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/leaflet": "^1.9.21",
+        "@typescript-eslint/eslint-plugin": "^8.56.1",
+        "@typescript-eslint/parser": "^8.56.1",
+        "eslint": "^10.0.2",
+        "globals": "^17.4.0",
+        "live-server": "^1.2.0",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.56.1"
+    },
+    "dependencies": {
+        "@types/jest": "^30.0.0",
+        "jest": "^30.3.0",
+        "leaflet": "^1.9.4",
+        "ts-jest": "^29.4.6"
+    }
+}
